@@ -111,19 +111,13 @@ O Learn AI busca ampliar o acesso a conhecimentos importantes para o uso conscie
 
 # Equipe
 
-| Integrante | Papel principal | Responsabilidades |
+| Integrante | Papel principal
 |---|---|---|
-| Nome do integrante 1 | Product Owner / Requisitos | Refinamento das histórias, definição de prioridades e acompanhamento do produto |
-| Nome do integrante 2 | Gestão do Processo | Organização do board, backlog e acompanhamento das sprints |
-| Nome do integrante 3 | UX/UI | Fluxos, protótipos e experiência do usuário |
-| Nome do integrante 4 | Front-end | Desenvolvimento da interface da aplicação |
-| Nome do integrante 5 | Back-end | API, regras de negócio e integração com banco de dados |
-| Nome do integrante 6 | QA / Testes | Planejamento e execução dos testes |
-| Nome do integrante 7 | Configuração / DevOps | Versionamento, ambiente e deploy |
-| Nome do integrante 8 | Documentação / Evidências | README, registros e organização das evidências |
-| Nome do integrante 9 | Desenvolvimento | Apoio na implementação e revisão técnica |
-
-> Os papéis representam responsabilidades principais e não limitam a participação técnica dos integrantes em outras áreas do projeto.
+| Breno Ferreira | Product Owner
+| Bruno Rodrigues | Gestão do Processo
+| Vinicius Beleza | UX/UI 
+| Pedro Freitas | Front-end
+| João Fernando | Back-end
 
 ---
 
@@ -239,7 +233,7 @@ A equipe utiliza um quadro Kanban para organizar o trabalho, priorizar o backlog
 **Ferramenta:** Trello
 
 **Link do Board:**  
-`ADICIONAR_LINK_DO_TRELLO_AQUI`
+`https://trello.com/invite/b/6a9622309222e81119bfef2e/ATTIdfe49ca6ba86da893594140a907fd479BF1A75CC/kanban-learn-ai`
 
 ### Estrutura do Board
 
@@ -262,151 +256,7 @@ Revisão / Testes
 ↓
 Concluído
 ```
-
 ---
-
-# Evidências — Entrega 01
-
-## Board atualizado
-
-A imagem abaixo registra o estado atual do Board utilizado pela equipe.
-
-![Board da Entrega 01](docs/evidencias/board-entrega-01.png)
-
-## Backlog priorizado
-
-A imagem abaixo registra o backlog da equipe com as histórias organizadas por prioridade.
-
-![Backlog da Entrega 01](docs/evidencias/backlog-entrega-01.png)
-
----
-
-# Organização do repositório
-
-Estrutura inicial prevista:
-
-```text
-learn-ai/
-│
-├── README.md
-│
-├── CONTRIBUTING.md
-│
-├── docs/
-│   ├── evidencias/
-│   │   ├── board-entrega-01.png
-│   │   └── backlog-entrega-01.png
-│   │
-│   ├── diagramas/
-│   ├── prototipos/
-│   └── screencasts/
-│
-├── frontend/
-│
-└── backend/
-```
-
-A estrutura poderá evoluir durante as próximas etapas do projeto.
-
----
-
-# Rastreabilidade
-
-O projeto buscará manter rastreabilidade entre requisitos, desenvolvimento, testes e evidências.
-
-Fluxo esperado:
-
-```text
-Necessidade
-    ↓
-História de Usuário
-    ↓
-Card no Board
-    ↓
-Issue / Tarefa
-    ↓
-Commit
-    ↓
-Código
-    ↓
-Teste
-    ↓
-Evidência
-    ↓
-Funcionalidade entregue
-```
-
-Exemplo de identificação:
-
-```text
-SP5 — Identificar alucinações de IA
-```
-
-Issue:
-
-```text
-SP5: implementar exercício de identificação de alucinações
-```
-
-Commit:
-
-```text
-feat(sp5): adiciona exercício de identificação de alucinações
-```
-
----
-
-# Tecnologias previstas
-
-As tecnologias ainda poderão ser revisadas pela equipe antes da implementação.
-
-Possível stack:
-
-### Front-end
-
-- HTML
-- CSS
-- JavaScript
-- React
-
-### Back-end
-
-- Node.js
-- Express
-
-### Banco de dados
-
-- PostgreSQL ou SQLite
-
-### Ferramentas de desenvolvimento
-
-- Git
-- GitHub
-- Trello
-- Figma
-
----
-
-# Status do projeto
-
-### Entrega 01 — Fundamentos do Processo
-
-- [x] Problema definido
-- [x] Solução definida
-- [x] Objetivo definido
-- [x] Público-alvo definido
-- [x] Backlog inicial criado
-- [x] 15 histórias de usuário definidas
-- [x] Backlog priorizado
-- [x] Board Kanban criado
-- [ ] Padrão 3Cs revisado em todas as histórias
-- [ ] Integrantes e papéis registrados
-- [ ] Link do Board adicionado ao README
-- [ ] Print atualizado do Board adicionado
-- [ ] Print atualizado do backlog adicionado
-
----
-
 # Roadmap
 
 | Etapa | Objetivo |
@@ -416,30 +266,7 @@ Possível stack:
 | **Sprint 01** | Implementação das primeiras funcionalidades |
 | **Sprint 02** | Evolução da aplicação e ampliação das funcionalidades |
 | **Sprint 03** | Consolidação do produto, testes, documentação e deploy |
-
 ---
-
-# Convenções do projeto
-
-Para facilitar a rastreabilidade, a equipe utilizará o identificador da história nas tarefas e commits sempre que possível.
-
-Exemplos:
-
-```text
-feat(sp3): cria visualização inicial da trilha
-fix(sp5): corrige validação do exercício
-test(sp7): adiciona teste para cenário de privacidade
-docs(sp10): documenta critérios da história
-```
-
----
-
-# Licença
-
-Projeto acadêmico desenvolvido para a disciplina de **Fundamentos de Desenvolvimento de Software**.
-
----
-
 ## Learn AI
 
 **Aprender a usar Inteligência Artificial também significa aprender quando questioná-la.**
