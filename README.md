@@ -272,3 +272,11 @@ Concluído
 ## Learn AI
 
 **Aprender a usar Inteligência Artificial também significa aprender quando questioná-la.**
+
+# Equipe
+
+[https://www.linkedin.com/in/breno-ferreira-souto-b360063a6/]
+[www.linkedin.com/in/vinicius-beleza-20101542a]
+[https://www.linkedin.com/in/pedro-lustosa-83a629355/]
+[]
+[]
