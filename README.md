@@ -198,31 +198,31 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 
 **Objetivo:** disponibilizar o fluxo inicial de acesso e aprendizagem.
 
-- SP1 — Cadastro de usuário
-- SP2 — Login
-- SP3 — Visualização da trilha
-- SP4 — Introdução à IA generativa
-- SP5 — Identificação de alucinações
+- SP0 — Cadastro de usuário
+- SP2 — Plano Plus
+- SP3 — Visualizar trilha de aprendizagem
+- SP4 — Módulo de introdução sobre IA generativa
+- SP5 — Quiz de identificação de alucinações
 
 ## Sprint 02
 
 **Objetivo:** ampliar a experiência de aprendizagem com feedback, segurança e prompting.
 
-- SP6 — Feedback dos exercícios
-- SP7 — Privacidade no uso de IA
-- SP8 — Componentes de um bom prompt
-- SP9 — Montagem guiada de prompts
-- SP10 — Comparação entre prompts
+- SP6 — Sistema de feedback dos exercícios
+- SP7 — Quiz de privacidade e dados sensíveis
+- SP8 — Módulo de estrutura de um bom prompt
+- SP9 — Recursos avançados de IA
+- SP10 — Menu de comparação de prompts
 
 ## Sprint 03
 
 **Objetivo:** consolidar o aprendizado e permitir acompanhamento de desempenho.
 
-- SP11 — Verificação de informações
-- SP12 — Quiz
-- SP13 — Visualização de progresso
-- SP14 — Continuar de onde parou
-- SP15 — Resultado final e recomendações
+- SP11 — Verificar informações produzidas por IA
+- SP12 — Quiz de avaliação do aprendizado
+- SP13 — Dashboard de progresso do usuário
+- SP14 — Continuar estudo de onde parou
+- SP15 — Visualizar resultado final e recomendações
 
 ---
 
