@@ -199,7 +199,10 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 **Objetivo:** disponibilizar o fluxo inicial de acesso e aprendizagem.
 
 - SP0 — Cadastro de usuário
+- SP16 — Menu interativo com todas as funcionalidades
+- SP17 — Quiz pré-curso
 - SP2 — Plano Plus
+- SP01 — Forma de pagamentos variados do plano Plus
 - SP3 — Visualizar trilha de aprendizagem
 - SP4 — Módulo de introdução sobre IA generativa
 - SP5 — Quiz de identificação de alucinações
@@ -223,7 +226,6 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 - SP13 — Dashboard de progresso do usuário
 - SP14 — Continuar estudo de onde parou
 - SP15 — Visualizar resultado final e recomendações
-
 ---
 
 # Board do projeto
