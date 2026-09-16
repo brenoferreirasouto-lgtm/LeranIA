@@ -1,4 +1,5 @@
 # Learn AI
+<img width="1672" height="941" alt="ChatGPT Image 16 de set  de 2026, 19_29_40" src="https://github.com/user-attachments/assets/ad61edee-facd-4cbf-8ebf-073ef2cb2065" />
 
 > Plataforma web educacional para promover o letramento em Inteligência Artificial por meio de conteúdos curtos, situações práticas, exercícios interativos e acompanhamento de progresso.
 
