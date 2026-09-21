@@ -130,31 +130,31 @@ As histórias foram organizadas por prioridade, considerando primeiro as funcion
 
 | ID | História de Usuário |
 |---|---|
-| **SP1** | Como estudante, quero criar uma conta para acompanhar meu aprendizado. |
-| **SP2** | Como estudante, quero fazer login para acessar meu progresso. |
-| **SP3** | Como estudante, quero visualizar a trilha de aprendizagem para saber o que estudar. |
-| **SP4** | Como estudante, quero acessar uma introdução sobre IA generativa para entender seus conceitos básicos. |
-| **SP5** | Como estudante, quero aprender a identificar alucinações de IA para não confiar automaticamente em respostas geradas. |
-| **SP6** | Como estudante, quero receber explicações após os exercícios para entender meus erros. |
-| **SP7** | Como estudante, quero aprender sobre privacidade ao usar IA para evitar compartilhar dados sensíveis. |
-| **SP8** | Como estudante, quero aprender os componentes de um bom prompt para obter melhores respostas. |
+| **SP1** | Como estudante, quero acessar uma introdução sobre IA generativa para entender seus conceitos básicos. |
+| **SP2** | Como usuário, quero realizar um quiz de nivelamento para descobrir meu nível de conhecimento sobre IA. |
+| **SP3** | Como usuário, quero ser direcionado para o nível adequado após o quiz para começar o curso com conteúdos compatíveis com meu conhecimento. |
+| **SP4** | Como estudante, quero aprender a identificar alucinações de IA para não confiar automaticamente em respostas geradas. |
+| **SP5** | Como estudante, quero continuar meus estudos de onde parei para não precisar procurar novamente o conteúdo. |
+| **SP6** | Como estudante, quero montar um prompt seguindo etapas guiadas para transformar uma necessidade em uma instrução clara para a IA. |
+| **SP7** | Como estudante, quero comparar prompts bons e ruins, para entender na prática o que diferencia um prompt eficiente de um mal elaborado. |
+| **SP8**| Como estudante, quero aprender a verificar informações produzidas por IA para reduzir o risco de desinformação. |
 
 ## Prioridade P1 — Importantes
 
 | ID | História de Usuário |
 |---|---|
-| **SP9** | Como estudante, quero montar um prompt usando campos guiados para praticar sua estrutura. |
-| **SP10** | Como estudante, quero comparar prompts bons e ruins para reconhecer boas práticas. |
-| **SP11** | Como estudante, quero aprender a verificar informações produzidas por IA para reduzir o risco de desinformação. |
+| **SP9** | Como estudante, quero visualizar meu progresso para saber quanto da trilha já concluí. |
+| **SP10** | Como estudante, quero visualizar meu resultado final para saber como foi meu desempenho na trilha de aprendizagem. |
+| **SP11** | Como estudante, quero receber recomendações de conteúdo com base no meu desempenho para saber quais temas devo revisar ou aprofundar. |
 | **SP12** | Como estudante, quero realizar um quiz ao final de uma etapa para avaliar o que aprendi. |
-| **SP13** | Como estudante, quero visualizar meu progresso para saber quanto da trilha já concluí. |
+| **SP13** |Como estudante, quero receber feedback dos exercícios que realizo, para entender meus erros e acertos e evoluir no aprendizado. |
 
 ## Prioridade P2 — Complementares
 
 | ID | História de Usuário |
 |---|---|
-| **SP14** | Como estudante, quero continuar meus estudos de onde parei para não precisar procurar novamente o conteúdo. |
-| **SP15** | Como estudante, quero visualizar meu resultado final e recomendações para entender quais temas preciso revisar. |
+| **SP14** | Como usuário, quero ter acesso a um menu interativo com todas as funcionalidades disponíveis no sistema para encontrar e utilizar os recursos de forma fácil e organizada. |
+| **SP15** | Como estudante, quero criar uma conta para acompanhar meu aprendizado. |
 
 ---
 
