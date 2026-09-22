@@ -200,30 +200,60 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 **Objetivo:** disponibilizar o fluxo inicial de acesso e aprendizagem.
 
 - SP1 — Aula sobre IA generativa
+- <img width="1312" height="1199" alt="sp 01" src="https://github.com/user-attachments/assets/52683643-8c63-4ae6-a92b-8ae2cd9f7082" />
+
 - SP2 — Quiz de nivelamento
+- <img width="1312" height="1199" alt="sp02" src="https://github.com/user-attachments/assets/996afe1c-ac69-4c4c-9e9b-dd9aad7b9216" />
+
 - SP3 — Direcionamento por nível
+- <img width="1312" height="1199" alt="sp03" src="https://github.com/user-attachments/assets/829f85ef-53c8-4d7b-a250-28ba49ce616c" />
+
 - SP4 — Quiz de identificação de alucinações
+- <img width="1312" height="1199" alt="sp04" src="https://github.com/user-attachments/assets/b5988098-b05c-4a26-b332-21a61785f056" />
+
 - SP5 — Continuar estudo de onde parou
+- <img width="1312" height="1199" alt="sp05" src="https://github.com/user-attachments/assets/73195673-dd11-41e7-a10a-83b5254cfdc6" />
+
 
 ## Sprint 02
 
 **Objetivo:** ampliar a experiência de aprendizagem com feedback, segurança e prompting.
 
 - SP6 — Construtor guiado de prompts
+- <img width="1312" height="1199" alt="sp06" src="https://github.com/user-attachments/assets/7942608c-bbf1-4dd1-8a13-3c92259d9974" />
+
 - SP7 — Menu de comparação de prompts
+- <img width="1312" height="1199" alt="sp07" src="https://github.com/user-attachments/assets/a2a60972-8626-447a-9ebb-0b0eae7b5588" />
+
 - SP8 — Verificar informações produzidas por IA
+- <img width="1312" height="1199" alt="sp08" src="https://github.com/user-attachments/assets/a8323fec-50f0-411b-a61b-9a40c7ec22c9" />
+
 - SP9 — Dashboard de progresso do usuário
+- <img width="1312" height="1199" alt="sp09" src="https://github.com/user-attachments/assets/f9d0ce69-4993-45c8-82a2-e9f7a33ad317" />
+
 - SP10 — Visualizar resultado final
+- <img width="1312" height="1199" alt="sp10" src="https://github.com/user-attachments/assets/220642c8-5a0a-4972-8928-53f9f5f4abca" />
+
 - SP11 — Recomendações de aprendizagem
+- <img width="1312" height="1199" alt="sp11" src="https://github.com/user-attachments/assets/ef99d025-e5d7-437f-a909-b79f0f32a64b" />
+
 
 ## Sprint 03
 
 **Objetivo:** consolidar o aprendizado e permitir acompanhamento de desempenho.
 
 - SP12 — Quiz de avaliação do aprendizado
+- <img width="1312" height="1199" alt="sp12" src="https://github.com/user-attachments/assets/ac547317-f1e1-4a21-b4de-dda41114b68f" />
+
 - SP13 — Sistema de feedback dos exercícios
+- <img width="1312" height="1199" alt="sp13" src="https://github.com/user-attachments/assets/fd4e1639-0603-4ace-b248-59f3875f146c" />
+
 - SP14 — Menu interativo com todas as funcionalidades
+- <img width="1312" height="1199" alt="sp14" src="https://github.com/user-attachments/assets/0ed7f00f-b66b-4f33-804e-825a1472c2d4" />
+
 - SP15 — Cadastro de usuário
+- <img width="1312" height="1199" alt="sp15" src="https://github.com/user-attachments/assets/803cae9a-b060-42eb-abde-b8d505062c2f" />
+
 ---
 
 # Board do projeto
