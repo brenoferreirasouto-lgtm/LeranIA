@@ -316,5 +316,7 @@ Concluído
 [https://www.linkedin.com/in/breno-ferreira-souto-b360063a6/]
 [www.linkedin.com/in/vinicius-beleza-20101542a]
 [https://www.linkedin.com/in/pedro-lustosa-83a629355/]
+[https://www.linkedin.com/in/joão-fernando-0a6b023b4?utm_source=share_via&utm_content=profile&utm_medium=member_ios]
+[www.linkedin.com/in/bruno-rodrigues-0a9aa43b2]
 []
 []
