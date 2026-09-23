@@ -197,6 +197,12 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 
 ## Sprint 01
 
+
+https://github.com/user-attachments/assets/48dcbc39-b79a-4d76-95ca-f5a4747e5f40
+
+
+
+
 **Objetivo:** disponibilizar o fluxo inicial de acesso e aprendizagem.
 
 - SP1 — Aula sobre IA generativa
