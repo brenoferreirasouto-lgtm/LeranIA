@@ -198,7 +198,11 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 ## Sprint 01
 
 
-https://github.com/user-attachments/assets/48dcbc39-b79a-4d76-95ca-f5a4747e5f40
+
+
+https://github.com/user-attachments/assets/e6515382-fee0-4039-8d70-13288c838a77
+
+
 
 
 
