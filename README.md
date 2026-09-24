@@ -126,37 +126,41 @@ O Learn AI busca ampliar o acesso a conhecimentos importantes para o uso conscie
 
 As histórias foram organizadas por prioridade, considerando primeiro as funcionalidades necessárias para formar o fluxo básico da aplicação.
 
+> **Fonte das prioridades:** a priorização oficial é a registrada no [board do Trello](https://trello.com/b/H73rMBcf/kanban-learn-ai). Histórias com código `U` foram levantadas no refinamento do board e ainda não possuíam código `SP`; elas são histórias de primeira classe e valem tanto quanto as demais.
+
 ## Prioridade P0 — Essenciais
 
 | ID | História de Usuário |
 |---|---|
-| **SP1** | Como estudante, quero acessar uma introdução sobre IA generativa para entender seus conceitos básicos. |
-| **SP2** | Como usuário, quero realizar um quiz de nivelamento para descobrir meu nível de conhecimento sobre IA. |
-| **SP3** | Como usuário, quero ser direcionado para o nível adequado após o quiz para começar o curso com conteúdos compatíveis com meu conhecimento. |
-| **SP4** | Como estudante, quero aprender a identificar alucinações de IA para não confiar automaticamente em respostas geradas. |
-| **SP5** | Como estudante, quero continuar meus estudos de onde parei para não precisar procurar novamente o conteúdo. |
-| **SP6** | Como estudante, quero montar um prompt seguindo etapas guiadas para transformar uma necessidade em uma instrução clara para a IA. |
-| **SP7** | Como estudante, quero comparar prompts bons e ruins, para entender na prática o que diferencia um prompt eficiente de um mal elaborado. |
-| **SP8**| Como estudante, quero aprender a verificar informações produzidas por IA para reduzir o risco de desinformação. |
+| **SP15** | Como estudante, quero criar uma conta para acompanhar meu aprendizado. |
+| **U02** | Como estudante, quero fazer login para acessar meu progresso. |
+| **U03** | Como estudante, quero visualizar a trilha de aprendizagem para saber o que estudar. |
+| **SP01** | Como estudante, quero acessar uma introdução sobre IA generativa para entender seus conceitos básicos. |
+| **SP02** | Como usuário, quero realizar um quiz de nivelamento para descobrir meu nível de conhecimento sobre IA. |
+| **SP03** | Como usuário, quero ser direcionado para o nível adequado após o quiz para começar o curso com conteúdos compatíveis com meu conhecimento. |
+| **SP04** | Como estudante, quero aprender a identificar alucinações de IA para não confiar automaticamente em respostas geradas. |
+| **U08** | Como estudante, quero aprender a estrutura de um bom prompt, para me comunicar de forma clara e eficiente com sistemas de IA. |
+| **U07** | Como estudante, quero aprender sobre privacidade e IA, para entender os riscos e adotar boas práticas ao interagir com essas tecnologias. |
+| **SP13** | Como estudante, quero receber feedback dos exercícios que realizo, para entender meus erros e acertos e evoluir no aprendizado. |
 
 ## Prioridade P1 — Importantes
 
 | ID | História de Usuário |
 |---|---|
-| **SP9** | Como estudante, quero visualizar meu progresso para saber quanto da trilha já concluí. |
-| **SP10** | Como estudante, quero visualizar meu resultado final para saber como foi meu desempenho na trilha de aprendizagem. |
-| **SP11** | Como estudante, quero receber recomendações de conteúdo com base no meu desempenho para saber quais temas devo revisar ou aprofundar. |
+| **SP06** | Como estudante, quero montar um prompt seguindo etapas guiadas para transformar uma necessidade em uma instrução clara para a IA. |
+| **SP07** | Como estudante, quero comparar prompts bons e ruins, para entender na prática o que diferencia um prompt eficiente de um mal elaborado. |
+| **SP08** | Como estudante, quero aprender a verificar informações produzidas por IA para reduzir o risco de desinformação. |
 | **SP12** | Como estudante, quero realizar um quiz ao final de uma etapa para avaliar o que aprendi. |
-| **SP13** |Como estudante, quero receber feedback dos exercícios que realizo, para entender meus erros e acertos e evoluir no aprendizado. |
+| **SP09** | Como estudante, quero visualizar meu progresso para saber quanto da trilha já concluí. |
 
 ## Prioridade P2 — Complementares
 
 | ID | História de Usuário |
 |---|---|
+| **SP05** | Como estudante, quero continuar meus estudos de onde parei para não precisar procurar novamente o conteúdo. |
+| **SP10** | Como estudante, quero visualizar meu resultado final para saber como foi meu desempenho na trilha de aprendizagem. |
+| **SP11** | Como estudante, quero receber recomendações de conteúdo com base no meu desempenho para saber quais temas devo revisar ou aprofundar. |
 | **SP14** | Como usuário, quero ter acesso a um menu interativo com todas as funcionalidades disponíveis no sistema para encontrar e utilizar os recursos de forma fácil e organizada. |
-| **SP15** | Como estudante, quero criar uma conta para acompanhar meu aprendizado. |
-
----
 
 # Histórias de Usuário — Padrão 3Cs
 
@@ -209,36 +213,36 @@ https://github.com/user-attachments/assets/e6515382-fee0-4039-8d70-13288c838a77
 
 **Objetivo:** disponibilizar o fluxo inicial de acesso e aprendizagem.
 
-- [SP1 — Aula sobre IA generativa](https://github.com/user-attachments/assets/52683643-8c63-4ae6-a92b-8ae2cd9f7082)
+- [SP01 — Aula sobre IA generativa](https://github.com/user-attachments/assets/52683643-8c63-4ae6-a92b-8ae2cd9f7082)
 - [Diagrama](https://github.com/user-attachments/assets/1aac7498-9816-4600-8dd3-8a29a60ff1e3)
 
 
-- [SP2 — Quiz de nivelamento](https://github.com/user-attachments/assets/996afe1c-ac69-4c4c-9e9b-dd9aad7b9216)
+- [SP02 — Quiz de nivelamento](https://github.com/user-attachments/assets/996afe1c-ac69-4c4c-9e9b-dd9aad7b9216)
 - [Diagrama](https://github.com/user-attachments/assets/c9fc1383-c652-404f-96dc-38ed1e09c394)
 
-- [SP3 — Direcionamento por nível](https://github.com/user-attachments/assets/829f85ef-53c8-4d7b-a250-28ba49ce616c)
+- [SP03 — Direcionamento por nível](https://github.com/user-attachments/assets/829f85ef-53c8-4d7b-a250-28ba49ce616c)
 - [Diagrama](https://github.com/user-attachments/assets/868e2d7f-1d35-497d-9eab-4e2fc91c06f1)
 
-- [SP4 — Quiz de identificação de alucinações](https://github.com/user-attachments/assets/b5988098-b05c-4a26-b332-21a61785f056)
+- [SP04 — Quiz de identificação de alucinações](https://github.com/user-attachments/assets/b5988098-b05c-4a26-b332-21a61785f056)
 - [Diagrama](https://github.com/user-attachments/assets/8114fea9-eb4b-44a5-bbfa-b3744f4cd6fd)
 
-- [SP5 — Continuar estudo de onde parou](https://github.com/user-attachments/assets/73195673-dd11-41e7-a10a-83b5254cfdc6)
+- [SP05 — Continuar estudo de onde parou](https://github.com/user-attachments/assets/73195673-dd11-41e7-a10a-83b5254cfdc6)
 - [Diagrama](https://github.com/user-attachments/assets/fcafd75e-07b7-4150-90a7-3529f145d6f8)
 
 ## Sprint 02
 
 **Objetivo:** ampliar a experiência de aprendizagem com feedback, segurança e prompting.
 
-- [SP6 — Construtor guiado de prompts](https://github.com/user-attachments/assets/7942608c-bbf1-4dd1-8a13-3c922599d974)
+- [SP06 — Construtor guiado de prompts](https://github.com/user-attachments/assets/7942608c-bbf1-4dd1-8a13-3c922599d974)
 - [Diagrama](https://github.com/user-attachments/assets/ae1781bc-75af-49e8-8b94-df08b800bd71)
 
-- [SP7 — Menu de comparação de prompts](https://github.com/user-attachments/assets/a2a60972-8626-447a-9ebb-0b0aea7b5588)
+- [SP07 — Menu de comparação de prompts](https://github.com/user-attachments/assets/a2a60972-8626-447a-9ebb-0b0aea7b5588)
 - [Diagrama](https://github.com/user-attachments/assets/d0774560-d611-41cf-94ca-85a3c3bf81b5)
 
-- [SP8 — Verificar informações produzidas por IA](https://github.com/user-attachments/assets/a8323fec-50f0-411b-a61b-9a40c7ec22c9)
+- [SP08 — Verificar informações produzidas por IA](https://github.com/user-attachments/assets/a8323fec-50f0-411b-a61b-9a40c7ec22c9)
 - [Diagrama](https://github.com/user-attachments/assets/963c8f34-43a6-412e-b32a-7e445d3b0606)
 
-- [SP9 — Dashboard de progresso do usuário](https://github.com/user-attachments/assets/f9d0ce69-4993-45c8-82a2-e9f7a33ad317)
+- [SP09 — Dashboard de progresso do usuário](https://github.com/user-attachments/assets/f9d0ce69-4993-45c8-82a2-e9f7a33ad317)
 - [Diagrama](https://github.com/user-attachments/assets/7af5c267-f888-4d47-95bb-12b7aab7eabc)
 
 - [SP10 — Visualizar resultado final](https://github.com/user-attachments/assets/220642c8-5a0a-4972-8928-53f9f5f4abca)
@@ -268,14 +272,24 @@ https://github.com/user-attachments/assets/e6515382-fee0-4039-8d70-13288c838a77
 
 ---
 
+### Diagramas pendentes
+
+As histórias levantadas no refinamento do board ainda não possuem diagrama de atividades e precisam ser cobertas antes da Entrega 02:
+
+- [ ] **U02** — Login
+- [ ] **U03** — Visualizar trilha de aprendizagem
+- [ ] **U07** — Privacidade e IA
+- [ ] **U08** — Estrutura de um bom prompt
+
+---
+
 # Board do projeto
 
 A equipe utiliza um quadro Kanban para organizar o trabalho, priorizar o backlog e acompanhar a evolução das histórias.
 
 **Ferramenta:** Trello
 
-**Link do Board:**  
-`https://trello.com/invite/b/6a9622309222e81119bfef2e/ATTIdfe49ca6ba86da893594140a907fd479BF1A75CC/kanban-learn-ai`
+**Link do Board:** https://trello.com/b/H73rMBcf/kanban-learn-ai
 
 ### Estrutura do Board
 
