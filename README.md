@@ -79,7 +79,7 @@ Promover o letramento em Inteligência Artificial entre estudantes, oferecendo u
 
 O público-alvo inicial do Learn AI é composto por:
 
-Estudantes do ensino médio, técnico e superior, aproximadamente entre 15 e 25 anos, que usam ferramentas de IA para pesquisar, estudar, fazer trabalhos e tirar dúvidas, mas ainda precisam aprender a utilizá-las de forma mais crítica, segura e eficiente.
+Estudantes do ensino médio, técnico e superior, que usam ferramentas de IA para pesquisar, estudar, fazer trabalhos e tirar dúvidas, e aqueles que estão começando nessa jornada, aprendendo assim a utilizá-las de forma mais crítica, segura, eficiente e de forma produtiva.
 
 Esse público geralmente busca respostas rápidas, prefere conteúdos visuais e interativos e pode ter dificuldades para identificar informações falsas, criar bons prompts ou verificar se uma resposta da IA é realmente confiável.
 
