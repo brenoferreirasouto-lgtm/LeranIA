@@ -213,17 +213,14 @@ https://github.com/user-attachments/assets/e6515382-fee0-4039-8d70-13288c838a77
 - [Diagrama](https://github.com/user-attachments/assets/1aac7498-9816-4600-8dd3-8a29a60ff1e3)
 
 
-![SP2 — Quiz de nivelamento](<img width="1312" height="1199" alt="sp02" src="https://github.com/user-attachments/assets/996afe1c-ac69-4c4c-9e9b-dd9aad7b9216" />)
-![Diagrama](<img width="743" height="820" alt="diagrama 2" src="https://github.com/user-attachments/assets/c9fc1383-c652-404f-96dc-38ed1e09c394" />)
+- [SP2 — Quiz de nivelamento](https://github.com/user-attachments/assets/996afe1c-ac69-4c4c-9e9b-dd9aad7b9216)
+- [Diagrama](https://github.com/user-attachments/assets/c9fc1383-c652-404f-96dc-38ed1e09c394)
 
+- [SP3 — Direcionamento por nível](https://github.com/user-attachments/assets/829f85ef-53c8-4d7b-a250-28ba49ce616c)
+- [Diagrama](https://github.com/user-attachments/assets/868e2d7f-1d35-497d-9eab-4e2fc91c06f1)
 
-![SP3 — Direcionamento por nível](<img width="1312" height="1199" alt="sp03" src="https://github.com/user-attachments/assets/829f85ef-53c8-4d7b-a250-28ba49ce616c" />)
-![Diagrama](<img width="736" height="697" alt="diagrama 3" src="https://github.com/user-attachments/assets/868e2d7f-1d35-497d-9eab-4c2fc91c06f1" />
-)
-
-![SP4 — Quiz de identificação de alucinações](<img width="1312" height="1199" alt="sp04" src="https://github.com/user-attachments/assets/b5988098-b05c-4a26-b332-21a61785f056" />)
-![Diagrama](<img width="727" height="779" alt="diagrama 4" src="https://github.com/user-attachments/assets/8114fea9-eb4b-44a5-bbfa-b3744f4cd6fd" />)
-
+- [SP4 — Quiz de identificação de alucinações](https://github.com/user-attachments/assets/b5988098-b05c-4a26-b332-21a61785f056)
+- [Diagrama](https://github.com/user-attachments/assets/8114fea9-eb4b-44a5-bbfa-b3744f4cd6fd)
 
 ![SP5 — Continuar estudo de onde parou](<img width="1312" height="1199" alt="sp05" src="https://github.com/user-attachments/assets/73195673-dd11-41e7-a10a-83b5254cfdc6" />)
 ![Diagrama](<img width="718" height="596" alt="diagrama 5" src="https://github.com/user-attachments/assets/fcafd75e-07b7-4150-90a7-3529f145d6f8" />)
