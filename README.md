@@ -222,34 +222,30 @@ https://github.com/user-attachments/assets/e6515382-fee0-4039-8d70-13288c838a77
 - [SP4 — Quiz de identificação de alucinações](https://github.com/user-attachments/assets/b5988098-b05c-4a26-b332-21a61785f056)
 - [Diagrama](https://github.com/user-attachments/assets/8114fea9-eb4b-44a5-bbfa-b3744f4cd6fd)
 
-![SP5 — Continuar estudo de onde parou](<img width="1312" height="1199" alt="sp05" src="https://github.com/user-attachments/assets/73195673-dd11-41e7-a10a-83b5254cfdc6" />)
-![Diagrama](<img width="718" height="596" alt="diagrama 5" src="https://github.com/user-attachments/assets/fcafd75e-07b7-4150-90a7-3529f145d6f8" />)
-
- 
+- [SP5 — Continuar estudo de onde parou](https://github.com/user-attachments/assets/73195673-dd11-41e7-a10a-83b5254cfdc6)
+- [Diagrama](https://github.com/user-attachments/assets/fcafd75e-07b7-4150-90a7-3529f145d6f8)
 
 ## Sprint 02
 
 **Objetivo:** ampliar a experiência de aprendizagem com feedback, segurança e prompting.
 
-![SP6 — Construtor guiado de prompts](<img width="1312" height="1199" alt="sp06" src="https://github.com/user-attachments/assets/7942608c-bbf1-4dd1-8a13-3c92259d9974" />)
-![Diagrama](<img width="446" height="569" alt="diagrama 6" src="https://github.com/user-attachments/assets/ae1781bc-75af-49e8-8b94-df08b800bd71" />)
+- [SP6 — Construtor guiado de prompts](https://github.com/user-attachments/assets/7942608c-bbf1-4dd1-8a13-3c922599d974)
+- [Diagrama](https://github.com/user-attachments/assets/ae1781bc-75af-49e8-8b94-df08b800bd71)
 
+- [SP7 — Menu de comparação de prompts](https://github.com/user-attachments/assets/a2a60972-8626-447a-9ebb-0b0aea7b5588)
+- [Diagrama](https://github.com/user-attachments/assets/d0774560-d611-41cf-94ca-85a3c3bf81b5)
 
-![SP7 — Menu de comparação de prompts](<img width="1312" height="1199" alt="sp07" src="https://github.com/user-attachments/assets/a2a60972-8626-447a-9ebb-0b0eae7b5588" />)
-![Diagrama](<img width="431" height="636" alt="diagrama 7" src="https://github.com/user-attachments/assets/d0774560-d611-41cf-94ca-85a3c3bf81b5" />)
+- [SP8 — Verificar informações produzidas por IA](https://github.com/user-attachments/assets/a8323fec-50f0-411b-a61b-9a40c7ec22c9)
+- [Diagrama](https://github.com/user-attachments/assets/963c8f34-43a6-412e-b32a-7e445d3b0606)
 
-![SP8 — Verificar informações produzidas por IA](<img width="1312" height="1199" alt="sp08" src="https://github.com/user-attachments/assets/a8323fec-50f0-411b-a61b-9a40c7ec22c9" />)
-![Diagrama](<img width="497" height="565" alt="diagrama 8" src="https://github.com/user-attachments/assets/963c8f34-43a6-412e-b32a-7e445d3b0606" />)
+- [SP9 — Dashboard de progresso do usuário](https://github.com/user-attachments/assets/f9d0ce69-4993-45c8-82a2-e9f7a33ad317)
+- [Diagrama](https://github.com/user-attachments/assets/7af5c267-f888-4d47-95bb-12b7aab7eabc)
 
-![SP9 — Dashboard de progresso do usuário](<img width="1312" height="1199" alt="sp09" src="https://github.com/user-attachments/assets/f9d0ce69-4993-45c8-82a2-e9f7a33ad317" />)
-![Diagrama](<img width="427" height="580" alt="diagrama 9" src="https://github.com/user-attachments/assets/7af5c267-f888-4d47-95bb-12b7aab7eabc" />)
+- [SP10 — Visualizar resultado final](https://github.com/user-attachments/assets/220642c8-5a0a-4972-8928-53f9f5f4abca)
+- [Diagrama](https://github.com/user-attachments/assets/8b8e696f-e974-4acd-b7e1-98b1dd1c33fe)
 
-
-![SP10 — Visualizar resultado final](<img width="1312" height="1199" alt="sp10" src="https://github.com/user-attachments/assets/220642c8-5a0a-4972-8928-53f9f5f4abca" />)
-![Diagrama](<img width="391" height="503" alt="diagrama 10" src="https://github.com/user-attachments/assets/8b8e696f-e974-4acd-b7e1-98b1dd1c33fe" />)
-
-![SP11 — Recomendações de aprendizagem](<img width="1312" height="1199" alt="sp11" src="https://github.com/user-attachments/assets/ef99d025-e5d7-437f-a909-b79f0f32a64b" />)
-![Diagrama](<img width="487" height="584" alt="diagrama 11" src="https://github.com/user-attachments/assets/da78f460-08cd-4373-9241-cd37279f5ffa" />)
+- [SP11 — Recomendações de aprendizagem](https://github.com/user-attachments/assets/ef99d025-e5d7-437f-a909-b79f0f32a64b)
+- [Diagrama](https://github.com/user-attachments/assets/da78f460-08cd-4373-9241-cd37279f5ffa)
 
 
 
@@ -258,21 +254,17 @@ https://github.com/user-attachments/assets/e6515382-fee0-4039-8d70-13288c838a77
 **Objetivo:** consolidar o aprendizado e permitir acompanhamento de desempenho.
 
 
-![SP12 — Quiz de avaliação do aprendizado](<img width="1312" height="1199" alt="sp12" src="https://github.com/user-attachments/assets/ac547317-f1e1-4a21-b4de-dda41114b68f" />)
-![Diagrama](<img width="357" height="444" alt="diagrama 12" src="https://github.com/user-attachments/assets/753a813d-43d6-4e9c-ac8d-1d120cc76be9" />)
+- [SP12 — Quiz de avaliação do aprendizado](https://github.com/user-attachments/assets/ac547317-f1e1-4a21-b4de-dda41114b68f)
+- [Diagrama](https://github.com/user-attachments/assets/753a813d-43d6-4e9c-ac8d-1d120cc76be9)
 
+- [SP13 — Sistema de feedback dos exercícios](https://github.com/user-attachments/assets/fd4e1639-0603-4ace-b248-59f3875f146c)
+- [Diagrama](https://github.com/user-attachments/assets/e2f76ef4-596d-49ea-aa72-568b802739f5)
 
-![SP13 — Sistema de feedback dos exercícios](<img width="1312" height="1199" alt="sp13" src="https://github.com/user-attachments/assets/fd4e1639-0603-4ace-b248-59f3875f146c" />)
-![Diagrama](<img width="525" height="489" alt="diagrama 13" src="https://github.com/user-attachments/assets/e2f76ef4-596d-49ea-aa72-568b802739f5" />)
+- [SP14 — Menu interativo com todas as funcionalidades](https://github.com/user-attachments/assets/0ed7f00f-b66b-4f33-804e-825a1472c2d4)
+- [Diagrama](https://github.com/user-attachments/assets/9a49977b-bdff-4900-be4f-1e637f40e040)
 
-
-
-![SP14 — Menu interativo com todas as funcionalidades](<img width="1312" height="1199" alt="sp14" src="https://github.com/user-attachments/assets/0ed7f00f-b66b-4f33-804e-825a1472c2d4" />)
-![Diagrama](<img width="469" height="569" alt="diagrama 14" src="https://github.com/user-attachments/assets/9a49977b-bdff-4900-be4f-1e637f40e040" />)
-
-
-![SP15 — Cadastro de usuário](<img width="1312" height="1199" alt="sp15" src="https://github.com/user-attachments/assets/803cae9a-b060-42eb-abde-b8d505062c2f" />)
-![Diagrama](<img width="555" height="505" alt="diagrama 15" src="https://github.com/user-attachments/assets/29468629-43eb-46ac-bc65-0064480cf32d" />)
+- [SP15 — Cadastro de usuário](https://github.com/user-attachments/assets/803cae9a-b060-42eb-abde-b8d505062c2f)
+- [Diagrama](https://github.com/user-attachments/assets/29468629-43eb-46ac-bc65-0064480cf32d)
 
 ---
 
