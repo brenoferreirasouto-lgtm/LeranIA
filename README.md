@@ -209,9 +209,8 @@ https://github.com/user-attachments/assets/e6515382-fee0-4039-8d70-13288c838a77
 
 **Objetivo:** disponibilizar o fluxo inicial de acesso e aprendizagem.
 
-![SP1 — Aula sobre IA generativa(<img width="1312" height="1199" alt="sp 01" src="https://github.com/user-attachments/assets/52683643-8c63-4ae6-a92b-8ae2cd9f7082" />)]
-![Diagrama](<img width="618" height="794" alt="diagrama 1" src="https://github.com/user-attachments/assets/1aac7498-9816-4600-8dd3-8a29a60ff1e3" />)
-
+- [SP1 — Aula sobre IA generativa](https://github.com/user-attachments/assets/52683643-8c63-4ae6-a92b-8ae2cd9f7082)
+- [Diagrama](https://github.com/user-attachments/assets/1aac7498-9816-4600-8dd3-8a29a60ff1e3)
 
 
 ![SP2 — Quiz de nivelamento](<img width="1312" height="1199" alt="sp02" src="https://github.com/user-attachments/assets/996afe1c-ac69-4c4c-9e9b-dd9aad7b9216" />)
