@@ -211,14 +211,14 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 
 **Objetivo:** disponibilizar o fluxo inicial de acesso e aprendizagem.
 
-- [F01 — Aula sobre IA generativa](<github.com/user-attachments/assets/aa9e6124-0ccd-493a-b2cb-b695dd07f6f6" />)
+- [F01 — Aula sobre IA generativa](https://github.com/user-attachments/assets/aa9e6124-0ccd-493a-b2cb-b695dd07f6f6)
 - [Diagrama](https://github.com/user-attachments/assets/1aac7498-9816-4600-8dd3-8a29a60ff1e3)
 
 
-- [F02 — Quiz de nivelamento](https://github.com/user-attachments/assets/996afe1c-ac69-4c4c-9e9b-dd9aad7b9216)
+- [F02 — Quiz de nivelamento](<https://github.com/user-attachments/assets/cc334b1f-83c2-4d2a-9cfa-d0cd5a9f04aa">)
 - [Diagrama](https://github.com/user-attachments/assets/c9fc1383-c652-404f-96dc-38ed1e09c394)
 
-- [F03 — Direcionamento por nível](https://github.com/user-attachments/assets/829f85ef-53c8-4d7b-a250-28ba49ce616c)
+- [F03 — Direcionamento por nível](<https://github.com/user-attachments/assets/52ca9ea6-66e9-4719-9361-c1f6562d3755" />)
 - [Diagrama](https://github.com/user-attachments/assets/868e2d7f-1d35-497d-9eab-4e2fc91c06f1)
 
 - [F04 — Quiz de identificação de alucinações](https://github.com/user-attachments/assets/b5988098-b05c-4a26-b332-21a61785f056)
