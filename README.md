@@ -201,7 +201,11 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 
 
 
-https://github.com/user-attachments/assets/ac726c42-5820-4936-be99-c9145eb3952a
+
+
+https://github.com/user-attachments/assets/953bd2bd-464d-4a12-9507-000aacace13b
+
+
 
 
 
