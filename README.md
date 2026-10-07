@@ -231,22 +231,22 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 
 **Objetivo:** ampliar a experiência de aprendizagem com feedback, segurança e prompting.
 
-- [F06 — Construtor guiado de prompts](https://github.com/user-attachments/assets/7942608c-bbf1-4dd1-8a13-3c922599d974)
+- [F06 — Construtor guiado de prompts](https://github.com/user-attachments/assets/c895942a-d7f2-4f07-a66d-1627fe4ef03c)
 - [Diagrama](https://github.com/user-attachments/assets/ae1781bc-75af-49e8-8b94-df08b800bd71)
 
-- [F07 — Menu de comparação de prompts](https://github.com/user-attachments/assets/a2a60972-8626-447a-9ebb-0b0aea7b5588)
+- [F07 — Menu de comparação de prompts](https://github.com/user-attachments/assets/c1f5b762-717c-4c31-a1c9-ea606cd21ea3)
 - [Diagrama](https://github.com/user-attachments/assets/d0774560-d611-41cf-94ca-85a3c3bf81b5)
 
-- [F08 — Verificar informações produzidas por IA](https://github.com/user-attachments/assets/a8323fec-50f0-411b-a61b-9a40c7ec22c9)
+- [F08 — Verificar informações produzidas por IA](https://github.com/user-attachments/assets/7e8871b3-9ee7-487c-bb0d-70b41f044ae1)
 - [Diagrama](https://github.com/user-attachments/assets/963c8f34-43a6-412e-b32a-7e445d3b0606)
 
-- [F09 — Dashboard de progresso do usuário](https://github.com/user-attachments/assets/f9d0ce69-4993-45c8-82a2-e9f7a33ad317)
+- [F09 — Dashboard de progresso do usuário](https://github.com/user-attachments/assets/1ccef923-1d78-4261-9552-de1b79099717)
 - [Diagrama](https://github.com/user-attachments/assets/7af5c267-f888-4d47-95bb-12b7aab7eabc)
 
-- [F10 — Visualizar resultado final](https://github.com/user-attachments/assets/220642c8-5a0a-4972-8928-53f9f5f4abca)
+- [F10 — Visualizar resultado final](https://github.com/user-attachments/assets/9a2cf24d-863e-44bc-8694-3f335bdc061f)
 - [Diagrama](https://github.com/user-attachments/assets/8b8e696f-e974-4acd-b7e1-98b1dd1c33fe)
 
-- [F11 — Recomendações de aprendizagem](https://github.com/user-attachments/assets/ef99d025-e5d7-437f-a909-b79f0f32a64b)
+- [F11 — Recomendações de aprendizagem](https://github.com/user-attachments/assets/7966e55c-ec8e-4928-b42c-f0a0c2de5c28)
 - [Diagrama](https://github.com/user-attachments/assets/da78f460-08cd-4373-9241-cd37279f5ffa)
 
 
@@ -255,18 +255,19 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 
 **Objetivo:** consolidar o aprendizado e permitir acompanhamento de desempenho.
 
-
-- [F12 — Quiz de avaliação do aprendizado](https://github.com/user-attachments/assets/ac547317-f1e1-4a21-b4de-dda41114b68f)
+- [F12 — Quiz de avaliação do aprendizado](https://github.com/user-attachments/assets/9dcf9bd8-a448-4034-8bb6-a794d4f526de)
 - [Diagrama](https://github.com/user-attachments/assets/753a813d-43d6-4e9c-ac8d-1d120cc76be9)
 
-- [F13 — Sistema de feedback dos exercícios](https://github.com/user-attachments/assets/fd4e1639-0603-4ace-b248-59f3875f146c)
+- [F13 — Sistema de feedback dos exercícios](https://github.com/user-attachments/assets/630abe3e-7680-43be-a422-e93514692e83)
 - [Diagrama](https://github.com/user-attachments/assets/e2f76ef4-596d-49ea-aa72-568b802739f5)
 
-- [SP14 — Menu interativo com todas as funcionalidades](https://github.com/user-attachments/assets/0ed7f00f-b66b-4f33-804e-825a1472c2d4)
+- [F14 — Menu interativo com todas as funcionalidades](https://github.com/user-attachments/assets/f8d5d7a1-dc2d-498f-908f-4999181201aa)
 - [Diagrama](https://github.com/user-attachments/assets/9a49977b-bdff-4900-be4f-1e637f40e040)
 
-- [F15 — Cadastro de usuário](https://github.com/user-attachments/assets/803cae9a-b060-42eb-abde-b8d505062c2f)
+- [F15 — Cadastro de usuário](https://github.com/user-attachments/assets/55d5537d-61ce-4f5c-b33e-1c106f11e7f8)
 - [Diagrama](https://github.com/user-attachments/assets/29468629-43eb-46ac-bc65-0064480cf32d)
+
+---
 
 ---
 
