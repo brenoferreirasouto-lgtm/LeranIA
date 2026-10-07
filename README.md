@@ -211,7 +211,7 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 
 **Objetivo:** disponibilizar o fluxo inicial de acesso e aprendizagem.
 
-- [F01 — Aula sobre IA generativa](<img width="1448" height="1086" alt="F01" src="https://github.com/user-attachments/assets/aa9e6124-0ccd-493a-b2cb-b695dd07f6f6" />)
+- [F01 — Aula sobre IA generativa](<github.com/user-attachments/assets/aa9e6124-0ccd-493a-b2cb-b695dd07f6f6" />)
 - [Diagrama](https://github.com/user-attachments/assets/1aac7498-9816-4600-8dd3-8a29a60ff1e3)
 
 
