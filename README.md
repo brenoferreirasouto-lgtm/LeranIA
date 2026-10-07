@@ -200,7 +200,9 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 
 
 
-https://github.com/user-attachments/assets/e6515382-fee0-4039-8d70-13288c838a77
+
+
+
 
 
 
@@ -209,7 +211,7 @@ https://github.com/user-attachments/assets/e6515382-fee0-4039-8d70-13288c838a77
 
 **Objetivo:** disponibilizar o fluxo inicial de acesso e aprendizagem.
 
-- [F01 — Aula sobre IA generativa](https://github.com/user-attachments/assets/52683643-8c63-4ae6-a92b-8ae2cd9f7082)
+- [F01 — Aula sobre IA generativa](<img width="1448" height="1086" alt="F01" src="https://github.com/user-attachments/assets/aa9e6124-0ccd-493a-b2cb-b695dd07f6f6" />)
 - [Diagrama](https://github.com/user-attachments/assets/1aac7498-9816-4600-8dd3-8a29a60ff1e3)
 
 
