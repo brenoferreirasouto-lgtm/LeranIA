@@ -214,19 +214,19 @@ A divisão abaixo representa uma proposta inicial e pode ser ajustada durante o 
 - [F01 — Aula sobre IA generativa](https://github.com/user-attachments/assets/aa9e6124-0ccd-493a-b2cb-b695dd07f6f6)
 - [Diagrama](https://github.com/user-attachments/assets/1aac7498-9816-4600-8dd3-8a29a60ff1e3)
 
-
-- [F02 — Quiz de nivelamento](<https://github.com/user-attachments/assets/cc334b1f-83c2-4d2a-9cfa-d0cd5a9f04aa">)
+- [F02 — Quiz de nivelamento](https://github.com/user-attachments/assets/1e50f815-dd98-402c-93b5-afaf99c548ee)
 - [Diagrama](https://github.com/user-attachments/assets/c9fc1383-c652-404f-96dc-38ed1e09c394)
 
-- [F03 — Direcionamento por nível](<https://github.com/user-attachments/assets/52ca9ea6-66e9-4719-9361-c1f6562d3755" />)
+- [F03 — Direcionamento por nível](https://github.com/user-attachments/assets/8254580e-63a8-4d3d-bb59-9868573075ad)
 - [Diagrama](https://github.com/user-attachments/assets/868e2d7f-1d35-497d-9eab-4e2fc91c06f1)
 
-- [F04 — Quiz de identificação de alucinações](https://github.com/user-attachments/assets/b5988098-b05c-4a26-b332-21a61785f056)
+- [F04 — Quiz de identificação de alucinações](https://github.com/user-attachments/assets/345085ca-8678-4a44-9f6a-ba1507e88164)
 - [Diagrama](https://github.com/user-attachments/assets/8114fea9-eb4b-44a5-bbfa-b3744f4cd6fd)
 
-- [F05 — Continuar estudo de onde parou](https://github.com/user-attachments/assets/73195673-dd11-41e7-a10a-83b5254cfdc6)
+- [F05 — Continuar estudo de onde parou](https://github.com/user-attachments/assets/185650e4-09fe-428f-adbb-56e5b1c22524)
 - [Diagrama](https://github.com/user-attachments/assets/fcafd75e-07b7-4150-90a7-3529f145d6f8)
 
+- 
 ## Sprint 02
 
 **Objetivo:** ampliar a experiência de aprendizagem com feedback, segurança e prompting.
