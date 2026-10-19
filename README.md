@@ -1,5 +1,5 @@
 # Learn AI
-<img width="1672" alt="Learn AI - Nova identidade visual" src="./learn-ai-nova.png" />
+![Learn AI - Nova identidade visual](./learn-ai-nova.png)
 
 > Plataforma web educacional para promover o letramento em Inteligência Artificial por meio de conteúdos curtos, situações práticas, exercícios interativos e acompanhamento de progresso.
 
