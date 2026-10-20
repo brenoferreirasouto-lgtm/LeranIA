@@ -1,0 +1,77 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    name: Lint, tipos, testes e build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: learnai
+          POSTGRES_PASSWORD: localdev
+          POSTGRES_DB: learn_ai_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U learnai"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://learnai:localdev@localhost:5432/learn_ai_test
+      TEST_DATABASE_URL: postgres://learnai:localdev@localhost:5432/learn_ai_test
+      BETTER_AUTH_SECRET: segredo-somente-para-testes-automatizados-0001
+      BETTER_AUTH_URL: http://localhost:3100
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Checagem de tipos
+        run: npm run typecheck
+
+      - name: Migrações do banco
+        run: npm run db:migrate
+
+      - name: Testes unitários e de integração
+        run: npm test
+
+      - name: Build de produção
+        run: npm run build
+
+      - name: Instalar navegador dos testes de sistema
+        run: npx playwright install --with-deps chromium
+
+      - name: Testes de sistema (desktop e celular)
+        run: npm run test:e2e
+
+      - name: Guardar relatório dos testes de sistema
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-playwright
+          path: playwright-report
+          retention-days: 14
