@@ -1,0 +1,39 @@
+/* Fase C2 — missões. */
+
+.multiHelp {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  margin-top: calc(-1 * var(--space-2));
+}
+
+.hint {
+  border: 1px dashed var(--navy-300);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  background: var(--paper);
+}
+
+.hint summary {
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--navy-800);
+}
+
+.hint summary:focus-visible {
+  box-shadow: var(--focus);
+  border-radius: var(--radius-sm);
+}
+
+.hint p {
+  margin-top: var(--space-2);
+  color: var(--ink-muted);
+}
+
+.problems {
+  margin: 0;
+  padding-left: var(--space-5);
+  display: grid;
+  gap: var(--space-1);
+}

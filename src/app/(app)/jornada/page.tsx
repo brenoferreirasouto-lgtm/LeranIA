@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { AchievementMedal } from "@/components/journey/achievement-medal";
 import { StageMeter } from "@/components/journey/stage-meter";
-import { STAGES, XP_RULES, finalAssessment, modules } from "@/content";
+import { STAGES, XP_RULES, finalAssessment, missions, modules } from "@/content";
 import { formatDate } from "@/lib/format";
 import { requireUser } from "@/lib/session";
 import { ensureRewards, getJourney } from "@/server/rewards";
@@ -33,7 +33,21 @@ const HOW_TO_EARN = [
     when: "Só na primeira tentativa",
   },
   { activity: "Aprovação na avaliação final", xp: `${XP_RULES.assessmentPassed}`, when: "Uma vez" },
+  {
+    activity: "Missão concluída",
+    xp: missionXpText(),
+    when: "Uma vez por missão",
+  },
 ];
+
+/** Ex.: "30 (a integradora, 60)", a partir dos valores das missões. */
+function missionXpText(): string {
+  const values = missions.map((m) => m.xp);
+  const common = Math.min(...values);
+  const special = missions.filter((m) => m.xp !== common);
+  if (special.length === 0) return `${common}`;
+  return `${common} (${special.map((m) => `${m.title}: ${m.xp}`).join("; ")})`;
+}
 
 /**
  * Fase C1 — Jornada de Evolução e Conquistas. Tudo vem do que já está
