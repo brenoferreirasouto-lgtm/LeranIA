@@ -1,0 +1,205 @@
+.page {
+  display: grid;
+  gap: var(--space-6);
+  max-width: 46rem;
+}
+
+.hero {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6) var(--space-5);
+  background: var(--navy-950);
+  color: #fff;
+  border-radius: var(--radius-lg);
+}
+
+.hero .eyebrowOnDark {
+  color: var(--cyan-400);
+}
+
+.stageName {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: #fff;
+}
+
+.stageName span {
+  color: var(--cyan-400);
+}
+
+.xpTotal {
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  color: var(--navy-200);
+  margin-top: calc(-1 * var(--space-2));
+}
+
+.heroText {
+  color: var(--navy-200);
+}
+
+.section {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.sectionTitle {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.count {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.achievements {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.achievement {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-md);
+}
+
+.achievementEarned {
+  border-style: solid;
+  border-color: var(--navy-200);
+}
+
+.achievementBody {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.achievementTitle {
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+
+.achievementText {
+  color: var(--ink-muted);
+  font-size: var(--text-sm);
+}
+
+.achievementStatus {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.achievementEarned .achievementStatus {
+  color: var(--blue-700);
+}
+
+.history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.historyRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-1) var(--space-4);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--line);
+}
+
+.historyDate {
+  grid-column: 1 / -1;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.historyLabel {
+  min-width: 0;
+}
+
+.historyPoints {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--blue-700);
+  white-space: nowrap;
+}
+
+.empty {
+  color: var(--ink-muted);
+  padding: var(--space-4);
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: var(--space-3) var(--space-3) var(--space-3) 0;
+  border-top: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.table thead th {
+  border-top: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.table tbody th {
+  font-weight: 600;
+}
+
+.note {
+  color: var(--ink-muted);
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 720px) {
+  .hero {
+    padding: var(--space-6);
+  }
+
+  .achievements {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .historyRow {
+    grid-template-columns: 7.5rem 1fr auto;
+    align-items: baseline;
+  }
+
+  .historyDate {
+    grid-column: auto;
+  }
+}

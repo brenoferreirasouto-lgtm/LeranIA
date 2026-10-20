@@ -8,6 +8,7 @@ import styles from "./site-header.module.css";
 
 export const MENU_ITEMS = [
   { href: "/painel", label: "Painel" },
+  { href: "/jornada", label: "Minha jornada" },
   { href: "/trilha", label: "Trilha" },
   { href: "/nivelamento", label: "Nivelamento" },
   { href: "/construtor", label: "Construtor de prompt" },

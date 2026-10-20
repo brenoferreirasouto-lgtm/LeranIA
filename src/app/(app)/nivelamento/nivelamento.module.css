@@ -107,3 +107,8 @@
 .result .eyebrowOnDark {
   color: var(--cyan-400);
 }
+
+/* Fase C1 — link sobre o fundo escuro. */
+.linkOnDark {
+  color: var(--cyan-400);
+}
