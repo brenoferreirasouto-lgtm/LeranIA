@@ -63,6 +63,7 @@ export function QuestionChoices({
           const classes = [
             styles.option,
             option.id === dontKnowId ? styles.optionDontKnow : "",
+            question.optionStyle === "prompt" ? styles.optionPrompt : "",
             reveal ? styles.optionDisabled : "",
             isCorrect ? styles.optionCorrect : "",
             isWrongChoice ? styles.optionWrong : "",
@@ -81,7 +82,12 @@ export function QuestionChoices({
                 disabled={Boolean(reveal)}
                 required={required}
               />
-              <span>{option.text}</span>
+              <span>
+                {question.optionStyle === "prompt" ? (
+                  <span className={styles.promptLabel}>Prompt {option.id.toUpperCase()}</span>
+                ) : null}
+                {option.text}
+              </span>
               {isCorrect ? <span className={styles.optionTag}>Correta</span> : null}
               {isWrongChoice ? <span className={styles.optionTag}>Sua resposta</span> : null}
             </label>

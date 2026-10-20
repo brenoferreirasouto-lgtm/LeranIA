@@ -6,8 +6,10 @@ import { requireUser } from "@/lib/session";
 import { publicPlacementQuestions } from "@/server/content";
 import { getLevel } from "@/server/learning";
 
+import { QuizForm } from "@/components/learning/quiz-form";
+
+import { submitPlacementAction } from "../learning-actions";
 import styles from "./nivelamento.module.css";
-import { PlacementForm } from "./placement-form";
 
 export const metadata: Metadata = { title: "Quiz de nivelamento" };
 
@@ -39,7 +41,13 @@ export default async function PlacementPage() {
         ) : null}
       </header>
 
-      <PlacementForm questions={questions} dontKnowId={DONT_KNOW_OPTION_ID} />
+      <QuizForm
+        questions={questions}
+        action={submitPlacementAction}
+        dontKnowId={DONT_KNOW_OPTION_ID}
+        submitLabel="Ver meu resultado"
+        pendingLabel="Calculando seu nível…"
+      />
     </div>
   );
 }

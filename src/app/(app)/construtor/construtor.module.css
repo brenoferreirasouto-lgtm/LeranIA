@@ -1,0 +1,255 @@
+.page {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 44rem;
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+.lead {
+  font-size: var(--text-lg);
+  color: var(--ink-muted);
+}
+
+.privacy {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.builder {
+  display: grid;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.main {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.stepButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 2.5rem;
+  padding: 0 var(--space-3);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-muted);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.stepButton:hover {
+  border-color: var(--navy-300);
+  color: var(--ink);
+}
+
+.stepButton[aria-current="step"] {
+  border-color: var(--blue-600);
+  background: var(--blue-50);
+  color: var(--blue-700);
+}
+
+.stepNumber {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.panel:focus-visible {
+  box-shadow: none;
+  outline: 2px solid var(--blue-50);
+  outline-offset: 4px;
+}
+
+.panelTitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.requirement {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--ink-muted);
+}
+
+.textarea {
+  min-height: 7rem;
+  padding: var(--space-3);
+  resize: vertical;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+.example {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.example span {
+  font-weight: 700;
+}
+
+.nav,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.actions {
+  justify-content: flex-start;
+}
+
+.nav button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.finalPrompt {
+  margin: 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--navy-950);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.copyStatus {
+  min-height: 1.5em;
+  font-size: var(--text-sm);
+  color: var(--success);
+  font-weight: 700;
+}
+
+.warning {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--marker-soft);
+  border-left: 4px solid var(--marker);
+  color: var(--marker-ink);
+}
+
+.warningTitle,
+.tipsTitle {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.tips {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.tips ul {
+  margin: 0;
+  padding-left: var(--space-5);
+  display: grid;
+  gap: var(--space-1);
+  color: var(--ink-muted);
+}
+
+.complete {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.helper {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.linkButton {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--blue-600);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+/* A prévia é o próprio prompt sendo montado: o artefato no centro da tela. */
+.preview {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--navy-950);
+  color: var(--navy-200);
+}
+
+.previewLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cyan-400);
+}
+
+.previewText {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: #fff;
+}
+
+.previewEmpty {
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 1000px) {
+  .builder {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+
+  .preview {
+    position: sticky;
+    top: var(--space-5);
+  }
+}

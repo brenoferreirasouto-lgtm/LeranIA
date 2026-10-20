@@ -5,6 +5,7 @@ import * as z from "zod";
 
 import { IncompletePlacementError } from "@/lib/learning/scoring";
 import { requireUser } from "@/lib/session";
+import { AssessmentLockedError, saveAssessment } from "@/server/assessment";
 import {
   type AnswerResult,
   NotFoundError,
@@ -25,21 +26,24 @@ const slugSchema = z.string().regex(/^[a-z0-9-]{1,80}$/);
 
 /* ---------- SP02 — nivelamento ---------- */
 
-export type PlacementFormState = { missing?: string[]; message?: string };
+export type QuizFormState = { missing?: string[]; message?: string };
 
-export async function submitPlacementAction(
-  _prev: PlacementFormState,
-  formData: FormData,
-): Promise<PlacementFormState> {
-  const user = await requireUser("/nivelamento");
-
+function quizAnswers(formData: FormData): Record<string, string> {
   const answers: Record<string, string> = {};
   for (const [key, value] of formData.entries()) {
     if (key.startsWith("q:") && typeof value === "string") answers[key.slice(2)] = value;
   }
+  return answers;
+}
+
+export async function submitPlacementAction(
+  _prev: QuizFormState,
+  formData: FormData,
+): Promise<QuizFormState> {
+  const user = await requireUser("/nivelamento");
 
   try {
-    await savePlacement(user.id, answers);
+    await savePlacement(user.id, quizAnswers(formData));
   } catch (error) {
     if (error instanceof IncompletePlacementError) {
       return {
@@ -52,6 +56,28 @@ export async function submitPlacementAction(
   }
 
   redirect("/nivelamento/resultado");
+}
+
+/* ---------- SP12 — avaliação final ---------- */
+
+export async function submitAssessmentAction(
+  _prev: QuizFormState,
+  formData: FormData,
+): Promise<QuizFormState> {
+  const user = await requireUser("/avaliacao");
+  try {
+    await saveAssessment(user.id, quizAnswers(formData));
+  } catch (error) {
+    if (error instanceof IncompletePlacementError) {
+      return { missing: error.missing, message: "Responda todas as perguntas antes de enviar." };
+    }
+    if (error instanceof AssessmentLockedError) {
+      return { message: error.message };
+    }
+    console.error("Falha ao salvar a avaliação", error);
+    return { message: "Não foi possível salvar suas respostas agora. Tente de novo em instantes." };
+  }
+  redirect("/avaliacao/resultado");
 }
 
 /* ---------- SP01, U07, U08 — aula ---------- */

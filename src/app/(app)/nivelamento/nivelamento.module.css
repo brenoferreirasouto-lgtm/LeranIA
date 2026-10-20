@@ -30,37 +30,6 @@
   font-size: var(--text-sm);
 }
 
-.form {
-  display: grid;
-  gap: var(--space-4);
-}
-
-.card {
-  display: grid;
-  gap: var(--space-5);
-  padding: var(--space-5);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-}
-
-.questionSlot:focus-visible {
-  box-shadow: none;
-  outline: 2px solid var(--blue-50);
-  outline-offset: 8px;
-}
-
-.nav {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-3);
-}
-
-.nav button[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 /* Resultado (SP03) */
 
 .result {
@@ -94,43 +63,11 @@
   color: var(--navy-200);
 }
 
-.skills {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--space-4);
-}
 
-.skill {
-  display: grid;
-  gap: var(--space-1);
-}
 
-.skillHead {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-3);
-  font-size: var(--text-sm);
-}
 
-.skillValue {
-  font-family: var(--font-mono);
-  color: var(--ink-muted);
-}
 
-.skillTrack {
-  height: 0.5rem;
-  border-radius: 999px;
-  background: var(--blue-50);
-  overflow: hidden;
-}
 
-.skillFill {
-  height: 100%;
-  background: var(--blue-600);
-  border-radius: inherit;
-}
 
 .section {
   display: grid;
@@ -162,10 +99,6 @@
 }
 
 @media (min-width: 720px) {
-  .card {
-    padding: var(--space-6);
-  }
-
   .result {
     padding: var(--space-6);
   }

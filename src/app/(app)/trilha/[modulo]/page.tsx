@@ -46,6 +46,15 @@ export default async function LessonPage({ params }: Params) {
 
       <LessonContent sections={learningModule.lesson} />
 
+      {learningModule.relatedTool ? (
+        <aside className={styles.tool} aria-label="Ferramenta relacionada">
+          <p className={styles.toolText}>{learningModule.relatedTool.description}</p>
+          <Link href={learningModule.relatedTool.href} className="btn btn-secondary">
+            {learningModule.relatedTool.label}
+          </Link>
+        </aside>
+      ) : null}
+
       <footer className={styles.footer}>
         {lessonDone ? (
           <>
