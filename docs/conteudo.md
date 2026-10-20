@@ -1,0 +1,44 @@
+# Conteúdo educacional — como revisar e editar
+
+> **Situação em 19/10/2026: RASCUNHO.** Todo o conteúdo abaixo foi escrito como primeira versão para a equipe revisar. Nada aqui foi validado por professor ou especialista. Revise antes de apresentar a usuários reais.
+
+## Onde fica
+
+| Arquivo | O que tem | História |
+|---|---|---|
+| `src/content/placement.ts` | 10 questões do nivelamento e as faixas de nível | SP02, SP03 |
+| `src/content/tracks.ts` | As três trilhas (iniciante, intermediário, avançado) | U03, SP03 |
+| `src/content/modules/introducao-ia-generativa.ts` | Aula + 5 questões | SP01 |
+| `src/content/modules/estrutura-de-um-bom-prompt.ts` | Aula + 5 questões | U08 |
+| `src/content/modules/alucinacoes.ts` | Aula + 5 questões em cenários | SP04 |
+| `src/content/modules/privacidade-e-dados.ts` | Aula + 5 questões (conteúdo e quiz de privacidade) | U07 |
+| `src/content/index.ts` | Lista de módulos e nota mínima da prática | — |
+
+O conteúdo é código versionado: toda mudança passa por pull request e pelos testes automáticos (`src/content/content.test.ts`), que recusam ids repetidos, gabarito apontando para alternativa inexistente, questão sem explicação e trilha com módulo que não existe.
+
+## Regras para editar
+
+1. **Nunca mude nem reaproveite o `id` de uma questão já publicada.** As respostas das pessoas ficam gravadas com esse id. Para trocar uma questão, crie outra com id novo e remova a antiga.
+2. Toda questão precisa de explicação (aparece depois da resposta, SP13). Diga por que a certa está certa e, quando ajudar, por que a tentadora está errada.
+3. No nivelamento, toda questão tem a alternativa **"Ainda não sei"** (conta como erro). Ela existe para desestimular o chute.
+4. Exemplos de respostas de IA, citações e estudos usados nas questões são **fictícios** e servem para treinar a verificação. Fatos apresentados como verdadeiros (autores de livros, datas, artigos da LGPD) precisam ser conferidos na revisão.
+5. Prompts e respostas de IA aparecem em fonte monoespaçada: use os blocos `example` (aula) e `sample` (questão).
+
+## Lista de revisão
+
+- [ ] Os fatos citados estão corretos (O Cortiço/Aluísio Azevedo, 1890; Vidas Secas/Graciliano Ramos, 1938; LGPD, Lei nº 13.709/2018, e a lista de dados sensíveis do art. 5º, II).
+- [ ] A linguagem é adequada ao público definido (decisão pendente sobre menores de 18 anos).
+- [ ] Cada questão tem uma única resposta defensável e explicação clara.
+- [ ] Nenhum exemplo usa dados reais de pessoas.
+
+## Propostas que dependem de validação
+
+Estes valores foram escolhidos para o sistema funcionar e estão isolados para serem trocados sem mexer no resto do código:
+
+| Regra | Valor proposto | Onde mudar |
+|---|---|---|
+| Faixas do nivelamento | até 40% iniciante · 41–75% intermediário · acima de 75% avançado (com 10 questões: 0–4, 5–7, 8–10) | `LEVEL_RULES` em `src/content/placement.ts` |
+| Nota para concluir a prática do módulo | 70% (4 de 5) | `PRACTICE_PASS_PERCENT` em `src/content/index.ts` |
+| Estrutura das trilhas | Os mesmos 4 módulos em ordens diferentes; módulos que o nível já domina viram "revisão opcional" e não contam para concluir | `src/content/tracks.ts` |
+| Conclusão do módulo | Aula concluída **e** prática com a nota mínima | `src/server/learning.ts` |
+| Refazer | Nivelamento e prática podem ser refeitos à vontade; vale o nivelamento mais recente e a melhor nota da prática | `src/server/learning.ts` |
