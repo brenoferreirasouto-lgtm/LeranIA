@@ -21,7 +21,7 @@ test.describe("SP14 — Navegação básica", () => {
     await expect(menu.getByRole("link", { name: "Painel" })).toHaveAttribute("aria-current", "page");
     await expect(menu.getByText("Maria", { exact: true })).toBeVisible();
     await expect(menu.getByRole("button", { name: "Sair" })).toBeVisible();
-    for (const item of ["Minha jornada", "Trilha", "Nivelamento", "Construtor de prompt", "Avaliação final", "Resultado"]) {
+    for (const item of ["Minha jornada", "Trilha", "Missões", "Nivelamento", "Construtor de prompt", "Avaliação final", "Resultado"]) {
       await expect(menu.getByRole("link", { name: item })).toBeVisible();
     }
   });
