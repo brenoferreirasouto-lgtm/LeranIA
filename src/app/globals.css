@@ -264,3 +264,12 @@ a:hover {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Rótulo pequeno acima de títulos e questões (ex.: "Pergunta 3 de 10") */
+.eyebrow-text {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--blue-700);
+}

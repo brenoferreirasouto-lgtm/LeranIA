@@ -8,7 +8,7 @@ import { NavLink } from "./nav-link";
 import styles from "./site-header.module.css";
 
 /**
- * SP14 — Menu de navegação (versão básica da Fase A).
+ * SP14 — Menu de navegação.
  * Só lista o que já funciona; novas áreas entram aqui quando forem entregues.
  */
 export function SiteHeader({ user }: { user: CurrentUser | null }) {
@@ -20,6 +20,8 @@ export function SiteHeader({ user }: { user: CurrentUser | null }) {
           {user ? (
             <>
               <NavLink href="/painel">Painel</NavLink>
+              <NavLink href="/trilha">Trilha</NavLink>
+              <NavLink href="/nivelamento">Nivelamento</NavLink>
               <span className={styles.user} title={user.email}>
                 {user.name.split(" ")[0]}
               </span>
