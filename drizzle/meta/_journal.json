@@ -29,6 +29,13 @@
       "when": 1792529687490,
       "tag": "0003_gamificacao_jornada",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792531160757,
+      "tag": "0004_missoes",
+      "breakpoints": true
     }
   ]
 }

@@ -256,6 +256,7 @@ export const xpSourceEnum = pgEnum("xp_source", [
   "modulo",
   "avaliacao",
   "aprovacao",
+  "missao",
 ]);
 
 /** Cada pagamento de XP. O total da pessoa é a soma dos pontos, nunca um contador gravado. */
@@ -293,4 +294,46 @@ export const userAchievements = pgTable(
     earnedAt: timestamp("earned_at", { withTimezone: true }).notNull(),
   },
   (t) => [primaryKey({ columns: [t.userId, t.achievementId] })],
+);
+
+/*
+ * Missões (Fase C2). Mesmo formato da prática: no máximo uma tentativa em
+ * aberto por missão, uma resposta por passo. A missão de prompt grava só o
+ * resultado; o texto escrito pela pessoa nunca é gravado.
+ */
+export const missionAttempts = pgTable(
+  "mission_attempts",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    missionId: text("mission_id").notNull(),
+    total: integer("total").notNull(),
+    correct: integer("correct"),
+    passed: boolean("passed"),
+    startedAt: timestamp("started_at", { withTimezone: true }).notNull().defaultNow(),
+    finishedAt: timestamp("finished_at", { withTimezone: true }),
+  },
+  (t) => [
+    index("mission_attempts_user_mission_idx").on(t.userId, t.missionId),
+    uniqueIndex("mission_attempts_one_open_idx")
+      .on(t.userId, t.missionId)
+      .where(sql`${t.finishedAt} is null`),
+  ],
+);
+
+export const missionAnswers = pgTable(
+  "mission_answers",
+  {
+    attemptId: uuid("attempt_id")
+      .notNull()
+      .references(() => missionAttempts.id, { onDelete: "cascade" }),
+    stepId: text("step_id").notNull(),
+    /** Alternativas marcadas (uma, ou várias nos passos de "marque todas"). */
+    optionIds: text("option_ids").array().notNull(),
+    isCorrect: boolean("is_correct").notNull(),
+    answeredAt: timestamp("answered_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.attemptId, t.stepId] })],
 );
