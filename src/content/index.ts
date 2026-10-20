@@ -8,11 +8,14 @@ import "server-only";
  * src/server/content.ts.
  */
 import { alucinacoes } from "./modules/alucinacoes";
+import { comparacaoDePrompts } from "./modules/comparacao-de-prompts";
 import { estruturaDeUmBomPrompt } from "./modules/estrutura-de-um-bom-prompt";
 import { introducaoIaGenerativa } from "./modules/introducao-ia-generativa";
 import { privacidadeEDados } from "./modules/privacidade-e-dados";
+import { verificarInformacoes } from "./modules/verificar-informacoes";
 import type { Module } from "./types";
 
+export { ASSESSMENT_PASS_PERCENT, finalAssessment } from "./assessment";
 export { DONT_KNOW_OPTION_ID, LEVEL_RULES, placementQuestions } from "./placement";
 export { tracks } from "./tracks";
 export * from "./types";
@@ -20,7 +23,9 @@ export * from "./types";
 export const modules: Module[] = [
   introducaoIaGenerativa,
   estruturaDeUmBomPrompt,
+  comparacaoDePrompts,
   alucinacoes,
+  verificarInformacoes,
   privacidadeEDados,
 ];
 
