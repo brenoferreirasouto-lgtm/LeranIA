@@ -1,0 +1,98 @@
+.lesson {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.section {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.heading {
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.paragraph {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  max-width: 66ch;
+}
+
+.list {
+  margin: 0;
+  padding-left: var(--space-5);
+  display: grid;
+  gap: var(--space-2);
+  font-size: 1.125rem;
+  line-height: 1.6;
+  max-width: 66ch;
+}
+
+.list li::marker {
+  color: var(--blue-600);
+}
+
+.tip {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border-left: 4px solid var(--blue-600);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background: var(--blue-50);
+  max-width: 66ch;
+}
+
+.tipTitle {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--blue-700);
+}
+
+/* Exemplos: prompts e respostas de IA aparecem em fonte monoespaçada */
+.example {
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  max-width: 66ch;
+}
+
+.exampleHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.verdict {
+  font-weight: 700;
+}
+
+.exampleGood {
+  border-left: 4px solid var(--success);
+}
+
+.exampleGood .verdict {
+  color: var(--success);
+}
+
+.exampleBad {
+  border-left: 4px solid var(--marker);
+}
+
+.exampleBad .verdict {
+  color: var(--marker-ink);
+}
+
+.exampleText {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+}

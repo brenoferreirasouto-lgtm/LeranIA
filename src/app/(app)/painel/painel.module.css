@@ -62,3 +62,26 @@
   border-radius: var(--radius-md);
   text-align: center;
 }
+
+.cardFeature {
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 1px var(--blue-600);
+  gap: var(--space-3);
+}
+
+.moduleList {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: grid;
+}
+
+.moduleRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--line);
+}
