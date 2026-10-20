@@ -153,10 +153,21 @@ Os IDs seguem o esquema **SP/U** aprovado pelo PO em 19/10/2026 (a seção de ba
 |---|---|---|---|---|
 | **SP15** | Cadastro de usuário | Implementada | `src/app/(auth)/cadastro`, `src/app/(auth)/actions.ts`, `src/lib/validation/auth.ts` | `tests/e2e/auth.spec.ts`, `src/lib/validation/auth.test.ts` |
 | **U02** | Login | Implementada | `src/app/(auth)/entrar`, `src/app/(auth)/actions.ts`, `src/lib/session.ts`, `src/lib/rate-limit.ts` | `tests/e2e/auth.spec.ts`, `tests/integration/rate-limit.test.ts` |
-| **SP14** | Menu com as funcionalidades | Parcial: menu básico (Painel, Sair, Entrar, Criar conta) | `src/components/nav` | `tests/e2e/navigation-a11y.spec.ts` |
-| **SP09** | Painel de progresso | Parcial: painel com estado vazio real; o progresso entra com a trilha | `src/app/(app)/painel` | `tests/e2e/auth.spec.ts` |
+| **SP02** | Quiz de nivelamento | Implementada (conteúdo em rascunho) | `src/app/(app)/nivelamento`, `src/content/placement.ts`, `src/lib/learning/scoring.ts` | `tests/e2e/learning.spec.ts`, `src/lib/learning/scoring.test.ts`, `tests/integration/learning.test.ts` |
+| **SP03** | Direcionamento por nível | Implementada (faixas de nível em validação) | `src/app/(app)/nivelamento/resultado`, `src/content/tracks.ts` | `tests/e2e/learning.spec.ts`, `src/lib/learning/scoring.test.ts` |
+| **U03** | Visualizar a trilha de aprendizagem | Implementada | `src/app/(app)/trilha` | `tests/e2e/learning.spec.ts` |
+| **SP01** | Aula sobre IA generativa | Implementada (conteúdo em rascunho) | `src/app/(app)/trilha/[modulo]`, `src/content/modules/introducao-ia-generativa.ts` | `tests/e2e/learning.spec.ts` |
+| **SP04** | Identificação de alucinações | Implementada (conteúdo em rascunho) | `src/content/modules/alucinacoes.ts` | `tests/e2e/learning.spec.ts`, `tests/integration/learning.test.ts` |
+| **U08** | Estrutura de um bom prompt | Implementada (conteúdo em rascunho) | `src/content/modules/estrutura-de-um-bom-prompt.ts` | `src/content/content.test.ts` |
+| **U07** | Privacidade e IA (conteúdo + quiz) | Implementada (conteúdo em rascunho) | `src/content/modules/privacidade-e-dados.ts` | `tests/e2e/learning.spec.ts` (acessibilidade), `src/content/content.test.ts` |
+| **SP13** | Feedback dos exercícios | Implementada | `src/app/(app)/trilha/[modulo]/pratica`, `src/server/learning.ts` | `tests/e2e/learning.spec.ts`, `tests/integration/learning.test.ts` |
+| **SP05** | Continuar de onde parou | Implementada | `src/lib/learning/scoring.ts` (`nextActivity`), `src/components/learning/record-visit.tsx` | `tests/e2e/learning.spec.ts`, `src/lib/learning/scoring.test.ts` |
+| **SP09** | Painel de progresso | Implementada com dados reais da trilha | `src/app/(app)/painel` | `tests/e2e/learning.spec.ts` |
+| **SP14** | Menu com as funcionalidades | Parcial: Painel, Trilha, Nivelamento e Sair; cresce com as próximas histórias | `src/components/nav` | `tests/e2e/navigation-a11y.spec.ts` |
 
-**Pendências conhecidas da fundação:** recuperação de senha (precisa de serviço de e-mail), exclusão da conta pela própria pessoa, decisão sobre público menor de 18 anos e revisão do texto de privacidade (`/privacidade`).
+O conteúdo das aulas e questões é um **rascunho para revisão da equipe**; como revisar e o que ainda depende de validação está em [`docs/conteudo.md`](docs/conteudo.md).
+
+**Pendências conhecidas:** recuperação de senha (precisa de serviço de e-mail), exclusão da conta pela própria pessoa, decisão sobre público menor de 18 anos, revisão do texto de privacidade (`/privacidade`) e validação das faixas do nivelamento e da nota mínima da prática.
 
 ---
 
