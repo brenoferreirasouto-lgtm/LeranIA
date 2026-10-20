@@ -238,6 +238,13 @@ a:hover {
   border-radius: var(--radius-md);
 }
 
+.field-textarea {
+  min-height: 6rem;
+  padding: var(--space-3);
+  line-height: 1.5;
+  resize: vertical;
+}
+
 .field-input[aria-invalid="true"] {
   border-color: var(--danger);
 }

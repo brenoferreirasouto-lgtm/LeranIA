@@ -53,3 +53,17 @@ export async function completeModules(email: string, slugs: string[]) {
     await client.end();
   }
 }
+
+/** Atalho: grava uma missão concluída, que libera o Laboratório (ADR 0002, decisão 11). */
+export async function passMission(email: string, missionId = "checagem-de-fonte") {
+  await withClient(async (client) => {
+    const { rows } = await client.query<{ id: string }>("select id from users where email = $1", [email]);
+    const userId = rows[0]?.id;
+    if (!userId) throw new Error(`Usuário de teste não encontrado: ${email}`);
+    await client.query(
+      `insert into mission_attempts (user_id, mission_id, total, correct, passed, finished_at)
+       values ($1, $2, 4, 4, true, now())`,
+      [userId, missionId],
+    );
+  });
+}
