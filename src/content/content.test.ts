@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest";
 
 import {
   DONT_KNOW_OPTION_ID,
+  MISSION_PASS_PERCENT,
   STAGES,
   XP_RULES,
   achievements,
+  missions,
   finalAssessment,
   LEVEL_RULES,
   type Level,
@@ -140,6 +142,66 @@ describe("gamificação — catálogo", () => {
     for (const value of Object.values(XP_RULES)) {
       expect(Number.isInteger(value)).toBe(true);
       expect(value).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe("missões — integridade", () => {
+  const steps = missions.flatMap((m) => (m.kind === "steps" ? m.steps : []));
+
+  it("missões e passos têm ids únicos, e os passos não repetem ids de questões", () => {
+    const ids = missions.map((m) => m.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    const stepIds = steps.map((s) => s.id);
+    expect(new Set(stepIds).size).toBe(stepIds.length);
+    const questionIds = new Set(allQuestions.map((q) => q.id));
+    for (const id of stepIds) expect(questionIds.has(id)).toBe(false);
+  });
+
+  it("cada passo tem gabarito válido, explicação e dica", () => {
+    for (const step of steps) {
+      const optionIds = step.options.map((o) => o.id);
+      expect(new Set(optionIds).size, step.id).toBe(optionIds.length);
+      expect(step.correctOptionIds.length, step.id).toBeGreaterThan(0);
+      for (const id of step.correctOptionIds) expect(optionIds, step.id).toContain(id);
+      if (!step.multiple) expect(step.correctOptionIds, step.id).toHaveLength(1);
+      // "Marque todas" precisa de pelo menos uma alternativa que não se aplica.
+      if (step.multiple) expect(step.correctOptionIds.length, step.id).toBeLessThan(optionIds.length);
+      expect(step.explanation.length, step.id).toBeGreaterThan(20);
+      expect(step.hint.length, step.id).toBeGreaterThan(10);
+    }
+  });
+
+  it("toda missão em passos pode ser concluída e tem tolerância a erro", () => {
+    for (const m of missions) {
+      if (m.kind !== "steps") continue;
+      // Com 4 ou mais passos, dá para errar um e ainda concluir (70%).
+      expect(m.steps.length, m.id).toBeGreaterThanOrEqual(4);
+      expect(Math.round(((m.steps.length - 1) / m.steps.length) * 100), m.id).toBeGreaterThanOrEqual(
+        MISSION_PASS_PERCENT,
+      );
+    }
+  });
+
+  it("as missões liberam por módulos que existem e pagam XP positivo", () => {
+    for (const m of missions) {
+      if (m.unlock.kind === "module") {
+        const slug = m.unlock.moduleSlug;
+        expect(modules.some((mod) => mod.slug === slug), m.id).toBe(true);
+      }
+      expect(Number.isInteger(m.xp) && m.xp > 0, m.id).toBe(true);
+    }
+  });
+
+  it("conquistas de missão apontam para missões e módulos existentes", () => {
+    for (const a of achievements) {
+      const c = a.criterion;
+      if (c.kind === "mission-completed" || c.kind === "module-and-mission") {
+        expect(missions.some((m) => m.id === c.missionId), a.id).toBe(true);
+      }
+      if (c.kind === "module-and-mission") {
+        expect(modules.some((m) => m.slug === c.moduleSlug), a.id).toBe(true);
+      }
     }
   });
 });

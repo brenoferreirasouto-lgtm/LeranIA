@@ -7,7 +7,10 @@
  * vez; conquistas não dão XP; nada se perde; tudo é privado.
  */
 
-/** XP de cada atividade. Acertos contam só na primeira tentativa finalizada. */
+/**
+ * XP de cada atividade. Acertos contam só na primeira tentativa finalizada.
+ * O XP de cada missão fica na própria missão (src/content/missions.ts).
+ */
 export const XP_RULES = {
   /** Primeiro nivelamento concluído. Fixo, para não incentivar chute no lugar de "Ainda não sei". */
   placementCompleted: 20,
@@ -40,7 +43,13 @@ export type AchievementCriterion =
   | { kind: "perfect-first-practice"; moduleSlug: string }
   /** Todos os módulos obrigatórios da trilha atual concluídos. */
   | { kind: "track-completed" }
-  | { kind: "assessment-passed" };
+  | { kind: "assessment-passed" }
+  /** C2 — concluir uma missão. */
+  | { kind: "mission-completed"; missionId: string }
+  /** C2 — concluir um módulo e uma missão. */
+  | { kind: "module-and-mission"; moduleSlug: string; missionId: string }
+  /** C2 — concluir todas as missões do catálogo. */
+  | { kind: "all-missions" };
 
 export type Achievement = {
   /** Nunca mude um id publicado: as conquistas gravadas apontam para ele. */
@@ -87,5 +96,24 @@ export const achievements: Achievement[] = [
     title: "Aprovado",
     description: "Ser aprovado na avaliação final.",
     criterion: { kind: "assessment-passed" },
+  },
+  {
+    id: "prompt-completo",
+    title: "Prompt completo",
+    description:
+      "Concluir a missão \"Monte um prompt completo\": os quatro elementos preenchidos e nenhum dado pessoal.",
+    criterion: { kind: "mission-completed", missionId: "monte-um-prompt" },
+  },
+  {
+    id: "dados-protegidos",
+    title: "Dados protegidos",
+    description: "Concluir o módulo de Privacidade e a missão \"O que não colar no chat\".",
+    criterion: { kind: "module-and-mission", moduleSlug: "privacidade-e-dados", missionId: "o-que-nao-colar" },
+  },
+  {
+    id: "todas-as-missoes",
+    title: "Todas as missões",
+    description: "Concluir as seis missões.",
+    criterion: { kind: "all-missions" },
   },
 ];

@@ -18,6 +18,7 @@ import type { Module } from "./types";
 export { ASSESSMENT_PASS_PERCENT, finalAssessment } from "./assessment";
 export { DONT_KNOW_OPTION_ID, LEVEL_RULES, placementQuestions } from "./placement";
 export * from "./gamification";
+export { MISSION_PASS_PERCENT, findMission, missions } from "./missions";
 export { tracks } from "./tracks";
 export * from "./types";
 
