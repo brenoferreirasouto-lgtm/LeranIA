@@ -1,5 +1,19 @@
 import { randomUUID } from "node:crypto";
+import AxeBuilder from "@axe-core/playwright";
 import { type Page, expect } from "@playwright/test";
+
+const WCAG = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
+
+/**
+ * Verificação de acessibilidade (axe, WCAG 2.1 AA). Espera o título da
+ * página: depois de um redirecionamento, o Next aplica o título um instante
+ * depois de trocar o endereço, e o axe não pode rodar nesse intervalo.
+ */
+export async function expectAccessible(page: Page) {
+  await expect(page).toHaveTitle(/Learn AI/);
+  const results = await new AxeBuilder({ page }).withTags(WCAG).analyze();
+  expect(results.violations.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);
+}
 
 export const PASSWORD = "frase segura 123";
 

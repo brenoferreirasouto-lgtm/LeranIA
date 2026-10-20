@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm";
 import {
   boolean,
+  check,
   index,
   integer,
   pgEnum,
@@ -240,4 +241,56 @@ export const assessmentAnswers = pgTable(
     isCorrect: boolean("is_correct").notNull(),
   },
   (t) => [primaryKey({ columns: [t.attemptId, t.questionId] })],
+);
+
+/*
+ * Gamificação (Fase C1). XP e conquistas são derivados dos dados acima:
+ * o servidor calcula o que a pessoa tem direito a receber e grava só o que
+ * falta. As chaves únicas impedem pagar a mesma atividade duas vezes.
+ */
+
+export const xpSourceEnum = pgEnum("xp_source", [
+  "nivelamento",
+  "aula",
+  "pratica",
+  "modulo",
+  "avaliacao",
+  "aprovacao",
+]);
+
+/** Cada pagamento de XP. O total da pessoa é a soma dos pontos, nunca um contador gravado. */
+export const xpEvents = pgTable(
+  "xp_events",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    source: xpSourceEnum("source").notNull(),
+    /** Slug do módulo, id da avaliação ou "nivelamento". */
+    sourceId: text("source_id").notNull(),
+    /** Tentativa que gerou o XP, quando houver (pode ser de tabelas diferentes, por isso sem FK). */
+    attemptId: uuid("attempt_id"),
+    points: integer("points").notNull(),
+    /** Quando a atividade aconteceu. */
+    earnedAt: timestamp("earned_at", { withTimezone: true }).notNull(),
+  },
+  (t) => [
+    uniqueIndex("xp_events_user_source_idx").on(t.userId, t.source, t.sourceId),
+    index("xp_events_user_earned_idx").on(t.userId, t.earnedAt),
+    check("xp_events_points_positive", sql`${t.points} > 0`),
+  ],
+);
+
+/** Conquistas obtidas: uma por pessoa e conquista. O catálogo fica em src/content/gamification.ts. */
+export const userAchievements = pgTable(
+  "user_achievements",
+  {
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    achievementId: text("achievement_id").notNull(),
+    earnedAt: timestamp("earned_at", { withTimezone: true }).notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.userId, t.achievementId] })],
 );
