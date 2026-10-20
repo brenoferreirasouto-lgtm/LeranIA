@@ -3,6 +3,7 @@ import "server-only";
 import { asc, eq, inArray } from "drizzle-orm";
 
 import { db } from "@/db";
+import { loadProjects } from "@/server/project-snapshots";
 import {
   assessmentAnswers,
   assessmentAttempts,
@@ -14,6 +15,7 @@ import {
   placementAttempts,
   practiceAnswers,
   practiceAttempts,
+  projectEvents,
   sessions,
   userAchievements,
   users,
@@ -114,6 +116,14 @@ export async function exportUserData(userId: string) {
 
   const xp = await db.select().from(xpEvents).where(eq(xpEvents.userId, userId)).orderBy(asc(xpEvents.earnedAt));
   const achievements = await db.select().from(userAchievements).where(eq(userAchievements.userId, userId));
+  const labProjects = await loadProjects(db, { userId });
+  const labEvents = labProjects.length
+    ? await db
+        .select()
+        .from(projectEvents)
+        .where(inArray(projectEvents.projectId, labProjects.map((p) => p.id)))
+        .orderBy(asc(projectEvents.createdAt))
+    : [];
   const userSessions = await db
     .select({
       createdAt: sessions.createdAt,
@@ -140,6 +150,10 @@ export async function exportUserData(userId: string) {
     missoes: missions.map((m) => ({ ...without(m, "userId"), respostas: answersOf(missionRows, m.id) })),
     xp: xp.map((x) => without(x, "userId")),
     conquistas: achievements.map((a) => without(a, "userId")),
+    projetos: labProjects.map((p) => ({
+      ...without(p, "userId"),
+      historico: labEvents.filter((e) => e.projectId === p.id).map((e) => without(e, "projectId")),
+    })),
     sessoes: userSessions,
   };
 }

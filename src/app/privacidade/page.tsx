@@ -57,6 +57,11 @@ export default async function PrivacyPage() {
               O que você faz para aprender: respostas do nivelamento, das práticas, da avaliação final e das
               missões, o progresso nos módulos, o XP e as conquistas.
             </li>
+            <li>
+              Os projetos que você cria no Laboratório: título, objetivo, público, problema, tarefas, referências e
+              o registro de como usou a IA. Só você vê. Evite colocar dados pessoais neles: os campos avisam
+              quando encontram um e-mail, telefone, CPF ou senha.
+            </li>
           </ul>
 
           <h2>O que não guardamos</h2>
@@ -71,7 +76,8 @@ export default async function PrivacyPage() {
 
           <h2>Para que usamos</h2>
           <p>
-            Para identificar você, guardar seu progresso, calcular seu XP e suas conquistas e proteger sua conta.
+            Para identificar você, guardar seu progresso e seus projetos, calcular seu XP e suas conquistas e proteger
+            sua conta.
             Mais nada.
           </p>
 
@@ -91,8 +97,8 @@ export default async function PrivacyPage() {
 
           <h2>Por quanto tempo</h2>
           <p>
-            Enquanto a sua conta existir. Quando você exclui a conta, apagamos todos os dados ligados a ela na
-            mesma hora.
+            Enquanto a sua conta existir. Quando você exclui um projeto ou a conta, apagamos os dados ligados a
+            eles na mesma hora.
           </p>
 
           <h2>Seus direitos</h2>
