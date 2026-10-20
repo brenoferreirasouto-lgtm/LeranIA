@@ -20,6 +20,7 @@ import {
   gradePlacement,
   percentOf,
   practicePassed,
+  skillScoresFrom,
 } from "@/lib/learning/scoring";
 
 /*
@@ -96,15 +97,7 @@ export async function getLatestPlacement(userId: string): Promise<LatestPlacemen
     .from(placementAnswers)
     .where(eq(placementAnswers.attemptId, attempt.id));
 
-  const skillOf = new Map(placementQuestions.map((q) => [q.id, q.skill]));
-  const bySkill: Partial<Record<Skill, SkillScore>> = {};
-  for (const answer of answers) {
-    const skill = skillOf.get(answer.questionId);
-    if (!skill) continue; // questão removida do conteúdo depois da tentativa
-    const score = (bySkill[skill] ??= { correct: 0, total: 0 });
-    score.total += 1;
-    if (answer.isCorrect) score.correct += 1;
-  }
+  const bySkill = skillScoresFrom(placementQuestions, answers);
 
   return {
     attemptId: attempt.id,

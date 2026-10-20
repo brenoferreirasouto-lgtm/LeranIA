@@ -210,3 +210,34 @@ export const practiceAnswers = pgTable(
   },
   (t) => [primaryKey({ columns: [t.attemptId, t.questionId] })],
 );
+
+/** SP12 — tentativas da avaliação final, respondida de uma vez. */
+export const assessmentAttempts = pgTable(
+  "assessment_attempts",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    assessmentId: text("assessment_id").notNull(),
+    correct: integer("correct").notNull(),
+    total: integer("total").notNull(),
+    scorePercent: integer("score_percent").notNull(),
+    passed: boolean("passed").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [index("assessment_attempts_user_idx").on(t.userId, t.createdAt)],
+);
+
+export const assessmentAnswers = pgTable(
+  "assessment_answers",
+  {
+    attemptId: uuid("attempt_id")
+      .notNull()
+      .references(() => assessmentAttempts.id, { onDelete: "cascade" }),
+    questionId: text("question_id").notNull(),
+    optionId: text("option_id").notNull(),
+    isCorrect: boolean("is_correct").notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.attemptId, t.questionId] })],
+);

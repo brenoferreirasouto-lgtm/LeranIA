@@ -15,6 +15,13 @@
       "when": 1792457005575,
       "tag": "0001_nucleo_educacional",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792458756183,
+      "tag": "0002_avaliacao_final",
+      "breakpoints": true
     }
   ]
 }
