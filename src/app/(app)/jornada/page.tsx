@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 
 import { AchievementMedal } from "@/components/journey/achievement-medal";
+import { SkillMap } from "@/components/journey/skill-map";
 import { StageMeter } from "@/components/journey/stage-meter";
-import { STAGES, XP_RULES, finalAssessment, missions, modules } from "@/content";
+import { ASSESSMENT_PASS_PERCENT, SKILL_LABEL, STAGES, XP_RULES, finalAssessment, missions, modules } from "@/content";
 import { formatDate } from "@/lib/format";
 import { requireUser } from "@/lib/session";
-import { ensureRewards, getJourney } from "@/server/rewards";
+import { moduleTitle } from "@/server/content";
+import { ensureRewards, getJourney, getSkillMap } from "@/server/rewards";
 
 import styles from "./jornada.module.css";
 
@@ -57,8 +59,16 @@ function missionXpText(): string {
 export default async function JourneyPage() {
   const user = await requireUser("/jornada");
   await ensureRewards(user.id);
-  const journey = await getJourney(user.id);
+  const [journey, skills] = await Promise.all([getJourney(user.id), getSkillMap(user.id)]);
   const { stage } = journey;
+  const skillItems = skills.map((s) => ({
+    skill: s.skill,
+    label: SKILL_LABEL[s.skill],
+    state: s.state,
+    pending: s.pendingSlugs.map((slug) => ({ slug, title: moduleTitle(slug) })),
+    confirmedAt: s.confirmedAt,
+  }));
+  const confirmed = skills.filter((s) => s.state === "confirmada").length;
 
   return (
     <div className={styles.page}>
@@ -75,6 +85,18 @@ export default async function JourneyPage() {
             : "Você chegou ao último estágio."}{" "}
           XP vem só de aprendizagem registrada, e cada atividade conta uma vez.
         </p>
+      </section>
+
+      <section className={styles.section} aria-labelledby="habilidades">
+        <div className={styles.sectionHead}>
+          <h2 id="habilidades" className={styles.sectionTitle}>
+            Mapa de habilidades
+          </h2>
+          <span className={styles.count}>
+            {confirmed} de {skills.length} confirmadas
+          </span>
+        </div>
+        <SkillMap items={skillItems} passPercent={ASSESSMENT_PASS_PERCENT} />
       </section>
 
       <section className={styles.section} aria-labelledby="conquistas">
