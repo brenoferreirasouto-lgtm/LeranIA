@@ -28,7 +28,18 @@ export async function signIn(page: Page, email: string, password = PASSWORD, pat
   await page.getByRole("button", { name: "Entrar" }).click();
 }
 
+/** No celular o menu fica recolhido atrás do botão "Menu" (SP14). */
+export async function openMenu(page: Page) {
+  // Espera a área logada carregar: no celular aparece "Menu"; em telas largas, "Sair".
+  await page.getByRole("banner").getByRole("button", { name: /^(Menu|Sair)$/ }).first().waitFor();
+  const toggle = page.getByRole("button", { name: "Menu" });
+  if (await toggle.isVisible()) {
+    if ((await toggle.getAttribute("aria-expanded")) !== "true") await toggle.click();
+  }
+}
+
 export async function signOut(page: Page) {
+  await openMenu(page);
   await page.getByRole("button", { name: "Sair" }).click();
   await expect(page).toHaveURL("/");
 }

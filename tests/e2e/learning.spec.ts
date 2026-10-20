@@ -5,7 +5,7 @@ import { type Page, expect, test } from "@playwright/test";
 import { introducaoIaGenerativa } from "../../src/content/modules/introducao-ia-generativa";
 import { DONT_KNOW_OPTION_ID, placementQuestions } from "../../src/content/placement";
 import type { Question } from "../../src/content/types";
-import { formAlert, signIn, signOut, signUp, uniqueEmail } from "./helpers";
+import { formAlert, openMenu, signIn, signOut, signUp, uniqueEmail } from "./helpers";
 
 const WCAG = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
 
@@ -159,12 +159,13 @@ test.describe("U03/SP01/SP13 — trilha, aula e prática com feedback", () => {
     await expect(card.getByText("Concluído")).toBeVisible();
     await expect(card.getByText("melhor nota 80%")).toBeVisible();
 
+    await openMenu(page);
     await page.getByRole("link", { name: "Painel" }).click();
     await expect(page.getByRole("progressbar", { name: "Módulos obrigatórios concluídos" })).toHaveAttribute(
       "aria-valuenow",
       "1",
     );
-    await expect(page.getByText("1 de 4")).toBeVisible();
+    await expect(page.getByText("1 de 6")).toBeVisible();
   });
 
   test("prática abaixo de 70% não conclui o módulo e permite tentar de novo", async ({ page }) => {
