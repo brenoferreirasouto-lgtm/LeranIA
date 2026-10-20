@@ -126,3 +126,20 @@
     padding: var(--space-7);
   }
 }
+
+/* Confirmação de idade: alternativa para quem tem menos de 13 anos. */
+.aside {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.asideTitle {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--ink);
+}
