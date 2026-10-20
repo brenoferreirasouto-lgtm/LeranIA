@@ -110,6 +110,56 @@ O Learn AI busca ampliar o acesso a conhecimentos importantes para o uso conscie
 
 ---
 
+# Como rodar o projeto
+
+**Stack:** Next.js 16 + TypeScript, PostgreSQL 16 (Drizzle ORM), Better Auth, Vitest e Playwright. As decisões e os motivos estão em [`docs/adr/0001-stack-e-fundacao.md`](docs/adr/0001-stack-e-fundacao.md).
+
+**Requisitos:** Node.js 22 ou superior e Docker (ou um PostgreSQL 16 instalado na máquina).
+
+```bash
+cp .env.example .env      # depois gere um BETTER_AUTH_SECRET (instrução no arquivo)
+docker compose up -d      # sobe o PostgreSQL com os bancos learn_ai e learn_ai_test
+npm install
+npm run db:migrate        # cria as tabelas no banco de desenvolvimento
+npm run dev               # http://localhost:3000
+```
+
+### Testes
+
+| Comando | O que verifica |
+|---|---|
+| `npm run lint` | Padrões de código (ESLint) |
+| `npm run typecheck` | Tipos do TypeScript |
+| `npm test` | Testes de unidade e de integração (usam o banco `learn_ai_test`) |
+| `npm run test:e2e` | Testes de sistema no navegador, em tela de computador e de celular, incluindo acessibilidade (WCAG 2.1 AA) |
+
+Antes dos testes, crie as tabelas no banco de teste:
+
+```bash
+DATABASE_URL=postgres://learnai:localdev@localhost:5432/learn_ai_test npm run db:migrate
+```
+
+Para gravar o **screencast dos testes** pedido na Terceira Entrega: `RECORD_VIDEO=1 npm run test:e2e` (os vídeos ficam em `test-results/`).
+
+O GitHub Actions roda lint, tipos, migrações, testes e build em todo pull request.
+
+---
+
+# Rastreabilidade das histórias
+
+Os IDs seguem o esquema **SP/U** aprovado pelo PO em 19/10/2026 (a seção de backlog acima será atualizada ao mesclar a branch `alinha-backlog-com-trello`). Só entra como "implementada" o que tem código e teste automatizado passando.
+
+| ID | História | Status | Onde está | Testes |
+|---|---|---|---|---|
+| **SP15** | Cadastro de usuário | Implementada | `src/app/(auth)/cadastro`, `src/app/(auth)/actions.ts`, `src/lib/validation/auth.ts` | `tests/e2e/auth.spec.ts`, `src/lib/validation/auth.test.ts` |
+| **U02** | Login | Implementada | `src/app/(auth)/entrar`, `src/app/(auth)/actions.ts`, `src/lib/session.ts`, `src/lib/rate-limit.ts` | `tests/e2e/auth.spec.ts`, `tests/integration/rate-limit.test.ts` |
+| **SP14** | Menu com as funcionalidades | Parcial: menu básico (Painel, Sair, Entrar, Criar conta) | `src/components/nav` | `tests/e2e/navigation-a11y.spec.ts` |
+| **SP09** | Painel de progresso | Parcial: painel com estado vazio real; o progresso entra com a trilha | `src/app/(app)/painel` | `tests/e2e/auth.spec.ts` |
+
+**Pendências conhecidas da fundação:** recuperação de senha (precisa de serviço de e-mail), exclusão da conta pela própria pessoa, decisão sobre público menor de 18 anos e revisão do texto de privacidade (`/privacidade`).
+
+---
+
 # Equipe
 
 | Integrante | Papel principal

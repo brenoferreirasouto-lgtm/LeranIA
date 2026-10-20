@@ -1,0 +1,17 @@
+# Banco de dados para desenvolvimento local: `docker compose up -d`
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: learnai
+      POSTGRES_PASSWORD: localdev
+      POSTGRES_DB: learn_ai
+    ports:
+      - "5432:5432"
+    volumes:
+      - learn-ai-db:/var/lib/postgresql/data
+      - ./scripts/create-test-db.sql:/docker-entrypoint-initdb.d/create-test-db.sql:ro
+
+volumes:
+  learn-ai-db:
