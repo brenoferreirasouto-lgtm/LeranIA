@@ -11,6 +11,12 @@ export const NAME_MAX = 80;
 export const PASSWORD_MIN = 8;
 export const PASSWORD_MAX = 128;
 export const EMAIL_MAX = 254;
+/** Idade mínima para usar o Learn AI (ADR 0002). */
+export const MIN_AGE = 13;
+
+const ageConfirmation = z.literal("on", {
+  error: `O Learn AI é para quem tem ${MIN_AGE} anos ou mais. Confirme a sua idade para continuar.`,
+});
 
 const email = z
   .string()
@@ -43,7 +49,19 @@ export const signUpSchema = z.object({
   acceptTerms: z.literal("on", {
     error: "Para criar a conta, aceite os termos de uso e a política de privacidade.",
   }),
+  confirmAge: ageConfirmation,
 });
+
+/** Contas criadas antes da idade mínima confirmam no próximo acesso. */
+export const confirmAgeSchema = z.object({ confirmAge: ageConfirmation });
+
+/** Exclusão da conta: senha atual e ciência de que é permanente. */
+export const deleteAccountSchema = z.object({
+  password: z.string().min(1, { error: "Informe sua senha." }).max(PASSWORD_MAX),
+  confirmDelete: z.literal("on", { error: "Marque que você entende que a exclusão é permanente." }),
+});
+
+export type DeleteAccountInput = z.infer<typeof deleteAccountSchema>;
 
 export const signInSchema = z.object({
   email,

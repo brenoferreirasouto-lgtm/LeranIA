@@ -84,9 +84,15 @@ export function MainMenu({ firstName, email, signOut }: Props) {
           ))}
         </ul>
         <div className={styles.account}>
-          <span className={styles.user} title={email}>
+          <Link
+            href="/conta"
+            className={styles.user}
+            title={email}
+            aria-current={isActive("/conta") ? "page" : undefined}
+          >
+            <span className="visually-hidden">Minha conta: </span>
             {firstName}
-          </span>
+          </Link>
           <form action={signOut}>
             <button type="submit" className={styles.signOut}>
               Sair

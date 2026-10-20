@@ -81,6 +81,8 @@ O público-alvo inicial do Learn AI é composto por:
 
 Estudantes do ensino médio, técnico e superior, que usam ferramentas de IA para pesquisar, estudar, fazer trabalhos e tirar dúvidas, e aqueles que estão começando nessa jornada, aprendendo assim a utilizá-las de forma mais crítica, segura, eficiente e de forma produtiva.
 
+A plataforma é para quem tem **13 anos ou mais** ([ADR 0002](docs/adr/0002-decisoes-de-produto.md)).
+
 Esse público geralmente busca respostas rápidas, prefere conteúdos visuais e interativos e pode ter dificuldades para identificar informações falsas, criar bons prompts ou verificar se uma resposta da IA é realmente confiável.
 
 ---
@@ -143,11 +145,22 @@ Para gravar o **screencast dos testes** pedido na Terceira Entrega: `RECORD_VIDE
 
 O GitHub Actions roda lint, tipos, migrações, testes e build em todo pull request.
 
+### Publicar (ainda não feito)
+
+A recomendação do [ADR 0002](docs/adr/0002-decisoes-de-produto.md) é a Vercel, que roda Next.js sem configuração extra, com um PostgreSQL gerenciado (por exemplo, Neon ou Supabase). Os dois têm plano gratuito, mas exigem uma conta da equipe, por isso nada foi publicado.
+
+1. Crie o banco PostgreSQL 16 no provedor e copie a URL de conexão (com `sslmode=require`).
+2. Rode as migrações nesse banco a partir da sua máquina: `DATABASE_URL="<url do banco>" npm run db:migrate`.
+3. Na Vercel, importe o repositório e defina as variáveis de ambiente: `DATABASE_URL`, `BETTER_AUTH_SECRET` (um valor novo, gerado como no `.env.example`) e `BETTER_AUTH_URL` (o endereço público, ex.: `https://learn-ai.vercel.app`).
+4. Publique e teste o fluxo completo: cadastro, nivelamento, uma aula, uma prática e a página "Minha conta".
+
+A recuperação de senha precisa de um serviço de e-mail transacional (por exemplo, Resend) e ainda não existe.
+
 ---
 
 # Rastreabilidade das histórias
 
-Os IDs seguem o esquema **SP/U** aprovado pelo PO em 19/10/2026 (a seção de backlog acima será atualizada ao mesclar a branch `alinha-backlog-com-trello`). Só entra como "implementada" o que tem código e teste automatizado passando.
+Os IDs seguem o esquema **SP/U** aprovado pelo PO em 19/10/2026 (backlog da branch `alinha-backlog-com-trello`, copiado para a seção "Product Backlog" abaixo) e os IDs SP23–SP26 definidos em 20/10/2026. As decisões de produto estão em [`docs/adr/0002-decisoes-de-produto.md`](docs/adr/0002-decisoes-de-produto.md). Só entra como "implementada" o que tem código e teste automatizado passando.
 
 | ID | História | Status | Onde está | Testes |
 |---|---|---|---|---|
@@ -170,13 +183,15 @@ Os IDs seguem o esquema **SP/U** aprovado pelo PO em 19/10/2026 (a seção de ba
 | **SP10** | Visualizar resultado final | Implementada | `src/app/(app)/resultado` | `tests/e2e/practice-tools.spec.ts`, `tests/integration/assessment.test.ts` |
 | **SP11** | Recomendações de aprendizagem | Implementada | `recommend` em `src/lib/learning/scoring.ts`, `src/components/learning/recommendations.tsx` | `src/lib/learning/scoring.test.ts`, `tests/e2e/practice-tools.spec.ts` |
 | **SP14** | Menu com todas as funcionalidades | Implementada: menu completo, recolhível no celular | `src/components/nav` | `tests/e2e/navigation-a11y.spec.ts` |
-| Card "Jornada de Evolução do Usuário" (sem ID) | XP, estágios e histórico | Implementada (C1). Mapa de habilidades aguarda decisão da equipe | `src/content/gamification.ts`, `src/lib/learning/gamification.ts`, `src/server/rewards.ts`, `src/app/(app)/jornada` | `src/lib/learning/gamification.test.ts`, `tests/integration/rewards.test.ts`, `tests/e2e/journey.spec.ts` |
-| Card "Missões e Desafios Práticos" (sem ID) | Missões práticas com XP e feedback | Implementada (C2: 6 missões, conteúdo em rascunho) | `src/content/missions.ts`, `src/lib/learning/missions.ts`, `src/server/missions.ts`, `src/app/(app)/missoes` | `src/lib/learning/missions.test.ts`, `tests/integration/missions.test.ts`, `tests/e2e/missions.spec.ts` |
-| Card "Conquistas, Medalhas e Reconhecimento" (sem ID) | Conquistas com critério verificável | Implementada (9 conquistas: 6 na C1 e 3 na C2) | `achievements` em `src/content/gamification.ts`, `src/app/(app)/jornada` | `src/lib/learning/gamification.test.ts`, `tests/integration/rewards.test.ts`, `tests/integration/missions.test.ts`, `tests/e2e/journey.spec.ts` |
+| **SP23** Jornada de Evolução do Usuário | XP, estágios e histórico | Implementada (C1). Mapa de habilidades aguarda decisão da equipe | `src/content/gamification.ts`, `src/lib/learning/gamification.ts`, `src/server/rewards.ts`, `src/app/(app)/jornada` | `src/lib/learning/gamification.test.ts`, `tests/integration/rewards.test.ts`, `tests/e2e/journey.spec.ts` |
+| **SP24** Missões e Desafios Práticos | Missões práticas com XP e feedback | Implementada (C2: 6 missões, conteúdo em rascunho) | `src/content/missions.ts`, `src/lib/learning/missions.ts`, `src/server/missions.ts`, `src/app/(app)/missoes` | `src/lib/learning/missions.test.ts`, `tests/integration/missions.test.ts`, `tests/e2e/missions.spec.ts` |
+| **SP25** Conquistas, Medalhas e Reconhecimento | Conquistas com critério verificável | Implementada (9 conquistas: 6 na C1 e 3 na C2) | `achievements` em `src/content/gamification.ts`, `src/app/(app)/jornada` | `src/lib/learning/gamification.test.ts`, `tests/integration/rewards.test.ts`, `tests/integration/missions.test.ts`, `tests/e2e/journey.spec.ts` |
 
 O conteúdo das aulas e questões é um **rascunho para revisão da equipe**; como revisar e o que ainda depende de validação está em [`docs/conteudo.md`](docs/conteudo.md).
 
-**Pendências conhecidas:** recuperação de senha (precisa de serviço de e-mail), exclusão da conta pela própria pessoa, decisão sobre público menor de 18 anos, revisão do texto de privacidade (`/privacidade`) e validação das faixas do nivelamento e da nota mínima da prática.
+**Conta e privacidade (ADR 0002):** idade mínima de 13 anos declarada no cadastro (contas antigas confirmam no próximo acesso), página "Minha conta" com download dos dados e exclusão da conta, e página de privacidade descrevendo o que o sistema guarda. Testes: `tests/e2e/account.spec.ts`, `tests/integration/account.test.ts`.
+
+**Pendências conhecidas:** recuperação de senha (precisa de serviço de e-mail), canal de contato para pedidos de correção de dados, revisão jurídica da página de privacidade e revisão pedagógica do conteúdo.
 
 ---
 
@@ -196,35 +211,54 @@ O conteúdo das aulas e questões é um **rascunho para revisão da equipe**; co
 
 As histórias foram organizadas por prioridade, considerando primeiro as funcionalidades necessárias para formar o fluxo básico da aplicação.
 
+> **Fonte das prioridades:** a priorização oficial é a registrada no [board do Trello](https://trello.com/b/H73rMBcf/kanban-learn-ai). Histórias com código `U` foram levantadas no refinamento do board e ainda não possuíam código `SP`; elas são histórias de primeira classe e valem tanto quanto as demais.
+
 ## Prioridade P0 — Essenciais
 
 | ID | História de Usuário |
 |---|---|
-| **F01** | Como estudante, quero acessar uma introdução sobre IA generativa para entender seus conceitos básicos. |
-| **F02** | Como usuário, quero realizar um quiz de nivelamento para descobrir meu nível de conhecimento sobre IA. |
-| **F03** | Como usuário, quero ser direcionado para o nível adequado após o quiz para começar o curso com conteúdos compatíveis com meu conhecimento. |
-| **F04** | Como estudante, quero aprender a identificar alucinações de IA para não confiar automaticamente em respostas geradas. |
-| **F05** | Como estudante, quero continuar meus estudos de onde parei para não precisar procurar novamente o conteúdo. |
-| **F06** | Como estudante, quero montar um prompt seguindo etapas guiadas para transformar uma necessidade em uma instrução clara para a IA. |
-| **F07** | Como estudante, quero comparar prompts bons e ruins, para entender na prática o que diferencia um prompt eficiente de um mal elaborado. |
-| **F08**| Como estudante, quero aprender a verificar informações produzidas por IA para reduzir o risco de desinformação. |
+| **SP15** | Como estudante, quero criar uma conta para acompanhar meu aprendizado. |
+| **U02** | Como estudante, quero fazer login para acessar meu progresso. |
+| **U03** | Como estudante, quero visualizar a trilha de aprendizagem para saber o que estudar. |
+| **SP01** | Como estudante, quero acessar uma introdução sobre IA generativa para entender seus conceitos básicos. |
+| **SP02** | Como usuário, quero realizar um quiz de nivelamento para descobrir meu nível de conhecimento sobre IA. |
+| **SP03** | Como usuário, quero ser direcionado para o nível adequado após o quiz para começar o curso com conteúdos compatíveis com meu conhecimento. |
+| **SP04** | Como estudante, quero aprender a identificar alucinações de IA para não confiar automaticamente em respostas geradas. |
+| **U08** | Como estudante, quero aprender a estrutura de um bom prompt, para me comunicar de forma clara e eficiente com sistemas de IA. |
+| **U07** | Como estudante, quero aprender sobre privacidade e IA, para entender os riscos e adotar boas práticas ao interagir com essas tecnologias. |
+| **SP13** | Como estudante, quero receber feedback dos exercícios que realizo, para entender meus erros e acertos e evoluir no aprendizado. |
 
 ## Prioridade P1 — Importantes
 
 | ID | História de Usuário |
 |---|---|
-| **F09** | Como estudante, quero visualizar meu progresso para saber quanto da trilha já concluí. |
-| **F10** | Como estudante, quero visualizar meu resultado final para saber como foi meu desempenho na trilha de aprendizagem. |
-| **F11** | Como estudante, quero receber recomendações de conteúdo com base no meu desempenho para saber quais temas devo revisar ou aprofundar. |
-| **F12** | Como estudante, quero realizar um quiz ao final de uma etapa para avaliar o que aprendi. |
-| **F13** |Como estudante, quero receber feedback dos exercícios que realizo, para entender meus erros e acertos e evoluir no aprendizado. |
+| **SP06** | Como estudante, quero montar um prompt seguindo etapas guiadas para transformar uma necessidade em uma instrução clara para a IA. |
+| **SP07** | Como estudante, quero comparar prompts bons e ruins, para entender na prática o que diferencia um prompt eficiente de um mal elaborado. |
+| **SP08** | Como estudante, quero aprender a verificar informações produzidas por IA para reduzir o risco de desinformação. |
+| **SP12** | Como estudante, quero realizar um quiz ao final de uma etapa para avaliar o que aprendi. |
+| **SP09** | Como estudante, quero visualizar meu progresso para saber quanto da trilha já concluí. |
 
 ## Prioridade P2 — Complementares
 
 | ID | História de Usuário |
 |---|---|
-| **F14** | Como usuário, quero ter acesso a um menu interativo com todas as funcionalidades disponíveis no sistema para encontrar e utilizar os recursos de forma fácil e organizada. |
-| **F15** | Como estudante, quero criar uma conta para acompanhar meu aprendizado. |
+| **SP05** | Como estudante, quero continuar meus estudos de onde parei para não precisar procurar novamente o conteúdo. |
+| **SP10** | Como estudante, quero visualizar meu resultado final para saber como foi meu desempenho na trilha de aprendizagem. |
+| **SP11** | Como estudante, quero receber recomendações de conteúdo com base no meu desempenho para saber quais temas devo revisar ou aprofundar. |
+| **SP14** | Como usuário, quero ter acesso a um menu interativo com todas as funcionalidades disponíveis no sistema para encontrar e utilizar os recursos de forma fácil e organizada. |
+
+## Gamificação e projetos — IDs definidos em 20/10/2026
+
+Os cards abaixo estão no Trello (lista "02 — Solução & Produto") sem ID. Os IDs continuam a numeração depois do maior já usado, para não reaproveitar os dos cards arquivados ([ADR 0002](docs/adr/0002-decisoes-de-produto.md)). Atualize os nomes dos cards no Trello com estes IDs.
+
+| ID | História de Usuário | Confirmação (critérios de aceitação) |
+|---|---|---|
+| **SP23** | Como estudante, quero acompanhar minha evolução com XP e estágios para ver o quanto aprendi. | XP só por aula, prática, avaliação e missão corrigidas no servidor; cada atividade paga uma vez; acertos contam só na primeira tentativa; 5 estágios por XP; histórico de XP visível só para a pessoa. |
+| **SP24** | Como estudante, quero cumprir missões práticas para aplicar o que aprendi em situações reais. | Missão libera ao concluir o módulo que pratica; passos com explicação depois de cada resposta; conclui com 70% dos passos; XP só na primeira conclusão; dica aberta na Trilha Iniciante. |
+| **SP25** | Como estudante, quero ganhar conquistas para ver reconhecido o que demonstrei. | Cada conquista tem critério conferido no banco; é concedida uma vez, com data; não dá XP; as que faltam mostram o critério. |
+| **SP26** | Como estudante, quero desenvolver um projeto autoral com etapas guiadas para transformar o que aprendi em algo meu. | Libera ao concluir a primeira missão; projeto privado com objetivo, público, problema, etapas e tarefas, referências e registro de uso de IA; lista de conferência automática; aviso de dados pessoais; conquista "Projeto autoral" sem XP. |
+
+As histórias do Plano Plus estão arquivadas. Se voltarem ao backlog, recebem os IDs **SP27 a SP33**.
 
 ---
 
