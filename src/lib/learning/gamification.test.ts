@@ -23,6 +23,7 @@ function facts(overrides: Partial<LearnerFacts> = {}): LearnerFacts {
     firstAssessment: null,
     firstPassedAssessment: null,
     missionsCompleted: [],
+    assessmentSkillPasses: [],
     ...overrides,
   };
 }

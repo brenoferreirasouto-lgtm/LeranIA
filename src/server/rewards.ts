@@ -2,9 +2,10 @@ import "server-only";
 
 import { and, asc, desc, eq, inArray, isNotNull, sql, sum } from "drizzle-orm";
 
-import { type Achievement, achievements, finalAssessment } from "@/content";
+import { ASSESSMENT_PASS_PERCENT, type Achievement, type Skill, achievements, finalAssessment } from "@/content";
 import { db } from "@/db";
 import {
+  assessmentAnswers,
   assessmentAttempts,
   learnerProfiles,
   missionAttempts,
@@ -24,6 +25,8 @@ import {
   xpEventLabel,
 } from "@/lib/learning/gamification";
 import type { RewardSummary } from "@/lib/learning/public-types";
+import { percentOf, skillScoresFrom } from "@/lib/learning/scoring";
+import { type SkillMapEntry, skillMap } from "@/lib/learning/skills";
 
 /*
  * Gamificação (Fase C1) no banco. `syncRewards` roda dentro da mesma
@@ -82,6 +85,28 @@ async function loadFacts(ex: Executor, userId: string): Promise<LearnerFacts> {
     .from(assessmentAttempts)
     .where(and(eq(assessmentAttempts.userId, userId), eq(assessmentAttempts.assessmentId, finalAssessment.id)))
     .orderBy(asc(assessmentAttempts.createdAt));
+  // Mapa de habilidades: primeira tentativa da avaliação com 70% ou mais em cada tema.
+  const assessmentAnswerRows = assessmentRows.length
+    ? await ex
+        .select({
+          attemptId: assessmentAnswers.attemptId,
+          questionId: assessmentAnswers.questionId,
+          isCorrect: assessmentAnswers.isCorrect,
+        })
+        .from(assessmentAnswers)
+        .where(inArray(assessmentAnswers.attemptId, assessmentRows.map((a) => a.id)))
+    : [];
+  const assessmentSkillPasses: { skill: Skill; at: Date }[] = [];
+  for (const attempt of assessmentRows) {
+    const bySkill = skillScoresFrom(
+      finalAssessment.questions,
+      assessmentAnswerRows.filter((a) => a.attemptId === attempt.id),
+    );
+    for (const [skill, score] of Object.entries(bySkill) as [Skill, { correct: number; total: number }][]) {
+      if (percentOf(score.correct, score.total) < ASSESSMENT_PASS_PERCENT) continue;
+      if (!assessmentSkillPasses.some((p) => p.skill === skill)) assessmentSkillPasses.push({ skill, at: attempt.at });
+    }
+  }
   // C2 — primeira tentativa concluída (aprovada) de cada missão.
   const missionsCompleted = await ex
     .selectDistinctOn([missionAttempts.missionId], {
@@ -112,6 +137,7 @@ async function loadFacts(ex: Executor, userId: string): Promise<LearnerFacts> {
       : null,
     firstPassedAssessment: firstPassed ? { id: firstPassed.id, at: firstPassed.at } : null,
     missionsCompleted: missionsCompleted.map((m) => ({ missionId: m.missionId, attemptId: m.attemptId, at: m.at as Date })),
+    assessmentSkillPasses,
   };
 }
 
@@ -205,6 +231,11 @@ export async function getSourceXp(
   return rows
     .filter((r) => sources.some((s) => s.source === r.source && s.sourceId === r.sourceId))
     .reduce((s, r) => s + r.points, 0);
+}
+
+/** Mapa de habilidades da pessoa (estado de cada uma, a partir dos dados gravados). */
+export async function getSkillMap(userId: string): Promise<SkillMapEntry[]> {
+  return skillMap(await loadFacts(db, userId));
 }
 
 export type JourneyAchievement = Achievement & { earnedAt: Date | null };

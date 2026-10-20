@@ -31,18 +31,33 @@ O conteúdo é código versionado: toda mudança passa por pull request e pelos 
 
 ## Lista de revisão
 
-- [ ] Os fatos usados nas missões estão corretos (Edward Jenner e a vacina contra a varíola em 1796; "vacina" vem do latim "vacca"; o Censo 2022 do IBGE contou mais de 203 milhões de pessoas; EPE e ANEEL publicam dados do setor elétrico).
-- [ ] Os fatos citados estão corretos (O Cortiço/Aluísio Azevedo, 1890; Vidas Secas/Graciliano Ramos, 1938; Dom Casmurro/Machado de Assis, 1899, narrado por Bento Santiago; LGPD, Lei nº 13.709/2018, e a lista de dados sensíveis do art. 5º, II).
+- [x] Os fatos citados foram conferidos em 20/10/2026 (ADR 0002, decisão 7). Tabela abaixo.
 - [ ] As fontes indicadas no módulo de verificação continuam valendo (planalto.gov.br, IBGE, Google Acadêmico, SciELO, Portal de Periódicos da CAPES).
-- [ ] A linguagem é adequada ao público definido (decisão pendente sobre menores de 18 anos).
+- [ ] A linguagem é adequada ao público definido (13 anos ou mais, ADR 0002).
 - [ ] Cada questão tem uma única resposta defensável e explicação clara.
 - [ ] Nenhum exemplo usa dados reais de pessoas.
 
-## Propostas que dependem de validação
+### Fatos conferidos em 20/10/2026
 
-Estes valores foram escolhidos para o sistema funcionar e estão isolados para serem trocados sem mexer no resto do código:
+| Fato usado no conteúdo | Onde aparece | Fonte |
+|---|---|---|
+| *O Cortiço* é de Aluísio Azevedo, publicado em 1890 | Alucinações | [Toda Matéria](https://www.todamateria.com.br/o-cortico/) |
+| *Vidas Secas* é de Graciliano Ramos, publicado em 1938, sobre uma família de retirantes no sertão | Alucinações | [Toda Matéria](https://www.todamateria.com.br/vidas-secas-de-graciliano-ramos/) |
+| *Dom Casmurro* é de Machado de Assis, de 1899 (página de rosto; a Garnier lançou em 1900), narrado por Bento Santiago | Alucinações | [Wikipédia](https://en.wikipedia.org/wiki/Dom_Casmurro) |
+| LGPD é a Lei nº 13.709/2018; o art. 5º, II lista os dados sensíveis (origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato ou organização religiosa, filosófica ou política, saúde, vida sexual, dado genético ou biométrico) | Privacidade | [Planalto](https://planalto.gov.br/ccivil_03/_ato2015-2018/2018/Lei/L13709.htm) |
+| Censo 2022: 203.080.756 habitantes | Missão "Checagem de fonte" | [IBGE Educa](https://educa.ibge.gov.br/jovens/conheca-o-brasil/populacao/22005-censo-2022-o-retrato-atualizado-do-brasil.html) |
+| Edward Jenner aplicou a primeira vacina, contra a varíola, em 1796 | Missão "Caça às alucinações" | [Conass](https://www.conass.org.br/?p=28714) |
+| "Vacina" vem do latim *vaccinus*, de *vacca* (vaca) | Missão "Caça às alucinações" | [Etymonline](https://www.etymonline.com/pt/word/vaccination) |
+| A EPE publica o Balanço Energético Nacional | Missão "Trabalho em grupo com IA" | [Cenário Energia](https://cenarioenergia.com.br/2025/07/01/epe-divulga-relatorio-final-do-ben-2025-e-destaca-avanco-das-fontes-renovaveis-no-brasil/) |
+| A ANEEL publica dados de geração por fonte (solar em cerca de 23% da capacidade instalada no início de 2026, longe dos "45%" que a missão usa como dado suspeito) | Missão "Trabalho em grupo com IA" | [Movimento Econômico](https://movimentoeconomico.com.br/economia/energia/2026/01/13/aneel-preve-crescimento-de-91-gw-na-matriz-eletrica-brasileira-em-2026/) |
 
-| Regra | Valor proposto | Onde mudar |
+A checagem cobre fatos, não pedagogia: a revisão das questões e explicações continua com a equipe.
+
+## Regras decididas (ADR 0002)
+
+Estes valores foram propostos para o sistema funcionar e viraram regra em 20/10/2026 ([ADR 0002](adr/0002-decisoes-de-produto.md)). Continuam isolados para serem trocados sem mexer no resto do código:
+
+| Regra | Valor | Onde mudar |
 |---|---|---|
 | Faixas do nivelamento | até 40% iniciante · 41–75% intermediário · acima de 75% avançado (com 10 questões: 0–4, 5–7, 8–10) | `LEVEL_RULES` em `src/content/placement.ts` |
 | Nota para concluir a prática do módulo | 70% (4 de 5) | `PRACTICE_PASS_PERCENT` em `src/content/index.ts` |
@@ -68,6 +83,6 @@ A equipe aprovou estas regras no documento "Proposta de gamificação — Learn 
 | Dica nas missões | Aberta na Trilha Iniciante, fechada nas outras; usar a dica não reduz o XP | `src/app/(app)/missoes/[missao]/page.tsx` |
 | Sem ranking, sem sequência de dias e sem missões diárias | — | — |
 
-**Aguardando decisão:** o mapa de habilidades (com o corte de 70% na avaliação) e a conquista "Todas as habilidades", que depende dele, ficaram de fora até a equipe aprovar.
+**Mapa de habilidades (ADR 0002):** cada tema fica "confirmado" com os módulos concluídos e 70% ou mais nas questões dele em alguma tentativa da avaliação final (o mesmo corte das recomendações). Com os cinco confirmados, vem a conquista "Todas as habilidades". Regras em `src/lib/learning/skills.ts`.
 
 Regras para editar conquistas e missões: nunca mude nem reaproveite o `id` de uma conquista, missão ou passo publicado (as conquistas gravadas apontam para ele). Mudar um valor de XP vale para o que for concedido dali em diante; o XP já gravado não muda.

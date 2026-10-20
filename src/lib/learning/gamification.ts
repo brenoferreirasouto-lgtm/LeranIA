@@ -12,6 +12,7 @@ import {
   type Achievement,
   type Level,
   STAGES,
+  type Skill,
   XP_RULES,
   achievements,
   finalAssessment,
@@ -21,6 +22,7 @@ import {
 } from "@/content";
 
 import type { ModuleProgress } from "./scoring";
+import { skillMap } from "./skills";
 
 export type XpSource = "nivelamento" | "aula" | "pratica" | "modulo" | "avaliacao" | "aprovacao" | "missao";
 
@@ -56,6 +58,8 @@ export type LearnerFacts = {
   firstPassedAssessment: { id: string; at: Date } | null;
   /** C2 — primeira conclusão de cada missão. */
   missionsCompleted: { missionId: string; attemptId: string; at: Date }[];
+  /** Primeira tentativa da avaliação com 70% ou mais nas questões de cada tema. */
+  assessmentSkillPasses: { skill: Skill; at: Date }[];
 };
 
 const knownModules = new Set(modules.map((m) => m.slug));
@@ -186,6 +190,11 @@ export function achievementEarnedAt(achievement: Achievement, facts: LearnerFact
       const moduleDone = facts.progress.find((p) => p.moduleSlug === criterion.moduleSlug)?.completedAt ?? null;
       const mission = missionDone(facts, criterion.missionId);
       return moduleDone && mission ? latest([moduleDone, mission]) : null;
+    }
+    case "all-skills-confirmed": {
+      const map = skillMap(facts);
+      if (map.some((entry) => !entry.confirmedAt)) return null;
+      return latest(map.map((entry) => entry.confirmedAt as Date));
     }
     case "all-missions": {
       const dates = missions.map((m) => missionDone(facts, m.id));

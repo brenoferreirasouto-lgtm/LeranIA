@@ -49,7 +49,9 @@ export type AchievementCriterion =
   /** C2 — concluir um módulo e uma missão. */
   | { kind: "module-and-mission"; moduleSlug: string; missionId: string }
   /** C2 — concluir todas as missões do catálogo. */
-  | { kind: "all-missions" };
+  | { kind: "all-missions" }
+  /** Mapa de habilidades: as cinco confirmadas na avaliação (ADR 0002). */
+  | { kind: "all-skills-confirmed" };
 
 export type Achievement = {
   /** Nunca mude um id publicado: as conquistas gravadas apontam para ele. */
@@ -96,6 +98,12 @@ export const achievements: Achievement[] = [
     title: "Aprovado",
     description: "Ser aprovado na avaliação final.",
     criterion: { kind: "assessment-passed" },
+  },
+  {
+    id: "todas-as-habilidades",
+    title: "Todas as habilidades",
+    description: "Ter as cinco habilidades confirmadas: módulos concluídos e 70% ou mais em cada tema da avaliação final.",
+    criterion: { kind: "all-skills-confirmed" },
   },
   {
     id: "prompt-completo",
