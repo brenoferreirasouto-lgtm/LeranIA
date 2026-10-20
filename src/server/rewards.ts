@@ -27,6 +27,8 @@ import {
 import type { RewardSummary } from "@/lib/learning/public-types";
 import { percentOf, skillScoresFrom } from "@/lib/learning/scoring";
 import { type SkillMapEntry, skillMap } from "@/lib/learning/skills";
+import { authoredAt } from "@/lib/projects";
+import { loadProjects } from "@/server/project-snapshots";
 
 /*
  * Gamificação (Fase C1) no banco. `syncRewards` roda dentro da mesma
@@ -138,6 +140,10 @@ async function loadFacts(ex: Executor, userId: string): Promise<LearnerFacts> {
     firstPassedAssessment: firstPassed ? { id: firstPassed.id, at: firstPassed.at } : null,
     missionsCompleted: missionsCompleted.map((m) => ({ missionId: m.missionId, attemptId: m.attemptId, at: m.at as Date })),
     assessmentSkillPasses,
+    authoredProjects: (await loadProjects(ex, { userId })).flatMap((p) => {
+      const at = authoredAt(p);
+      return at ? [{ projectId: p.id, at }] : [];
+    }),
   };
 }
 

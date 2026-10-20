@@ -43,6 +43,13 @@
       "when": 1792536515961,
       "tag": "0005_idade_minima",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792538772523,
+      "tag": "0006_laboratorio",
+      "breakpoints": true
     }
   ]
 }

@@ -13,8 +13,10 @@ import {
   type Question,
   modules,
   placementQuestions,
+  projectTemplates,
   tracks,
 } from "./index";
+import { PROJECT_LIMITS, createProjectSchema } from "../lib/projects";
 
 /*
  * Protege o conteúdo contra erros de edição: ids repetidos, gabarito
@@ -201,6 +203,29 @@ describe("missões — integridade", () => {
       }
       if (c.kind === "module-and-mission") {
         expect(modules.some((m) => m.slug === c.moduleSlug), a.id).toBe(true);
+      }
+    }
+  });
+});
+
+describe("modelos do Laboratório — integridade", () => {
+  it("os modelos têm ids únicos, aceitos pelo formulário de criação", () => {
+    const ids = projectTemplates.map((t) => t.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const t of projectTemplates) {
+      expect(createProjectSchema.safeParse({ templateId: t.id, title: "Teste" }).success, t.id).toBe(true);
+    }
+  });
+
+  it("cada modelo tem etapas com nomes únicos e tarefas sugeridas dentro dos limites", () => {
+    for (const t of projectTemplates) {
+      expect(t.stages.length, t.id).toBeGreaterThanOrEqual(3);
+      const titles = t.stages.map((s) => s.title);
+      expect(new Set(titles).size, t.id).toBe(titles.length);
+      for (const stage of t.stages) {
+        expect(stage.tasks.length, stage.title).toBeGreaterThan(0);
+        expect(stage.tasks.length, stage.title).toBeLessThanOrEqual(PROJECT_LIMITS.tasksPerStage);
+        for (const task of stage.tasks) expect(task.length, task).toBeLessThanOrEqual(PROJECT_LIMITS.task);
       }
     }
   });
