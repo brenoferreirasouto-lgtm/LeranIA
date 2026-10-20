@@ -1,5 +1,6 @@
 import { type Page, expect, test } from "@playwright/test";
 
+import { achievements } from "../../src/content/gamification";
 import { alucinacoes } from "../../src/content/modules/alucinacoes";
 import { DONT_KNOW_OPTION_ID, placementQuestions } from "../../src/content/placement";
 import { expectAccessible, signUp, uniqueEmail } from "./helpers";
@@ -46,8 +47,8 @@ test.describe("C1 — Jornada de Evolução e Conquistas", () => {
     await card.getByRole("link", { name: "Ver minha jornada" }).click();
     await expect(page).toHaveURL("/jornada");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Estágio 1 de 5");
-    await expect(page.getByText("0 de 6", { exact: true })).toBeVisible();
-    await expect(page.getByText("Ainda não obtida")).toHaveCount(6);
+    await expect(page.getByText(`0 de ${achievements.length}`, { exact: true })).toBeVisible();
+    await expect(page.getByText("Ainda não obtida")).toHaveCount(achievements.length);
     await expect(page.getByText(/Nenhum XP ainda/)).toBeVisible();
     await expectAccessible(page);
   });
@@ -86,7 +87,7 @@ test.describe("C1 — Jornada de Evolução e Conquistas", () => {
     await page.goto("/jornada");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Estágio 2 de 5");
     await expect(page.getByText("100 XP", { exact: true })).toBeVisible();
-    await expect(page.getByText("2 de 6", { exact: true })).toBeVisible();
+    await expect(page.getByText(`2 de ${achievements.length}`, { exact: true })).toBeVisible();
     const history = page.getByRole("region", { name: "Histórico de XP" });
     await expect(history.getByRole("listitem")).toHaveCount(3);
     await expect(history).toContainText("Prática, primeira tentativa: Como identificar alucinações");

@@ -15,15 +15,16 @@ import {
   XP_RULES,
   achievements,
   finalAssessment,
+  missions,
   modules,
   tracks,
 } from "@/content";
 
 import type { ModuleProgress } from "./scoring";
 
-export type XpSource = "nivelamento" | "aula" | "pratica" | "modulo" | "avaliacao" | "aprovacao";
+export type XpSource = "nivelamento" | "aula" | "pratica" | "modulo" | "avaliacao" | "aprovacao" | "missao";
 
-export const XP_SOURCES: XpSource[] = ["nivelamento", "aula", "pratica", "modulo", "avaliacao", "aprovacao"];
+export const XP_SOURCES: XpSource[] = ["nivelamento", "aula", "pratica", "modulo", "avaliacao", "aprovacao", "missao"];
 
 /** Um pagamento de XP. A chave (pessoa + source + sourceId) é única no banco. */
 export type XpEntitlement = {
@@ -53,9 +54,12 @@ export type LearnerFacts = {
   firstAssessment: FinishedAttempt | null;
   /** Primeira tentativa aprovada da avaliação final. */
   firstPassedAssessment: { id: string; at: Date } | null;
+  /** C2 — primeira conclusão de cada missão. */
+  missionsCompleted: { missionId: string; attemptId: string; at: Date }[];
 };
 
 const knownModules = new Set(modules.map((m) => m.slug));
+const missionById = new Map(missions.map((m) => [m.id, m]));
 
 export function xpEntitlements(facts: LearnerFacts): XpEntitlement[] {
   const result: XpEntitlement[] = [];
@@ -128,6 +132,18 @@ export function xpEntitlements(facts: LearnerFacts): XpEntitlement[] {
     });
   }
 
+  for (const done of facts.missionsCompleted) {
+    const mission = missionById.get(done.missionId);
+    if (!mission) continue; // missão removida do conteúdo
+    result.push({
+      source: "missao",
+      sourceId: mission.id,
+      attemptId: done.attemptId,
+      points: mission.xp,
+      earnedAt: done.at,
+    });
+  }
+
   return result;
 }
 
@@ -164,7 +180,23 @@ export function achievementEarnedAt(achievement: Achievement, facts: LearnerFact
     }
     case "assessment-passed":
       return facts.firstPassedAssessment?.at ?? null;
+    case "mission-completed":
+      return missionDone(facts, criterion.missionId);
+    case "module-and-mission": {
+      const moduleDone = facts.progress.find((p) => p.moduleSlug === criterion.moduleSlug)?.completedAt ?? null;
+      const mission = missionDone(facts, criterion.missionId);
+      return moduleDone && mission ? latest([moduleDone, mission]) : null;
+    }
+    case "all-missions": {
+      const dates = missions.map((m) => missionDone(facts, m.id));
+      if (dates.length === 0 || dates.some((d) => d === null)) return null;
+      return latest(dates as Date[]);
+    }
   }
+}
+
+function missionDone(facts: LearnerFacts, missionId: string): Date | null {
+  return facts.missionsCompleted.find((m) => m.missionId === missionId)?.at ?? null;
 }
 
 export function achievementEntitlements(facts: LearnerFacts): AchievementEntitlement[] {
@@ -220,6 +252,8 @@ export function xpEventLabel(source: XpSource, sourceId: string): string {
       return "Avaliação final, primeira tentativa";
     case "aprovacao":
       return "Aprovação na avaliação final";
+    case "missao":
+      return `Missão concluída: ${missionById.get(sourceId)?.title ?? sourceId}`;
   }
 }
 

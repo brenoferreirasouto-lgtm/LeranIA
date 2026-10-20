@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { finalAssessment, modules, tracks } from "@/content";
+import { finalAssessment, missions, modules, tracks } from "@/content";
 
 import {
   type LearnerFacts,
@@ -22,6 +22,7 @@ function facts(overrides: Partial<LearnerFacts> = {}): LearnerFacts {
     firstPractices: [],
     firstAssessment: null,
     firstPassedAssessment: null,
+    missionsCompleted: [],
     ...overrides,
   };
 }
@@ -229,5 +230,60 @@ describe("histórico — textos", () => {
     expect(xpEventLabel("aula", "alucinacoes")).toBe("Aula concluída: Como identificar alucinações");
     expect(xpEventLabel("nivelamento", "nivelamento")).toBe("Nivelamento concluído");
     expect(xpEventLabel("aprovacao", finalAssessment.id)).toBe("Aprovação na avaliação final");
+  });
+});
+
+describe("C2 — missões no XP e nas conquistas", () => {
+  const ids = (f: LearnerFacts) => achievementEntitlements(f).map((a) => a.achievementId);
+
+  it("cada missão concluída paga o XP da própria missão, ligado à tentativa", () => {
+    const xp = xpEntitlements(
+      facts({
+        missionsCompleted: [
+          { missionId: "conserte-o-prompt", attemptId: "m1", at: day(5) },
+          { missionId: "trabalho-em-grupo", attemptId: "m2", at: day(6) },
+          { missionId: "missao-removida", attemptId: "m3", at: day(6) },
+        ],
+      }),
+    );
+    expect(xp).toEqual([
+      { source: "missao", sourceId: "conserte-o-prompt", attemptId: "m1", points: 30, earnedAt: day(5) },
+      { source: "missao", sourceId: "trabalho-em-grupo", attemptId: "m2", points: 60, earnedAt: day(6) },
+    ]);
+  });
+
+  it("as seis missões somam 210 XP, como na proposta", () => {
+    const xp = xpEntitlements(
+      facts({ missionsCompleted: missions.map((m, i) => ({ missionId: m.id, attemptId: `m${i}`, at: day(1) })) }),
+    );
+    expect(sum(xp)).toBe(210);
+  });
+
+  it("Prompt completo vem da missão do construtor", () => {
+    expect(ids(facts({ missionsCompleted: [{ missionId: "monte-um-prompt", attemptId: "m", at: day(3) }] }))).toEqual([
+      "prompt-completo",
+    ]);
+  });
+
+  it("Dados protegidos exige o módulo e a missão, na data do que veio por último", () => {
+    const mission = { missionId: "o-que-nao-colar", attemptId: "m", at: day(8) };
+    expect(ids(facts({ missionsCompleted: [mission] }))).not.toContain("dados-protegidos");
+    expect(ids(facts({ progress: [completed("privacidade-e-dados", day(4))] }))).not.toContain("dados-protegidos");
+    expect(
+      achievementEntitlements(facts({ progress: [completed("privacidade-e-dados", day(4))], missionsCompleted: [mission] })),
+    ).toContainEqual({ achievementId: "dados-protegidos", earnedAt: day(8) });
+  });
+
+  it("Todas as missões exige as seis", () => {
+    const all = missions.map((m, i) => ({ missionId: m.id, attemptId: `m${i}`, at: day(i + 1) }));
+    expect(ids(facts({ missionsCompleted: all.slice(1) }))).not.toContain("todas-as-missoes");
+    expect(achievementEntitlements(facts({ missionsCompleted: all }))).toContainEqual({
+      achievementId: "todas-as-missoes",
+      earnedAt: day(all.length),
+    });
+  });
+
+  it("nomeia a missão no histórico", () => {
+    expect(xpEventLabel("missao", "conserte-o-prompt")).toBe("Missão concluída: Conserte o prompt");
   });
 });
