@@ -163,7 +163,13 @@ Os IDs seguem o esquema **SP/U** aprovado pelo PO em 19/10/2026 (a seção de ba
 | **SP13** | Feedback dos exercícios | Implementada | `src/app/(app)/trilha/[modulo]/pratica`, `src/server/learning.ts` | `tests/e2e/learning.spec.ts`, `tests/integration/learning.test.ts` |
 | **SP05** | Continuar de onde parou | Implementada | `src/lib/learning/scoring.ts` (`nextActivity`), `src/components/learning/record-visit.tsx` | `tests/e2e/learning.spec.ts`, `src/lib/learning/scoring.test.ts` |
 | **SP09** | Painel de progresso | Implementada com dados reais da trilha | `src/app/(app)/painel` | `tests/e2e/learning.spec.ts` |
-| **SP14** | Menu com as funcionalidades | Parcial: Painel, Trilha, Nivelamento e Sair; cresce com as próximas histórias | `src/components/nav` | `tests/e2e/navigation-a11y.spec.ts` |
+| **SP06** | Construtor guiado de prompts | Implementada (tudo no navegador, nada é salvo) | `src/app/(app)/construtor`, `src/lib/prompt-builder.ts` | `tests/e2e/practice-tools.spec.ts`, `src/lib/prompt-builder.test.ts` |
+| **SP07** | Comparação de prompts | Implementada (conteúdo em rascunho) | `src/content/modules/comparacao-de-prompts.ts` | `tests/e2e/practice-tools.spec.ts` |
+| **SP08** | Verificar informações produzidas por IA | Implementada (conteúdo em rascunho) | `src/content/modules/verificar-informacoes.ts` | `tests/e2e/practice-tools.spec.ts` |
+| **SP12** | Quiz de avaliação do aprendizado | Implementada (libera ao fim da trilha; regra em validação) | `src/app/(app)/avaliacao`, `src/server/assessment.ts`, `src/content/assessment.ts` | `tests/e2e/practice-tools.spec.ts`, `tests/integration/assessment.test.ts` |
+| **SP10** | Visualizar resultado final | Implementada | `src/app/(app)/resultado` | `tests/e2e/practice-tools.spec.ts`, `tests/integration/assessment.test.ts` |
+| **SP11** | Recomendações de aprendizagem | Implementada | `recommend` em `src/lib/learning/scoring.ts`, `src/components/learning/recommendations.tsx` | `src/lib/learning/scoring.test.ts`, `tests/e2e/practice-tools.spec.ts` |
+| **SP14** | Menu com todas as funcionalidades | Implementada: menu completo, recolhível no celular | `src/components/nav` | `tests/e2e/navigation-a11y.spec.ts` |
 
 O conteúdo das aulas e questões é um **rascunho para revisão da equipe**; como revisar e o que ainda depende de validação está em [`docs/conteudo.md`](docs/conteudo.md).
 

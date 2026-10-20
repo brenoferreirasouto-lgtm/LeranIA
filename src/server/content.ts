@@ -21,6 +21,7 @@ export function toPublicQuestion(question: Question): PublicQuestion {
     sample: question.sample,
     prompt: question.prompt,
     options: question.options.map((o) => ({ id: o.id, text: o.text })),
+    optionStyle: question.optionStyle,
   };
 }
 

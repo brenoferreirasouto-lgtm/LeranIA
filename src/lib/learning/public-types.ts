@@ -10,6 +10,7 @@ export type PublicQuestion = {
   sample?: { label: string; text: string };
   prompt: string;
   options: PublicOption[];
+  optionStyle?: "prompt";
 };
 
 export type Feedback = {

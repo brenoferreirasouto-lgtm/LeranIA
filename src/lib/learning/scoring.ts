@@ -3,11 +3,16 @@
  * serem testadas isoladamente e reaproveitadas pelo servidor e pelo painel.
  */
 import {
+  ASSESSMENT_PASS_PERCENT,
   LEVEL_RULES,
   type Level,
   PRACTICE_PASS_PERCENT,
+  type Question,
+  SKILL_TOPIC,
   type Skill,
   type Track,
+  finalAssessment,
+  modules,
   placementQuestions,
 } from "@/content";
 
@@ -26,36 +31,46 @@ export function levelForPercent(percent: number): Level {
 
 export type SkillScore = { correct: number; total: number };
 
-export type PlacementResult = {
+export type GradedAnswer = { questionId: string; optionId: string; isCorrect: boolean };
+
+export type QuizResult = {
   correct: number;
   total: number;
   percent: number;
-  level: Level;
   bySkill: Partial<Record<Skill, SkillScore>>;
-  graded: { questionId: string; optionId: string; isCorrect: boolean }[];
+  graded: GradedAnswer[];
 };
 
-export class IncompletePlacementError extends Error {
+export type PlacementResult = QuizResult & { level: Level };
+export type AssessmentResult = QuizResult & { passed: boolean };
+
+export class IncompleteQuizError extends Error {
   constructor(public readonly missing: string[]) {
     super(`Questões sem resposta: ${missing.join(", ")}`);
   }
 }
 
+/** Nome mantido para o nivelamento (SP02). */
+export { IncompleteQuizError as IncompletePlacementError };
+
 /**
- * SP02 — corrige o nivelamento no servidor. Exige resposta em todas as
- * questões ("Ainda não sei" conta como resposta, e como erro).
+ * Corrige um questionário respondido de uma vez (nivelamento e avaliação).
+ * Exige resposta válida em todas as questões; a correção é sempre no servidor.
  */
-export function gradePlacement(answers: Record<string, string | undefined>): PlacementResult {
-  const missing = placementQuestions
+export function gradeQuestions(
+  questions: Question[],
+  answers: Record<string, string | undefined>,
+): QuizResult {
+  const missing = questions
     .filter((q) => {
       const chosen = answers[q.id];
       return !chosen || !q.options.some((o) => o.id === chosen);
     })
     .map((q) => q.id);
-  if (missing.length > 0) throw new IncompletePlacementError(missing);
+  if (missing.length > 0) throw new IncompleteQuizError(missing);
 
   const bySkill: Partial<Record<Skill, SkillScore>> = {};
-  const graded = placementQuestions.map((q) => {
+  const graded = questions.map((q) => {
     const optionId = answers[q.id] as string;
     const isCorrect = optionId === q.correctOptionId;
     const score = (bySkill[q.skill] ??= { correct: 0, total: 0 });
@@ -66,8 +81,38 @@ export function gradePlacement(answers: Record<string, string | undefined>): Pla
 
   const correct = graded.filter((g) => g.isCorrect).length;
   const total = graded.length;
-  const percent = percentOf(correct, total);
-  return { correct, total, percent, level: levelForPercent(percent), bySkill, graded };
+  return { correct, total, percent: percentOf(correct, total), bySkill, graded };
+}
+
+/**
+ * SP02 — corrige o nivelamento. "Ainda não sei" conta como resposta, e como erro.
+ */
+export function gradePlacement(answers: Record<string, string | undefined>): PlacementResult {
+  const result = gradeQuestions(placementQuestions, answers);
+  return { ...result, level: levelForPercent(result.percent) };
+}
+
+/** SP12 — corrige a avaliação final. */
+export function gradeAssessment(answers: Record<string, string | undefined>): AssessmentResult {
+  const result = gradeQuestions(finalAssessment.questions, answers);
+  return { ...result, passed: result.percent >= ASSESSMENT_PASS_PERCENT };
+}
+
+/** Recalcula acertos por tema a partir das respostas gravadas. */
+export function skillScoresFrom(
+  questions: Question[],
+  answers: { questionId: string; isCorrect: boolean }[],
+): Partial<Record<Skill, SkillScore>> {
+  const skillOf = new Map(questions.map((q) => [q.id, q.skill]));
+  const bySkill: Partial<Record<Skill, SkillScore>> = {};
+  for (const answer of answers) {
+    const skill = skillOf.get(answer.questionId);
+    if (!skill) continue; // questão removida do conteúdo depois da tentativa
+    const score = (bySkill[skill] ??= { correct: 0, total: 0 });
+    score.total += 1;
+    if (answer.isCorrect) score.correct += 1;
+  }
+  return bySkill;
 }
 
 export function practicePassed(percent: number): boolean {
@@ -148,4 +193,73 @@ export function nextActivity(track: Track, progress: ModuleProgress[]): NextActi
   ];
   const next = ordered.find((s) => !done.has(s.moduleSlug));
   return next ? { moduleSlug: next.moduleSlug, step: "aula", kind: "comecar" } : null;
+}
+
+/* ---------- Avaliação final, resultado e recomendações (SP12, SP10, SP11) ---------- */
+
+/** SP12 — proposta: a avaliação libera quando todos os módulos obrigatórios estão concluídos. */
+export function assessmentUnlocked(summary: TrackSummary): boolean {
+  return summary.requiredTotal > 0 && summary.requiredDone === summary.requiredTotal;
+}
+
+/** SP10 — média das melhores notas nas práticas dos módulos obrigatórios já praticados. */
+export function practiceAverage(track: Track, progress: ModuleProgress[]): number | null {
+  const required = new Set(track.steps.filter((s) => !s.optional).map((s) => s.moduleSlug));
+  const scores = progress
+    .filter((p) => required.has(p.moduleSlug) && p.bestScorePercent != null)
+    .map((p) => p.bestScorePercent as number);
+  if (scores.length === 0) return null;
+  return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+}
+
+export type Recommendation = {
+  moduleSlug: string;
+  kind: "revisar" | "concluir";
+  reason: string;
+};
+
+const MAX_RECOMMENDATIONS = 4;
+
+/**
+ * SP11 — recomenda conteúdos a partir dos resultados:
+ * 1. temas abaixo da nota mínima na avaliação final → revisar os módulos do tema;
+ * 2. módulos obrigatórios da trilha ainda não concluídos → concluir.
+ */
+export function recommend(input: {
+  track: Track;
+  progress: ModuleProgress[];
+  assessmentBySkill: Partial<Record<Skill, SkillScore>> | null;
+}): Recommendation[] {
+  const { track, progress, assessmentBySkill } = input;
+  const skillOf = new Map(modules.map((m) => [m.slug, m.skill]));
+  const done = new Set(progress.filter((p) => p.completedAt).map((p) => p.moduleSlug));
+  const result: Recommendation[] = [];
+  const add = (r: Recommendation) => {
+    if (!result.some((x) => x.moduleSlug === r.moduleSlug)) result.push(r);
+  };
+
+  if (assessmentBySkill) {
+    const weak = (Object.entries(assessmentBySkill) as [Skill, SkillScore][])
+      .map(([skill, score]) => ({ skill, score, percent: percentOf(score.correct, score.total) }))
+      .filter((w) => w.percent < ASSESSMENT_PASS_PERCENT)
+      .sort((a, b) => a.percent - b.percent);
+    for (const w of weak) {
+      for (const step of track.steps) {
+        if (skillOf.get(step.moduleSlug) !== w.skill) continue;
+        add({
+          moduleSlug: step.moduleSlug,
+          kind: "revisar",
+          reason: `Na avaliação final, você acertou ${w.score.correct} de ${w.score.total} sobre ${SKILL_TOPIC[w.skill]}.`,
+        });
+      }
+    }
+  }
+
+  for (const step of track.steps) {
+    if (!step.optional && !done.has(step.moduleSlug)) {
+      add({ moduleSlug: step.moduleSlug, kind: "concluir", reason: "Módulo obrigatório da sua trilha ainda não concluído." });
+    }
+  }
+
+  return result.slice(0, MAX_RECOMMENDATIONS);
 }

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { LEVEL_LABEL, SKILL_LABEL, type Skill } from "@/content";
+import { SkillBars } from "@/components/learning/skill-bars";
+import { LEVEL_LABEL } from "@/content";
 import { requireUser } from "@/lib/session";
 import { moduleTitle, trackFor } from "@/server/content";
 import { getLatestPlacement } from "@/server/learning";
@@ -10,8 +11,6 @@ import { getLatestPlacement } from "@/server/learning";
 import styles from "../nivelamento.module.css";
 
 export const metadata: Metadata = { title: "Resultado do nivelamento" };
-
-const SKILL_ORDER: Skill[] = ["conceitos", "alucinacoes", "prompts", "privacidade"];
 
 /** SP03 — resultado do nivelamento e direcionamento para a trilha do nível. */
 export default async function PlacementResultPage() {
@@ -45,33 +44,7 @@ export default async function PlacementResultPage() {
         <h2 id="por-tema" className={styles.sectionTitle}>
           Por tema
         </h2>
-        <ul className={styles.skills}>
-          {SKILL_ORDER.filter((skill) => result.bySkill[skill]).map((skill) => {
-            const score = result.bySkill[skill]!;
-            const percent = Math.round((score.correct / score.total) * 100);
-            return (
-              <li key={skill} className={styles.skill}>
-                <div className={styles.skillHead}>
-                  <span>{SKILL_LABEL[skill]}</span>
-                  <span className={styles.skillValue}>
-                    {score.correct} de {score.total}
-                  </span>
-                </div>
-                <div
-                  className={styles.skillTrack}
-                  role="progressbar"
-                  aria-label={SKILL_LABEL[skill]}
-                  aria-valuemin={0}
-                  aria-valuemax={score.total}
-                  aria-valuenow={score.correct}
-                  aria-valuetext={`${score.correct} de ${score.total}`}
-                >
-                  <div className={styles.skillFill} style={{ width: `${percent}%` }} />
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        <SkillBars bySkill={result.bySkill} />
       </section>
 
       <section className={styles.section} aria-labelledby="sua-trilha">

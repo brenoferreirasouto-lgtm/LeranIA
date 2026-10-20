@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ProgressBar } from "@/components/learning/progress-bar";
+import { Recommendations } from "@/components/learning/recommendations";
 import { StatusBadge } from "@/components/learning/status-badge";
 import { LEVEL_LABEL } from "@/content";
-import { nextActivity, summarizeTrack } from "@/lib/learning/scoring";
 import { formatDate } from "@/lib/format";
+import { nextActivity } from "@/lib/learning/scoring";
 import { requireUser } from "@/lib/session";
-import { moduleTitle, trackFor } from "@/server/content";
-import { getLatestPlacement, getProgress } from "@/server/learning";
+import { getResults } from "@/server/assessment";
+import { moduleTitle } from "@/server/content";
+import { getProgress } from "@/server/learning";
 
 import styles from "./painel.module.css";
 
@@ -21,12 +23,15 @@ export const metadata: Metadata = { title: "Painel" };
 export default async function DashboardPage() {
   const user = await requireUser("/painel");
   const firstName = user.name.split(" ")[0];
-  const [placement, progress] = await Promise.all([getLatestPlacement(user.id), getProgress(user.id)]);
+  const [results, progress] = await Promise.all([getResults(user.id), getProgress(user.id)]);
+  const { placement, track, summary, assessment, unlocked } = results;
 
-  const track = trackFor(placement?.level ?? null);
-  const summary = summarizeTrack(track, progress);
   const next = placement ? nextActivity(track, progress) : null;
   const hasActivity = progress.some((p) => p.lastActivityAt || p.completedAt);
+  // Com os obrigatórios concluídos, a avaliação final vem antes dos módulos opcionais,
+  // a não ser que a pessoa esteja no meio de uma atividade.
+  const showAssessment = unlocked && !assessment && next?.kind !== "continuar";
+  const toReview = assessment ? results.recommendations.filter((r) => r.kind === "revisar").slice(0, 2) : [];
 
   return (
     <div className={styles.page}>
@@ -56,7 +61,20 @@ export default async function DashboardPage() {
         </section>
       ) : (
         <section aria-labelledby="continuar" className={`${styles.card} ${styles.cardFeature}`}>
-          {next ? (
+          {showAssessment ? (
+            <>
+              <p className="eyebrow-text">Trilha concluída</p>
+              <h2 id="continuar" className={styles.cardTitle}>
+                Avaliação final liberada
+              </h2>
+              <p className={styles.cardText}>Doze perguntas sobre toda a trilha, com correção comentada.</p>
+              <div>
+                <Link href="/avaliacao" className="btn btn-primary">
+                  Fazer a avaliação final
+                </Link>
+              </div>
+            </>
+          ) : next ? (
             <>
               <p className="eyebrow-text">
                 {next.kind === "continuar" ? "Continue de onde parou" : "Próximo módulo"}
@@ -80,12 +98,24 @@ export default async function DashboardPage() {
                 Trilha concluída
               </h2>
               <p className={styles.cardText}>
-                Você concluiu todos os módulos da sua trilha. Revise o que quiser na trilha.
+                Você concluiu todos os módulos da sua trilha. <Link href="/resultado">Ver meu resultado</Link>
               </p>
             </>
           )}
         </section>
       )}
+
+      {toReview.length > 0 ? (
+        <section aria-labelledby="revisar" className={styles.card}>
+          <h2 id="revisar" className={styles.cardTitle}>
+            Para revisar
+          </h2>
+          <Recommendations items={toReview} />
+          <p className={styles.cardText}>
+            <Link href="/resultado">Ver o resultado completo</Link>
+          </p>
+        </section>
+      ) : null}
 
       <section aria-labelledby="progresso" className={styles.card}>
         <h2 id="progresso" className={styles.cardTitle}>
