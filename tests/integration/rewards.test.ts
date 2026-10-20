@@ -7,7 +7,7 @@ import { db } from "@/db";
 import { learnerProfiles, moduleProgress, userAchievements, users, xpEvents } from "@/db/schema";
 import { saveAssessment } from "@/server/assessment";
 import { answerPractice, completeLesson, savePlacement, startPractice } from "@/server/learning";
-import { ensureRewards, getAttemptXp, getJourney, getSourceXp, getTotalXp } from "@/server/rewards";
+import { ensureRewards, getAttemptXp, getJourney, getSkillMap, getSourceXp, getTotalXp } from "@/server/rewards";
 
 // Fase C1 — XP e conquistas gravados no banco de teste (ver vitest.config.mts).
 const createdUsers: string[] = [];
@@ -149,8 +149,12 @@ describe("C1 — XP de cada atividade, uma vez só", () => {
     const passed = await saveAssessment(userId, assessmentAnswers(10));
     expect(passed.rewards).toEqual({ xp: 50, achievements: [{ id: "aprovado", title: "Aprovado" }] });
 
+    // 12 de 12 não rende XP, mas confirma os cinco temas do mapa de habilidades.
     const third = await saveAssessment(userId, assessmentAnswers(12));
-    expect(third.rewards).toEqual({ xp: 0, achievements: [] });
+    expect(third.rewards).toEqual({
+      xp: 0,
+      achievements: [{ id: "todas-as-habilidades", title: "Todas as habilidades" }],
+    });
 
     expect(await getAttemptXp(userId, failed.attemptId)).toBe(70);
     expect(await getAttemptXp(userId, passed.attemptId)).toBe(50);
@@ -242,5 +246,35 @@ describe("C1 — jornada", () => {
     const otherJourney = await getJourney(other);
     expect(otherJourney.stage.xp).toBe(20);
     expect(otherJourney.history).toHaveLength(1);
+  });
+});
+
+describe("Mapa de habilidades (ADR 0002)", () => {
+  it("confirma cada tema pela avaliação e concede Todas as habilidades quando os cinco estão confirmados", async () => {
+    const userId = await newUser();
+    await seedCompleted(userId, tracks.iniciante.steps.map((s) => s.moduleSlug));
+    await ensureRewards(userId);
+
+    // Primeira tentativa: erra todas as questões de verificação.
+    const wrongVerification = Object.fromEntries(
+      finalAssessment.questions.map((q) => [
+        q.id,
+        q.skill === "verificacao" ? q.options.find((o) => o.id !== q.correctOptionId)!.id : q.correctOptionId,
+      ]),
+    );
+    const first = await saveAssessment(userId, wrongVerification);
+    expect(first.rewards.achievements.map((a) => a.id)).not.toContain("todas-as-habilidades");
+    const map = await getSkillMap(userId);
+    expect(Object.fromEntries(map.map((e) => [e.skill, e.state]))).toEqual({
+      conceitos: "confirmada",
+      prompts: "confirmada",
+      alucinacoes: "confirmada",
+      verificacao: "praticada",
+      privacidade: "confirmada",
+    });
+
+    const second = await saveAssessment(userId, assessmentAnswers(finalAssessment.questions.length));
+    expect(second.rewards.achievements.map((a) => a.id)).toContain("todas-as-habilidades");
+    expect((await getSkillMap(userId)).every((e) => e.state === "confirmada")).toBe(true);
   });
 });
