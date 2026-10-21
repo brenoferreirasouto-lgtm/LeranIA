@@ -153,6 +153,10 @@ O GitHub Actions roda lint, tipos, migrações, testes de unidade e integração
 
 O que o sistema faz para proteger contas e dados, com os testes de cada item e as limitações conhecidas: [`docs/seguranca.md`](docs/seguranca.md).
 
+### Atualizar o Trello
+
+O texto dos cards SP23–SP26 no padrão 3Cs e a lista de qual PR implementa cada história estão em [`docs/cards-trello.md`](docs/cards-trello.md).
+
 ### Publicar (ainda não feito)
 
 A recomendação do [ADR 0002](docs/adr/0002-decisoes-de-produto.md) é a Vercel, que roda Next.js sem configuração extra, com um PostgreSQL gerenciado (por exemplo, Neon ou Supabase). Os dois têm plano gratuito, mas exigem uma conta da equipe, por isso nada foi publicado.
