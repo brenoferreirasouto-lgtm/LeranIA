@@ -1,7 +1,6 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { z } from "@/lib/zod";
 
 import { IncompletePlacementError } from "@/lib/learning/scoring";
 import { requireUser } from "@/lib/session";
@@ -15,6 +14,7 @@ import {
   savePlacement,
   startPractice,
 } from "@/server/learning";
+import { z } from "@/lib/zod";
 
 /*
  * Server Actions do núcleo educacional. Cada uma confere a sessão de novo:

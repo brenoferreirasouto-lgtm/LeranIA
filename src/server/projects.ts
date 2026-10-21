@@ -103,8 +103,18 @@ async function lockOwnProject(tx: Transaction, userId: string, projectId: string
   if (!row) throw new NotFoundError("Projeto não encontrado.");
 }
 
+/** Registra no histórico e mantém só as mudanças mais recentes (cada clique numa tarefa vira um evento). */
 async function logEvent(tx: Transaction, projectId: string, kind: ProjectEventKind, detail: string | null = null) {
   await tx.insert(projectEvents).values({ projectId, kind, detail });
+  await tx.execute(sql`
+    delete from project_events
+    where id in (
+      select id from project_events
+      where project_id = ${projectId}
+      order by created_at desc, id desc
+      offset ${PROJECT_LIMITS.historyEvents}
+    )
+  `);
 }
 
 async function touch(tx: Transaction, projectId: string) {

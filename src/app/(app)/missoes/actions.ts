@@ -1,7 +1,6 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { z } from "@/lib/zod";
 
 import type { PromptMissionResult } from "@/lib/learning/public-types";
 import { requireUser } from "@/lib/session";
@@ -13,6 +12,7 @@ import {
   startMission,
   submitPromptMission,
 } from "@/server/missions";
+import { z } from "@/lib/zod";
 
 /*
  * Server Actions das missões (Fase C2). Cada uma confere a sessão de novo e

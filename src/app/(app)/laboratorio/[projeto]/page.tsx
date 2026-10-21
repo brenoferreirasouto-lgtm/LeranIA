@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { z } from "@/lib/zod";
 
 import { AchievementMedal } from "@/components/journey/achievement-medal";
 import { AboutForm } from "@/components/lab/about-form";
@@ -12,6 +11,7 @@ import { formatDate, formatDateTime } from "@/lib/format";
 import { authoredAt, projectChecklist, projectEventLabel, stageDone } from "@/lib/projects";
 import { requireUser } from "@/lib/session";
 import { getProject } from "@/server/projects";
+import { z } from "@/lib/zod";
 
 import {
   addAiLogAction,
