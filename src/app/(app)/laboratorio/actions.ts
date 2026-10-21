@@ -2,7 +2,7 @@
 
 import { refresh } from "next/cache";
 import { redirect } from "next/navigation";
-import * as z from "zod";
+import { z } from "@/lib/zod";
 
 import { type FieldErrors, toFieldErrors } from "@/lib/validation/auth";
 import {

@@ -2,7 +2,7 @@
  * Laboratório de Projetos Autorais (SP26, ADR 0002) — regras puras, sem
  * banco. Podem rodar no navegador (aviso de dados pessoais) e no servidor.
  */
-import * as z from "zod";
+import { z } from "@/lib/zod";
 
 import { listPt } from "@/lib/format";
 import { type PersonalDataKind, findPersonalData } from "@/lib/prompt-builder";

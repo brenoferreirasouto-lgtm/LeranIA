@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import * as z from "zod";
+import { z } from "@/lib/zod";
 
 import { AchievementMedal } from "@/components/journey/achievement-medal";
 import { AboutForm } from "@/components/lab/about-form";

@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "@/lib/zod";
 
 /*
  * Regras dos formulários de cadastro (SP15) e login (U02).

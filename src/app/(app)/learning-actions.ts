@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import * as z from "zod";
+import { z } from "@/lib/zod";
 
 import { IncompletePlacementError } from "@/lib/learning/scoring";
 import { requireUser } from "@/lib/session";

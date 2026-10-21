@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import * as z from "zod";
+import { z } from "@/lib/zod";
 
 import type { PromptMissionResult } from "@/lib/learning/public-types";
 import { requireUser } from "@/lib/session";
