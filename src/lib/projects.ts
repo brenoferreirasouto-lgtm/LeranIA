@@ -2,10 +2,10 @@
  * Laboratório de Projetos Autorais (SP26, ADR 0002) — regras puras, sem
  * banco. Podem rodar no navegador (aviso de dados pessoais) e no servidor.
  */
-import * as z from "zod";
 
 import { listPt } from "@/lib/format";
 import { type PersonalDataKind, findPersonalData } from "@/lib/prompt-builder";
+import { z } from "@/lib/zod";
 
 export const PROJECT_LIMITS = {
   projectsPerUser: 20,
@@ -21,6 +21,8 @@ export const PROJECT_LIMITS = {
   aiTool: 80,
   aiPurpose: 300,
   aiChange: 500,
+  /** Mudanças guardadas no histórico de cada projeto; as mais antigas saem. */
+  historyEvents: 200,
 } as const;
 
 const text = (max: number, label: string) =>

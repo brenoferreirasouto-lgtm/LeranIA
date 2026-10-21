@@ -173,6 +173,11 @@ test.describe("Acesso às páginas protegidas", () => {
 
     await signIn(page, email, PASSWORD, "/entrar?next=//site-malicioso.example");
     await expect(page).toHaveURL("/painel");
+
+    // Com uma tabulação no meio, o navegador leria "//site-malicioso.example".
+    await signOut(page);
+    await signIn(page, email, PASSWORD, "/entrar?next=%2F%09%2Fsite-malicioso.example");
+    await expect(page).toHaveURL("/painel");
   });
 
   test("quem já está logado e abre o cadastro vai para o painel", async ({ page }) => {

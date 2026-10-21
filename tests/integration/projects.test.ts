@@ -251,6 +251,21 @@ describe("Laboratório — histórico, exportação e exclusão", () => {
     expect(rows.find((r) => r.kind === "tarefa-adicionada")?.detail).toBe(stage.title);
   });
 
+  it("o histórico guarda só as mudanças mais recentes", async () => {
+    const userId = await unlockedUser();
+    const id = await createProject(userId, { templateId: "pratico", title: "Muitos cliques" });
+    const task = (await getProject(userId, id))!.stages[0].tasks[0];
+    const old = new Date(Date.now() - 60_000);
+    await db.insert(projectEvents).values(
+      Array.from({ length: PROJECT_LIMITS.historyEvents }, () => ({ projectId: id, kind: "tarefa-reaberta", createdAt: old })),
+    );
+
+    await toggleTask(userId, id, task.id);
+    const [row] = await db.select({ n: count() }).from(projectEvents).where(eq(projectEvents.projectId, id));
+    expect(row.n).toBe(PROJECT_LIMITS.historyEvents);
+    expect((await eventKinds(id)).at(-1)).toBe("tarefa-concluida");
+  });
+
   it("os projetos entram na exportação dos dados, com o histórico", async () => {
     const userId = await unlockedUser();
     const id = await createProject(userId, { templateId: "pesquisa", title: "Pergunta" });
