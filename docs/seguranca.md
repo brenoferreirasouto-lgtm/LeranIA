@@ -41,7 +41,7 @@ Revisão da Fase F (20/10/2026). Cada item tem código e, quando possível, test
 | Pacote | Gravidade | Situação |
 |---|---|---|
 | `esbuild` antigo dentro do `drizzle-kit` (GHSA-67mh-4wv8-2f99) | moderada | **Corrigido** com `overrides` para a versão 0.25; as migrações foram testadas. Só afetava o servidor de desenvolvimento do esbuild, que o projeto não usa. |
-| `braces` dentro do plugin do ESLint (GHSA-vfj7-8cjw-p6xm) | alta | **Sem versão corrigida publicada.** Fica só na ferramenta de lint, que lê padrões de arquivo do próprio projeto; não vai para produção nem recebe entrada de usuários. Atualizar quando sair a correção. |
+| `braces` dentro do plugin do ESLint (GHSA-vfj7-8cjw-p6xm; o `npm audit` mostra "5 high" porque conta cada pacote da cadeia: `braces`, `micromatch`, `fast-glob`, `@next/eslint-plugin-next` e `eslint-config-next`) | alta | **Sem versão corrigida publicada.** Fica só na ferramenta de lint, que lê padrões de arquivo do próprio projeto; não vai para produção nem recebe entrada de usuários. Atualizar quando sair a correção. |
 
 ## Limitações conhecidas
 
