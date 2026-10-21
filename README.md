@@ -271,6 +271,49 @@ https://github.com/user-attachments/assets/bbbb2e44-8251-4950-96a9-3016804ead6b
 - [Diagrama](https://github.com/user-attachments/assets/29468629-43eb-46ac-bc65-0064480cf32d)
 
 ---
+### 🟢 Sprint 01
+
+| Dupla | História | O que a dupla implementou | Aprendizados |
+|:-----:|:---------|:--------------------------|:-------------|
+| Pedro + Bruno | *F01* — Aula sobre IA generativa | Conteúdo introdutório sobre IA generativa, com explicação dos conceitos básicos para o estudante | Aprendemos a organizar o conteúdo em componentes e a utilizar o Git para registrar as primeiras alterações. |
+| Breno + Vinicius | *F02* — Quiz de nivelamento | Quiz inicial para medir o conhecimento prévio do estudante sobre IA | Aprendemos a implementar perguntas interativas, validar respostas e trabalhar em dupla sem sobrescrever alterações. |
+| João + Pedro | *F03* — Direcionamento por nível | Lógica que usa o resultado do quiz para encaminhar o estudante ao nível adequado da trilha | Aprendemos a utilizar estruturas condicionais e a testar diferentes resultados antes de integrar o código. |
+| Bruno + Breno | *F04* — Quiz de identificação de alucinações | Exercício com respostas de IA em que o estudante identifica informações incorretas ou inventadas | Aprendemos a separar a lógica dos exercícios da interface e a revisar as alterações antes de fazer o commit. |
+| Vinicius + João | *F05* — Continuar estudo de onde parou | Salvamento do ponto de parada, para o estudante retomar a trilha do último conteúdo acessado | Aprendemos a persistir o progresso do usuário e a verificar se as alterações continuavam funcionando após a integração. |
+
+---
+
+### 🔵 Sprint 02
+
+| Dupla | História | O que a dupla implementou | Aprendizados |
+|:-----:|:---------|:--------------------------|:-------------|
+| Pedro + Breno | *F06* — Construtor guiado de prompts | Montagem de prompts por campos guiados, para praticar a estrutura de um bom prompt | Aprendemos a trabalhar com formulários, organizar os dados de entrada e manter o código legível. |
+| Bruno + Vinicius | *F07* — Menu de comparação de prompts | Tela que compara prompts bons e ruins, destacando as boas práticas | Aprendemos a reutilizar componentes da interface e a comparar diferentes versões do código usando o Git. |
+| João + Bruno | *F08* — Verificar informações produzidas por IA | Conteúdo e exercício sobre como checar a veracidade de respostas geradas por IA | Aprendemos a estruturar orientações de verificação e a criar exercícios que incentivam o pensamento crítico. |
+| Breno + João | *F09* — Dashboard de progresso do usuário | Painel que mostra quanto da trilha o estudante já concluiu | Aprendemos a calcular o progresso a partir dos dados do usuário e a apresentar essas informações visualmente. |
+| Pedro + Vinicius | *F10* — Visualizar resultado final | Tela de resultado ao fim da trilha, com o desempenho do estudante | Aprendemos a organizar os resultados dos exercícios e a apresentar um resumo claro do desempenho. |
+| Bruno + Pedro | *F11* — Recomendações de aprendizagem | Sugestões de temas para revisar, com base no desempenho | Aprendemos a utilizar os resultados dos exercícios para criar recomendações e a testar diferentes cenários. |
+
+---
+
+### 🟣 Sprint 03
+
+| Dupla | História | O que a dupla implementou | Aprendizados |
+|:-----:|:---------|:--------------------------|:-------------|
+| Breno + Vinicius | *F12* — Quiz de avaliação do aprendizado | Quiz final para avaliar o que o estudante aprendeu ao longo da trilha | Aprendemos a consolidar os conteúdos estudados e a testar a lógica de pontuação e avaliação. |
+| João + Pedro | *F13* — Sistema de feedback dos exercícios | Explicação exibida após cada exercício, para o estudante entender seus erros | Aprendemos a fornecer feedback contextualizado e a tratar respostas corretas e incorretas de forma diferente. |
+| Bruno + Breno | *F14* — Menu interativo com todas as funcionalidades | Menu central de navegação, com acesso a todas as funcionalidades da plataforma | Aprendemos a organizar a navegação entre telas, padronizar os componentes e resolver conflitos durante a integração. |
+| Vinicius + João | *F15* — Cadastro de usuário | Criação de conta para o estudante acompanhar seu aprendizado | Aprendemos a validar dados de cadastro, organizar as informações do usuário e testar o fluxo de criação de conta. |
+
+---
+### Visão geral das Sprints e Backlog no Trello
+
+   - [Print Backlog](https://github.com/user-attachments/assets/cc3b53a9-f1a6-44de-b8a9-7038f97a5cef)
+   - [Print Sprint01](https://github.com/user-attachments/assets/b0209723-8161-4fb7-84c1-cfdcd42f9b4f)
+   - [Print Sprint02](https://github.com/user-attachments/assets/224b9e10-4a59-4e9b-aa81-918595863daf)
+   - [Print Sprint03](https://github.com/user-attachments/assets/1f0b5b1c-0132-478d-a9df-96651591ab58)
+
+
 
 ---
 
