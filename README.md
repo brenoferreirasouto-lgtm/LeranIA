@@ -214,19 +214,19 @@ https://github.com/user-attachments/assets/bbbb2e44-8251-4950-96a9-3016804ead6b
 
 **Objetivo:** disponibilizar o fluxo inicial de acesso e aprendizagem.
 
-- [F01 — Aula sobre IA generativa](https://github.com/user-attachments/assets/aa9e6124-0ccd-493a-b2cb-b695dd07f6f6)
+- [F01 — Aula sobre IA generativa](https://github.com/user-attachments/assets/c68799a0-d47c-46b5-ab6c-a187649ee661)
 - [Diagrama](https://github.com/user-attachments/assets/1aac7498-9816-4600-8dd3-8a29a60ff1e3)
 
-- [F02 — Quiz de nivelamento](https://github.com/user-attachments/assets/1e50f815-dd98-402c-93b5-afaf99c548ee)
+- [F02 — Quiz de nivelamento](https://github.com/user-attachments/assets/fcbc0ffd-302c-43e6-833d-f33542ea2fa3)
 - [Diagrama](https://github.com/user-attachments/assets/c9fc1383-c652-404f-96dc-38ed1e09c394)
 
-- [F03 — Direcionamento por nível](https://github.com/user-attachments/assets/8254580e-63a8-4d3d-bb59-9868573075ad)
+- [F03 — Direcionamento por nível](https://github.com/user-attachments/assets/dee3c239-d571-4105-bc70-b888cc5e4e9f)
 - [Diagrama](https://github.com/user-attachments/assets/868e2d7f-1d35-497d-9eab-4e2fc91c06f1)
 
-- [F04 — Quiz de identificação de alucinações](https://github.com/user-attachments/assets/345085ca-8678-4a44-9f6a-ba1507e88164)
+- [F04 — Quiz de identificação de alucinações](https://github.com/user-attachments/assets/0baed2a1-2cca-4a6b-b638-a30bfe150f20)
 - [Diagrama](https://github.com/user-attachments/assets/8114fea9-eb4b-44a5-bbfa-b3744f4cd6fd)
 
-- [F05 — Continuar estudo de onde parou](https://github.com/user-attachments/assets/185650e4-09fe-428f-adbb-56e5b1c22524)
+- [F05 — Continuar estudo de onde parou](https://github.com/user-attachments/assets/fa78b2c8-b1af-4663-b138-754df373262e)
 - [Diagrama](https://github.com/user-attachments/assets/fcafd75e-07b7-4150-90a7-3529f145d6f8)
 
 - 
@@ -234,22 +234,22 @@ https://github.com/user-attachments/assets/bbbb2e44-8251-4950-96a9-3016804ead6b
 
 **Objetivo:** ampliar a experiência de aprendizagem com feedback, segurança e prompting.
 
-- [F06 — Construtor guiado de prompts](https://github.com/user-attachments/assets/c895942a-d7f2-4f07-a66d-1627fe4ef03c)
+- [F06 — Construtor guiado de prompts](https://github.com/user-attachments/assets/7fccf2b5-2529-47c1-8d12-bd22bda32f8a)
 - [Diagrama](https://github.com/user-attachments/assets/ae1781bc-75af-49e8-8b94-df08b800bd71)
 
-- [F07 — Menu de comparação de prompts](https://github.com/user-attachments/assets/c1f5b762-717c-4c31-a1c9-ea606cd21ea3)
+- [F07 — Menu de comparação de prompts](https://github.com/user-attachments/assets/7fccf2b5-2529-47c1-8d12-bd22bda32f8a)
 - [Diagrama](https://github.com/user-attachments/assets/d0774560-d611-41cf-94ca-85a3c3bf81b5)
 
-- [F08 — Verificar informações produzidas por IA](https://github.com/user-attachments/assets/7e8871b3-9ee7-487c-bb0d-70b41f044ae1)
+- [F08 — Verificar informações produzidas por IA](https://github.com/user-attachments/assets/7fccf2b5-2529-47c1-8d12-bd22bda32f8a)
 - [Diagrama](https://github.com/user-attachments/assets/963c8f34-43a6-412e-b32a-7e445d3b0606)
 
-- [F09 — Dashboard de progresso do usuário](https://github.com/user-attachments/assets/1ccef923-1d78-4261-9552-de1b79099717)
+- [F09 — Dashboard de progresso do usuário](https://github.com/user-attachments/assets/7fccf2b5-2529-47c1-8d12-bd22bda32f8a)
 - [Diagrama](https://github.com/user-attachments/assets/7af5c267-f888-4d47-95bb-12b7aab7eabc)
 
-- [F10 — Visualizar resultado final](https://github.com/user-attachments/assets/9a2cf24d-863e-44bc-8694-3f335bdc061f)
+- [F10 — Visualizar resultado final](https://github.com/user-attachments/assets/7fccf2b5-2529-47c1-8d12-bd22bda32f8a)
 - [Diagrama](https://github.com/user-attachments/assets/8b8e696f-e974-4acd-b7e1-98b1dd1c33fe)
 
-- [F11 — Recomendações de aprendizagem](https://github.com/user-attachments/assets/7966e55c-ec8e-4928-b42c-f0a0c2de5c28)
+- [F11 — Recomendações de aprendizagem](https://github.com/user-attachments/assets/7fccf2b5-2529-47c1-8d12-bd22bda32f8a)
 - [Diagrama](https://github.com/user-attachments/assets/da78f460-08cd-4373-9241-cd37279f5ffa)
 
 
@@ -258,16 +258,16 @@ https://github.com/user-attachments/assets/bbbb2e44-8251-4950-96a9-3016804ead6b
 
 **Objetivo:** consolidar o aprendizado e permitir acompanhamento de desempenho.
 
-- [F12 — Quiz de avaliação do aprendizado](https://github.com/user-attachments/assets/9dcf9bd8-a448-4034-8bb6-a794d4f526de)
+- [F12 — Quiz de avaliação do aprendizado](https://github.com/user-attachments/assets/7fccf2b5-2529-47c1-8d12-bd22bda32f8a)
 - [Diagrama](https://github.com/user-attachments/assets/753a813d-43d6-4e9c-ac8d-1d120cc76be9)
 
-- [F13 — Sistema de feedback dos exercícios](https://github.com/user-attachments/assets/630abe3e-7680-43be-a422-e93514692e83)
+- [F13 — Sistema de feedback dos exercícios](https://github.com/user-attachments/assets/7fccf2b5-2529-47c1-8d12-bd22bda32f8a)
 - [Diagrama](https://github.com/user-attachments/assets/e2f76ef4-596d-49ea-aa72-568b802739f5)
 
-- [F14 — Menu interativo com todas as funcionalidades](https://github.com/user-attachments/assets/f8d5d7a1-dc2d-498f-908f-4999181201aa)
+- [F14 — Menu interativo com todas as funcionalidades](https://github.com/user-attachments/assets/7fccf2b5-2529-47c1-8d12-bd22bda32f8a)
 - [Diagrama](https://github.com/user-attachments/assets/9a49977b-bdff-4900-be4f-1e637f40e040)
 
-- [F15 — Cadastro de usuário](https://github.com/user-attachments/assets/55d5537d-61ce-4f5c-b33e-1c106f11e7f8)
+- [F15 — Cadastro de usuário](https://github.com/user-attachments/assets/7fccf2b5-2529-47c1-8d12-bd22bda32f8a)
 - [Diagrama](https://github.com/user-attachments/assets/29468629-43eb-46ac-bc65-0064480cf32d)
 
 ---
