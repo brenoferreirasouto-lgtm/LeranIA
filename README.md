@@ -170,6 +170,8 @@ Os IDs seguem o esquema **SP/U** aprovado pelo PO em 19/10/2026 (a seção de ba
 | **SP10** | Visualizar resultado final | Implementada | `src/app/(app)/resultado` | `tests/e2e/practice-tools.spec.ts`, `tests/integration/assessment.test.ts` |
 | **SP11** | Recomendações de aprendizagem | Implementada | `recommend` em `src/lib/learning/scoring.ts`, `src/components/learning/recommendations.tsx` | `src/lib/learning/scoring.test.ts`, `tests/e2e/practice-tools.spec.ts` |
 | **SP14** | Menu com todas as funcionalidades | Implementada: menu completo, recolhível no celular | `src/components/nav` | `tests/e2e/navigation-a11y.spec.ts` |
+| Card "Jornada de Evolução do Usuário" (sem ID) | XP, estágios e histórico | Implementada (C1). Mapa de habilidades aguarda decisão da equipe | `src/content/gamification.ts`, `src/lib/learning/gamification.ts`, `src/server/rewards.ts`, `src/app/(app)/jornada` | `src/lib/learning/gamification.test.ts`, `tests/integration/rewards.test.ts`, `tests/e2e/journey.spec.ts` |
+| Card "Conquistas, Medalhas e Reconhecimento" (sem ID) | Conquistas com critério verificável | Implementada (C1: 6 conquistas) | `achievements` em `src/content/gamification.ts`, `src/app/(app)/jornada` | `src/lib/learning/gamification.test.ts`, `tests/integration/rewards.test.ts`, `tests/e2e/journey.spec.ts` |
 
 O conteúdo das aulas e questões é um **rascunho para revisão da equipe**; como revisar e o que ainda depende de validação está em [`docs/conteudo.md`](docs/conteudo.md).
 

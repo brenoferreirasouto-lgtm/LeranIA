@@ -1,15 +1,7 @@
-import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-import { disableBrowserValidation, openMenu, signUp, uniqueEmail } from "./helpers";
+import { expectAccessible, disableBrowserValidation, openMenu, signUp, uniqueEmail } from "./helpers";
 
-const WCAG = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
-
-async function expectNoA11yViolations(page: import("@playwright/test").Page) {
-  const results = await new AxeBuilder({ page }).withTags(WCAG).analyze();
-  const summary = results.violations.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`);
-  expect(summary).toEqual([]);
-}
 
 test.describe("SP14 — Navegação básica", () => {
   test("a página inicial leva ao cadastro", async ({ page }) => {
@@ -29,7 +21,7 @@ test.describe("SP14 — Navegação básica", () => {
     await expect(menu.getByRole("link", { name: "Painel" })).toHaveAttribute("aria-current", "page");
     await expect(menu.getByText("Maria", { exact: true })).toBeVisible();
     await expect(menu.getByRole("button", { name: "Sair" })).toBeVisible();
-    for (const item of ["Trilha", "Nivelamento", "Construtor de prompt", "Avaliação final", "Resultado"]) {
+    for (const item of ["Minha jornada", "Trilha", "Nivelamento", "Construtor de prompt", "Avaliação final", "Resultado"]) {
       await expect(menu.getByRole("link", { name: item })).toBeVisible();
     }
   });
@@ -70,7 +62,7 @@ test.describe("Acessibilidade (axe, WCAG 2.1 AA)", () => {
   for (const path of ["/", "/cadastro", "/entrar", "/privacidade"]) {
     test(`sem violações em ${path}`, async ({ page }) => {
       await page.goto(path);
-      await expectNoA11yViolations(page);
+      await expectAccessible(page);
     });
   }
 
@@ -79,13 +71,13 @@ test.describe("Acessibilidade (axe, WCAG 2.1 AA)", () => {
     await disableBrowserValidation(page);
     await page.getByRole("button", { name: "Criar conta" }).click();
     await expect(page.getByText("Informe seu nome.")).toBeVisible();
-    await expectNoA11yViolations(page);
+    await expectAccessible(page);
   });
 
   test("sem violações no painel", async ({ page }) => {
     await page.setExtraHTTPHeaders({ "x-forwarded-for": "203.0.113.51" });
     await signUp(page, { name: "Nina Ramos", email: uniqueEmail() });
     await expect(page).toHaveURL("/painel");
-    await expectNoA11yViolations(page);
+    await expectAccessible(page);
   });
 });

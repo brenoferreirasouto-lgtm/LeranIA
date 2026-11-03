@@ -22,6 +22,13 @@
       "when": 1792458756183,
       "tag": "0002_avaliacao_final",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792529687490,
+      "tag": "0003_gamificacao_jornada",
+      "breakpoints": true
     }
   ]
 }

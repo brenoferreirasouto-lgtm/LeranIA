@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, useTransition } from "react";
 
+import { RewardNote } from "@/components/journey/reward-note";
 import learning from "@/components/learning/learning.module.css";
 import { ProgressBar } from "@/components/learning/progress-bar";
 import { QuestionChoices } from "@/components/learning/question-choices";
@@ -121,6 +122,10 @@ export function PracticeRunner({
               explicações ajudam a entender cada erro.
             </p>
           )}
+          <RewardNote
+            rewards={outcome.rewards}
+            emptyText="Esta tentativa não rendeu XP: os acertos contam só na primeira tentativa."
+          />
           <div className={styles.runnerActions}>
             <Link href="/trilha" className="btn btn-primary">
               Voltar para a trilha

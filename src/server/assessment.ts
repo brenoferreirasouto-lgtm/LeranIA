@@ -16,6 +16,7 @@ import {
   summarizeTrack,
 } from "@/lib/learning/scoring";
 import { trackFor } from "@/server/content";
+import { summarizeGranted, syncRewards } from "@/server/rewards";
 import { getLatestPlacement, getLevel, getProgress } from "@/server/learning";
 
 /*
@@ -107,7 +108,7 @@ export async function saveAssessment(userId: string, answers: Record<string, str
 
   const result = gradeAssessment(answers); // lança IncompleteQuizError se faltar resposta
 
-  const attemptId = await db.transaction(async (tx) => {
+  const { attemptId, rewards } = await db.transaction(async (tx) => {
     const [attempt] = await tx
       .insert(assessmentAttempts)
       .values({
@@ -127,10 +128,12 @@ export async function saveAssessment(userId: string, answers: Record<string, str
         isCorrect: g.isCorrect,
       })),
     );
-    return attempt.id;
+    // Fase C1: acertos pagam só na primeira tentativa; a aprovação, uma vez.
+    const granted = await syncRewards(tx, userId);
+    return { attemptId: attempt.id, rewards: summarizeGranted(granted) };
   });
 
-  return { ...result, attemptId };
+  return { ...result, attemptId, rewards };
 }
 
 /** SP10 + SP11 — tudo o que a página de resultado precisa, a partir de dados reais. */

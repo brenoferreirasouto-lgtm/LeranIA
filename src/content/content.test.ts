@@ -2,6 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import {
   DONT_KNOW_OPTION_ID,
+  STAGES,
+  XP_RULES,
+  achievements,
   finalAssessment,
   LEVEL_RULES,
   type Level,
@@ -107,5 +110,36 @@ describe("trilhas", () => {
     const limits = LEVEL_RULES.map((r) => r.maxPercent);
     expect([...limits].sort((a, b) => a - b)).toEqual(limits);
     expect(limits.at(-1)).toBe(100);
+  });
+});
+
+describe("gamificação — catálogo", () => {
+  it("as conquistas têm ids únicos e em formato de slug", () => {
+    const ids = achievements.map((a) => a.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const id of ids) expect(id).toMatch(/^[a-z0-9-]+$/);
+  });
+
+  it("conquistas de prática apontam para módulos existentes", () => {
+    for (const a of achievements) {
+      if (a.criterion.kind === "perfect-first-practice") {
+        expect(modules.some((m) => m.slug === (a.criterion as { moduleSlug: string }).moduleSlug)).toBe(true);
+      }
+    }
+  });
+
+  it("os estágios começam em 0 XP, em ordem crescente e sem repetir", () => {
+    expect(STAGES[0]).toEqual({ stage: 1, minXp: 0 });
+    for (let i = 1; i < STAGES.length; i++) {
+      expect(STAGES[i].stage).toBe(STAGES[i - 1].stage + 1);
+      expect(STAGES[i].minXp).toBeGreaterThan(STAGES[i - 1].minXp);
+    }
+  });
+
+  it("todos os valores de XP são inteiros positivos", () => {
+    for (const value of Object.values(XP_RULES)) {
+      expect(Number.isInteger(value)).toBe(true);
+      expect(value).toBeGreaterThan(0);
+    }
   });
 });

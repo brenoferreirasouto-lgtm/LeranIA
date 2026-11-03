@@ -7,6 +7,7 @@ import { LEVEL_LABEL } from "@/content";
 import { requireUser } from "@/lib/session";
 import { moduleTitle, trackFor } from "@/server/content";
 import { getLatestPlacement } from "@/server/learning";
+import { getAttemptXp } from "@/server/rewards";
 
 import styles from "../nivelamento.module.css";
 
@@ -19,6 +20,7 @@ export default async function PlacementResultPage() {
   if (!result) redirect("/nivelamento");
 
   const track = trackFor(result.level);
+  const xp = await getAttemptXp(user.id, result.attemptId);
 
   return (
     <div className={styles.page}>
@@ -33,6 +35,12 @@ export default async function PlacementResultPage() {
           {result.correct} de {result.total} respostas certas ({result.percent}%)
         </p>
         <p className={styles.resultText}>{track.description}</p>
+        <p className={styles.score}>
+          {xp > 0 ? `Este nivelamento rendeu ${xp} XP.` : "Refazer o nivelamento não rende XP de novo."}{" "}
+          <Link href="/jornada" className={styles.linkOnDark}>
+            Ver minha jornada
+          </Link>
+        </p>
         <div className={styles.actions}>
           <Link href="/trilha" className="btn btn-primary">
             Começar a trilha

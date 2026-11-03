@@ -12,7 +12,7 @@ import {
   practiceAnswers,
   practiceAttempts,
 } from "@/db/schema";
-import type { Feedback, PracticeOutcome } from "@/lib/learning/public-types";
+import type { Feedback, PracticeOutcome, RewardSummary } from "@/lib/learning/public-types";
 import {
   type ModuleProgress,
   type PlacementResult,
@@ -22,6 +22,7 @@ import {
   practicePassed,
   skillScoresFrom,
 } from "@/lib/learning/scoring";
+import { summarizeGranted, syncRewards } from "@/server/rewards";
 
 /*
  * Regras do núcleo educacional que tocam o banco. Toda função recebe o id da
@@ -35,10 +36,10 @@ export class NotFoundError extends Error {}
 export async function savePlacement(
   userId: string,
   answers: Record<string, string | undefined>,
-): Promise<PlacementResult & { attemptId: string }> {
+): Promise<PlacementResult & { attemptId: string; rewards: RewardSummary }> {
   const result = gradePlacement(answers); // lança IncompletePlacementError se faltar resposta
 
-  const attemptId = await db.transaction(async (tx) => {
+  const { attemptId, rewards } = await db.transaction(async (tx) => {
     const [attempt] = await tx
       .insert(placementAttempts)
       .values({
@@ -67,10 +68,12 @@ export async function savePlacement(
         set: { level: result.level, placementAttemptId: attempt.id, updatedAt: new Date() },
       });
 
-    return attempt.id;
+    // Fase C1: XP e conquistas na mesma transação (só o primeiro nivelamento paga).
+    const granted = await syncRewards(tx, userId);
+    return { attemptId: attempt.id, rewards: summarizeGranted(granted) };
   });
 
-  return { ...result, attemptId };
+  return { ...result, attemptId, rewards };
 }
 
 export type LatestPlacement = {
@@ -157,21 +160,25 @@ export async function recordVisit(userId: string, slug: string, step: "aula" | "
  * SP01 — conclui a aula. A primeira conclusão fica registrada; repetir não
  * muda a data. Se a prática já foi aprovada antes, o módulo é concluído agora.
  */
-export async function completeLesson(userId: string, slug: string) {
+export async function completeLesson(userId: string, slug: string): Promise<RewardSummary> {
   requireModule(slug);
   const now = new Date();
-  await db
-    .insert(moduleProgress)
-    .values({ userId, moduleSlug: slug, lessonCompletedAt: now, lastStep: "aula", lastActivityAt: now })
-    .onConflictDoUpdate({
-      target: [moduleProgress.userId, moduleProgress.moduleSlug],
-      set: {
-        lessonCompletedAt: sql`coalesce(${moduleProgress.lessonCompletedAt}, ${now})`,
-        lastStep: "aula",
-        lastActivityAt: now,
-        completedAt: sql`coalesce(${moduleProgress.completedAt}, case when ${moduleProgress.bestScorePercent} >= ${PRACTICE_PASS_PERCENT} then ${now}::timestamptz end)`,
-      },
-    });
+  return db.transaction(async (tx) => {
+    await tx
+      .insert(moduleProgress)
+      .values({ userId, moduleSlug: slug, lessonCompletedAt: now, lastStep: "aula", lastActivityAt: now })
+      .onConflictDoUpdate({
+        target: [moduleProgress.userId, moduleProgress.moduleSlug],
+        set: {
+          lessonCompletedAt: sql`coalesce(${moduleProgress.lessonCompletedAt}, ${now})`,
+          lastStep: "aula",
+          lastActivityAt: now,
+          completedAt: sql`coalesce(${moduleProgress.completedAt}, case when ${moduleProgress.bestScorePercent} >= ${PRACTICE_PASS_PERCENT} then ${now}::timestamptz end)`,
+        },
+      });
+    // Fase C1: a aula paga uma vez; se a prática já tinha passado, o módulo também.
+    return summarizeGranted(await syncRewards(tx, userId));
+  });
 }
 
 /* ---------- Prática com feedback (SP04, SP13) ---------- */
@@ -325,12 +332,16 @@ export async function answerPractice(
         .where(and(eq(moduleProgress.userId, userId), eq(moduleProgress.moduleSlug, slug)))
         .returning({ completedAt: moduleProgress.completedAt });
 
+      // Fase C1: os acertos desta tentativa só rendem XP se ela for a primeira.
+      const granted = await syncRewards(tx, userId);
+
       outcome = {
         correct,
         total: attempt.total,
         percent,
         passed,
         moduleCompleted: Boolean(progress?.completedAt),
+        rewards: summarizeGranted(granted),
       };
     }
 

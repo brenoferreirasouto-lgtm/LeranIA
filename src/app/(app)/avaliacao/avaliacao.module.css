@@ -159,3 +159,14 @@
 .score .eyebrowOnDark {
   color: var(--cyan-400);
 }
+
+/* Fase C1 — XP da tentativa, sobre o fundo escuro. */
+.xpLine {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--navy-200);
+}
+
+.linkOnDark {
+  color: var(--cyan-400);
+}

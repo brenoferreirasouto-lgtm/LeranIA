@@ -8,6 +8,7 @@ import { ASSESSMENT_PASS_PERCENT } from "@/content";
 import { formatDate } from "@/lib/format";
 import { requireUser } from "@/lib/session";
 import { getResults } from "@/server/assessment";
+import { getAttemptXp } from "@/server/rewards";
 
 import styles from "../avaliacao.module.css";
 
@@ -19,6 +20,7 @@ export default async function AssessmentResultPage() {
   const results = await getResults(user.id);
   const assessment = results.assessment;
   if (!assessment) redirect("/avaliacao");
+  const xp = await getAttemptXp(user.id, assessment.attemptId);
 
   return (
     <div className={styles.page}>
@@ -37,6 +39,14 @@ export default async function AssessmentResultPage() {
             indicados abaixo e refaça quando quiser.
           </p>
         )}
+        <p className={styles.xpLine}>
+          {xp > 0
+            ? `Esta tentativa rendeu ${xp} XP.`
+            : "Esta tentativa não rendeu XP: os acertos contam só na primeira tentativa, e a aprovação, uma vez."}{" "}
+          <Link href="/jornada" className={styles.linkOnDark}>
+            Ver minha jornada
+          </Link>
+        </p>
         {assessment.attemptCount > 1 ? (
           <p>
             Tentativa {assessment.attemptCount} · melhor nota {assessment.bestPercent}%

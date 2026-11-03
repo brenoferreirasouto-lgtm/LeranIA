@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { StageMeter } from "@/components/journey/stage-meter";
 import { ProgressBar } from "@/components/learning/progress-bar";
 import { Recommendations } from "@/components/learning/recommendations";
 import { StatusBadge } from "@/components/learning/status-badge";
-import { LEVEL_LABEL } from "@/content";
+import { LEVEL_LABEL, STAGES, achievements } from "@/content";
 import { formatDate } from "@/lib/format";
 import { nextActivity } from "@/lib/learning/scoring";
 import { requireUser } from "@/lib/session";
 import { getResults } from "@/server/assessment";
 import { moduleTitle } from "@/server/content";
 import { getProgress } from "@/server/learning";
+import { ensureRewards, getJourney } from "@/server/rewards";
 
 import styles from "./painel.module.css";
 
@@ -23,7 +25,14 @@ export const metadata: Metadata = { title: "Painel" };
 export default async function DashboardPage() {
   const user = await requireUser("/painel");
   const firstName = user.name.split(" ")[0];
-  const [results, progress] = await Promise.all([getResults(user.id), getProgress(user.id)]);
+  // Fase C1: concede o XP que faltar (retroativo para quem já usava a plataforma).
+  await ensureRewards(user.id);
+  const [results, progress, journey] = await Promise.all([
+    getResults(user.id),
+    getProgress(user.id),
+    getJourney(user.id),
+  ]);
+  const { stage } = journey;
   const { placement, track, summary, assessment, unlocked } = results;
 
   const next = placement ? nextActivity(track, progress) : null;
@@ -104,6 +113,26 @@ export default async function DashboardPage() {
           )}
         </section>
       )}
+
+      <section aria-labelledby="jornada" className={styles.card}>
+        <div className={styles.cardHead}>
+          <h2 id="jornada" className={styles.cardTitle}>
+            Estágio {stage.stage} de {STAGES.length} · {stage.xp} XP
+          </h2>
+          <span className={styles.badge}>
+            {journey.earnedCount} de {achievements.length} conquistas
+          </span>
+        </div>
+        <StageMeter xp={stage.xp} stage={stage.stage} stages={STAGES} />
+        <p className={styles.cardText}>
+          {stage.xp === 0
+            ? "Você ganha XP ao concluir o nivelamento, as aulas, as práticas e a avaliação final."
+            : stage.next
+              ? `Faltam ${stage.next.minXp - stage.xp} XP para o Estágio ${stage.next.stage}.`
+              : "Você chegou ao último estágio."}{" "}
+          <Link href="/jornada">Ver minha jornada</Link>
+        </p>
+      </section>
 
       {toReview.length > 0 ? (
         <section aria-labelledby="revisar" className={styles.card}>

@@ -1,4 +1,3 @@
-import AxeBuilder from "@axe-core/playwright";
 import { type Page, expect, test } from "@playwright/test";
 
 import { finalAssessment } from "../../src/content/assessment";
@@ -6,14 +5,8 @@ import { comparacaoDePrompts } from "../../src/content/modules/comparacao-de-pro
 import { DONT_KNOW_OPTION_ID, placementQuestions } from "../../src/content/placement";
 import { tracks } from "../../src/content/tracks";
 import { completeModules } from "./db";
-import { signUp, uniqueEmail } from "./helpers";
+import { expectAccessible, signUp, uniqueEmail } from "./helpers";
 
-const WCAG = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
-
-async function expectAccessible(page: Page) {
-  const results = await new AxeBuilder({ page }).withTags(WCAG).analyze();
-  expect(results.violations.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);
-}
 
 async function newStudent(page: Page) {
   await page.setExtraHTTPHeaders({ "x-forwarded-for": `192.0.2.${Math.floor(Math.random() * 250) + 1}` });
@@ -152,6 +145,8 @@ test.describe("SP12/SP10/SP11 — avaliação final, resultado e recomendações
     await expect(page).toHaveURL("/avaliacao/resultado");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("9 de 12 (75%)");
     await expect(page.getByText("Aprovado na avaliação final.")).toBeVisible();
+    // C1: 9 acertos na primeira tentativa (90) + aprovação (50).
+    await expect(page.getByText("Esta tentativa rendeu 140 XP.")).toBeVisible();
     await expect(page.getByText("Errada", { exact: true })).toHaveCount(3);
     const recs = page.getByRole("region", { name: "O que revisar" });
     await expect(recs.getByRole("link", { name: "Verificar informações produzidas por IA" })).toBeVisible();
