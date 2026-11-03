@@ -1,0 +1,153 @@
+.page {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 48rem;
+}
+
+.header {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+.lead {
+  font-size: var(--text-lg);
+  color: var(--ink-muted);
+  max-width: 56ch;
+}
+
+.notice,
+.done {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+}
+
+.notice {
+  background: var(--marker-soft);
+  color: var(--marker-ink);
+}
+
+.notice a {
+  color: inherit;
+  font-weight: 700;
+}
+
+.done {
+  background: color-mix(in srgb, var(--success) 10%, var(--surface));
+  color: var(--success);
+  font-weight: 700;
+}
+
+/* A trilha é uma sequência: a linha à esquerda liga os módulos na ordem. */
+.modules {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 var(--space-5);
+  display: grid;
+  gap: var(--space-4);
+  border-left: 2px solid var(--line);
+}
+
+.module {
+  position: relative;
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.module::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--space-5) - 7px);
+  top: 1.6rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--navy-300);
+}
+
+.moduleNext {
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 1px var(--blue-600);
+}
+
+.moduleNext::before {
+  background: var(--blue-600);
+  border-color: var(--blue-600);
+}
+
+.moduleHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.optional,
+.nextTag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  padding: 0.1rem var(--space-2);
+  border-radius: 999px;
+}
+
+.optional {
+  background: var(--paper);
+  color: var(--ink-muted);
+  border: 1px solid var(--line);
+}
+
+.nextTag {
+  background: var(--blue-600);
+  color: #fff;
+}
+
+.moduleTitle {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.moduleLink {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* O cartão inteiro é clicável, mas o link continua sendo o título. */
+.moduleLink::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+}
+
+.moduleLink:hover {
+  color: var(--blue-600);
+}
+
+.moduleLink:focus-visible {
+  box-shadow: none;
+}
+
+.moduleLink:focus-visible::after {
+  box-shadow: var(--focus);
+}
+
+.summary {
+  color: var(--ink-muted);
+}
+
+.meta {
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+}

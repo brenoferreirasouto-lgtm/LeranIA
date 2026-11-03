@@ -1,0 +1,109 @@
+.page {
+  display: grid;
+  gap: var(--space-6);
+  max-width: 46rem;
+}
+
+.breadcrumb {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.header {
+  display: grid;
+  gap: var(--space-3);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+}
+
+.lead {
+  font-size: var(--text-lg);
+  color: var(--ink-muted);
+}
+
+.footer {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.footerText {
+  color: var(--ink-muted);
+}
+
+.doneText {
+  color: var(--success);
+  font-weight: 700;
+}
+
+/* Prática */
+
+.practiceIntro {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.lastResult {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.runner {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.runnerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.outcome {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.outcomeScore {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.outcomePassed {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.outcomeRetry {
+  color: var(--marker-ink);
+  font-weight: 700;
+}
+
+@media (min-width: 720px) {
+  .runner,
+  .practiceIntro,
+  .footer {
+    padding: var(--space-6);
+  }
+}
