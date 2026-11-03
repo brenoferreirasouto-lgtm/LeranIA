@@ -49,7 +49,11 @@ export type AchievementCriterion =
   /** C2 — concluir um módulo e uma missão. */
   | { kind: "module-and-mission"; moduleSlug: string; missionId: string }
   /** C2 — concluir todas as missões do catálogo. */
-  | { kind: "all-missions" };
+  | { kind: "all-missions" }
+  /** Mapa de habilidades: as cinco confirmadas na avaliação (ADR 0002). */
+  | { kind: "all-skills-confirmed" }
+  /** Laboratório: um projeto com todas as etapas, referência conferida e uso de IA registrado (ADR 0002). */
+  | { kind: "project-authored" };
 
 export type Achievement = {
   /** Nunca mude um id publicado: as conquistas gravadas apontam para ele. */
@@ -98,6 +102,12 @@ export const achievements: Achievement[] = [
     criterion: { kind: "assessment-passed" },
   },
   {
+    id: "todas-as-habilidades",
+    title: "Todas as habilidades",
+    description: "Ter as cinco habilidades confirmadas: módulos concluídos e 70% ou mais em cada tema da avaliação final.",
+    criterion: { kind: "all-skills-confirmed" },
+  },
+  {
     id: "prompt-completo",
     title: "Prompt completo",
     description:
@@ -115,5 +125,12 @@ export const achievements: Achievement[] = [
     title: "Todas as missões",
     description: "Concluir as seis missões.",
     criterion: { kind: "all-missions" },
+  },
+  {
+    id: "projeto-autoral",
+    title: "Projeto autoral",
+    description:
+      "No Laboratório, concluir todas as etapas de um projeto, com pelo menos uma referência conferida e o uso de IA registrado (ou \"não usei IA\").",
+    criterion: { kind: "project-authored" },
   },
 ];

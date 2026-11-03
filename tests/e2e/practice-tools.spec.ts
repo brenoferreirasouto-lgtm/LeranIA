@@ -162,5 +162,7 @@ test.describe("SP12/SP10/SP11 — avaliação final, resultado e recomendações
 
     await page.goto("/painel");
     await expect(page.getByRole("heading", { name: "Para revisar" })).toBeVisible();
+    // Errou as três de verificação: os outros quatro temas ficam confirmados.
+    await expect(page.getByText("Habilidades confirmadas: 4 de 5.")).toBeVisible();
   });
 });

@@ -143,7 +143,19 @@ DATABASE_URL=postgres://learnai:localdev@localhost:5432/learn_ai_test npm run db
 
 Para gravar o **screencast dos testes** pedido na Terceira Entrega: `RECORD_VIDEO=1 npm run test:e2e` (os vídeos ficam em `test-results/`).
 
-O GitHub Actions roda lint, tipos, migrações, testes e build em todo pull request.
+O GitHub Actions roda lint, tipos, migrações, testes de unidade e integração, build e testes de sistema em todo pull request.
+
+### Demonstração
+
+`npm run db:seed-demo` cria, no banco local, uma conta de demonstração no meio da trilha (nivelamento feito, três módulos concluídos, uma missão e um projeto pela metade), usando as mesmas funções das telas. Com `-- --reset` ela é apagada e criada de novo. A senha vem de `DEMO_PASSWORD` ou é gerada e mostrada uma vez. O passo a passo da apresentação está em [`docs/roteiro-demonstracao.md`](docs/roteiro-demonstracao.md).
+
+### Segurança
+
+O que o sistema faz para proteger contas e dados, com os testes de cada item e as limitações conhecidas: [`docs/seguranca.md`](docs/seguranca.md).
+
+### Atualizar o Trello
+
+O texto dos cards SP23–SP26 no padrão 3Cs e a lista de qual PR implementa cada história estão em [`docs/cards-trello.md`](docs/cards-trello.md).
 
 ### Publicar (ainda não feito)
 
@@ -183,15 +195,16 @@ Os IDs seguem o esquema **SP/U** aprovado pelo PO em 19/10/2026 (backlog da bran
 | **SP10** | Visualizar resultado final | Implementada | `src/app/(app)/resultado` | `tests/e2e/practice-tools.spec.ts`, `tests/integration/assessment.test.ts` |
 | **SP11** | Recomendações de aprendizagem | Implementada | `recommend` em `src/lib/learning/scoring.ts`, `src/components/learning/recommendations.tsx` | `src/lib/learning/scoring.test.ts`, `tests/e2e/practice-tools.spec.ts` |
 | **SP14** | Menu com todas as funcionalidades | Implementada: menu completo, recolhível no celular | `src/components/nav` | `tests/e2e/navigation-a11y.spec.ts` |
-| **SP23** Jornada de Evolução do Usuário | XP, estágios e histórico | Implementada (C1). Mapa de habilidades aguarda decisão da equipe | `src/content/gamification.ts`, `src/lib/learning/gamification.ts`, `src/server/rewards.ts`, `src/app/(app)/jornada` | `src/lib/learning/gamification.test.ts`, `tests/integration/rewards.test.ts`, `tests/e2e/journey.spec.ts` |
+| **SP23** Jornada de Evolução do Usuário | XP, estágios e histórico | Implementada (C1), com o mapa de habilidades (ADR 0002) | `src/content/gamification.ts`, `src/lib/learning/gamification.ts`, `src/server/rewards.ts`, `src/app/(app)/jornada` | `src/lib/learning/gamification.test.ts`, `src/lib/learning/skills.test.ts`, `tests/integration/rewards.test.ts`, `tests/e2e/journey.spec.ts` |
 | **SP24** Missões e Desafios Práticos | Missões práticas com XP e feedback | Implementada (C2: 6 missões, conteúdo em rascunho) | `src/content/missions.ts`, `src/lib/learning/missions.ts`, `src/server/missions.ts`, `src/app/(app)/missoes` | `src/lib/learning/missions.test.ts`, `tests/integration/missions.test.ts`, `tests/e2e/missions.spec.ts` |
-| **SP25** Conquistas, Medalhas e Reconhecimento | Conquistas com critério verificável | Implementada (9 conquistas: 6 na C1 e 3 na C2) | `achievements` em `src/content/gamification.ts`, `src/app/(app)/jornada` | `src/lib/learning/gamification.test.ts`, `tests/integration/rewards.test.ts`, `tests/integration/missions.test.ts`, `tests/e2e/journey.spec.ts` |
+| **SP25** Conquistas, Medalhas e Reconhecimento | Conquistas com critério verificável | Implementada (11 conquistas: 6 na C1, 3 na C2, "Todas as habilidades" e "Projeto autoral") | `achievements` em `src/content/gamification.ts`, `src/app/(app)/jornada` | `src/lib/learning/gamification.test.ts`, `tests/integration/rewards.test.ts`, `tests/integration/missions.test.ts`, `tests/e2e/journey.spec.ts` |
+| **SP26** Laboratório de Projetos Autorais | Projeto autoral com etapas guiadas | Implementada (D3: versão gratuita sem IA; modelos em rascunho) | `src/content/project-templates.ts`, `src/lib/projects.ts`, `src/server/projects.ts`, `src/app/(app)/laboratorio`, `src/components/lab` | `src/lib/projects.test.ts`, `src/content/content.test.ts`, `tests/integration/projects.test.ts`, `tests/e2e/lab.spec.ts` |
 
 O conteúdo das aulas e questões é um **rascunho para revisão da equipe**; como revisar e o que ainda depende de validação está em [`docs/conteudo.md`](docs/conteudo.md).
 
-**Conta e privacidade (ADR 0002):** idade mínima de 13 anos declarada no cadastro (contas antigas confirmam no próximo acesso), página "Minha conta" com download dos dados e exclusão da conta, e página de privacidade descrevendo o que o sistema guarda. Testes: `tests/e2e/account.spec.ts`, `tests/integration/account.test.ts`.
+**Conta e privacidade (ADR 0002):** idade mínima de 13 anos declarada no cadastro (contas antigas confirmam no próximo acesso), página "Minha conta" com download dos dados (incluindo os projetos do Laboratório) e exclusão da conta, e página de privacidade descrevendo o que o sistema guarda. Testes: `tests/e2e/account.spec.ts`, `tests/integration/account.test.ts`.
 
-**Pendências conhecidas:** recuperação de senha (precisa de serviço de e-mail), canal de contato para pedidos de correção de dados, revisão jurídica da página de privacidade e revisão pedagógica do conteúdo.
+**Pendências conhecidas:** recuperação de senha (precisa de serviço de e-mail), canal de contato para pedidos de correção de dados, revisão jurídica da página de privacidade, revisão pedagógica do conteúdo e publicação. Detalhes de segurança em [`docs/seguranca.md`](docs/seguranca.md).
 
 ---
 

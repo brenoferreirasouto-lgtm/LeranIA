@@ -18,7 +18,7 @@ export default async function AccountDeletedPage() {
         <article className={styles.article}>
           <h1>Conta excluída</h1>
           <p role="status">
-            Sua conta e todos os dados ligados a ela foram apagados: respostas, progresso, XP e conquistas.
+            Sua conta e todos os dados ligados a ela foram apagados: respostas, progresso, XP, conquistas e projetos.
           </p>
           <p>
             Se quiser voltar, é só <Link href="/cadastro">criar uma conta nova</Link>.

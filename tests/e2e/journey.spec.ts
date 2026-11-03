@@ -50,6 +50,9 @@ test.describe("C1 — Jornada de Evolução e Conquistas", () => {
     await expect(page.getByText(`0 de ${achievements.length}`, { exact: true })).toBeVisible();
     await expect(page.getByText("Ainda não obtida")).toHaveCount(achievements.length);
     await expect(page.getByText(/Nenhum XP ainda/)).toBeVisible();
+    const skills = page.getByRole("region", { name: "Mapa de habilidades" });
+    await expect(skills.getByText("0 de 5 confirmadas")).toBeVisible();
+    await expect(skills.getByText("Ainda não praticada", { exact: true })).toHaveCount(5);
     await expectAccessible(page);
   });
 
@@ -88,6 +91,11 @@ test.describe("C1 — Jornada de Evolução e Conquistas", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Estágio 2 de 5");
     await expect(page.getByText("100 XP", { exact: true })).toBeVisible();
     await expect(page.getByText(`2 de ${achievements.length}`, { exact: true })).toBeVisible();
+    const skill = page.getByRole("region", { name: "Mapa de habilidades" }).getByRole("listitem").filter({
+      hasText: "Identificar alucinações",
+    });
+    await expect(skill).toContainText("Praticada");
+    await expect(skill).toContainText("Para confirmar, acerte pelo menos 70% das questões deste tema");
     const history = page.getByRole("region", { name: "Histórico de XP" });
     await expect(history.getByRole("listitem")).toHaveCount(3);
     await expect(history).toContainText("Prática, primeira tentativa: Como identificar alucinações");

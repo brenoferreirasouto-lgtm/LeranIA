@@ -18,6 +18,7 @@
 | `src/content/index.ts` | Lista de módulos e nota mínima da prática | — |
 | `src/content/gamification.ts` | Valores de XP, estágios e conquistas | Jornada, Conquistas (cards do Trello) |
 | `src/content/missions.ts` | 6 missões: 5 em passos (com dica e explicação) e 1 com o construtor de prompt | Missões e Desafios Práticos (card do Trello) |
+| `src/content/project-templates.ts` | 3 modelos do Laboratório (seminário ou trabalho escolar, pesquisa, projeto prático), cada um com etapas e tarefas sugeridas | SP26 |
 
 O conteúdo é código versionado: toda mudança passa por pull request e pelos testes automáticos (`src/content/content.test.ts`), que recusam ids repetidos, gabarito apontando para alternativa inexistente, questão sem explicação e trilha com módulo que não existe.
 
@@ -31,18 +32,33 @@ O conteúdo é código versionado: toda mudança passa por pull request e pelos 
 
 ## Lista de revisão
 
-- [ ] Os fatos usados nas missões estão corretos (Edward Jenner e a vacina contra a varíola em 1796; "vacina" vem do latim "vacca"; o Censo 2022 do IBGE contou mais de 203 milhões de pessoas; EPE e ANEEL publicam dados do setor elétrico).
-- [ ] Os fatos citados estão corretos (O Cortiço/Aluísio Azevedo, 1890; Vidas Secas/Graciliano Ramos, 1938; Dom Casmurro/Machado de Assis, 1899, narrado por Bento Santiago; LGPD, Lei nº 13.709/2018, e a lista de dados sensíveis do art. 5º, II).
+- [x] Os fatos citados foram conferidos em 20/10/2026 (ADR 0002, decisão 7). Tabela abaixo.
 - [ ] As fontes indicadas no módulo de verificação continuam valendo (planalto.gov.br, IBGE, Google Acadêmico, SciELO, Portal de Periódicos da CAPES).
-- [ ] A linguagem é adequada ao público definido (decisão pendente sobre menores de 18 anos).
+- [ ] A linguagem é adequada ao público definido (13 anos ou mais, ADR 0002).
 - [ ] Cada questão tem uma única resposta defensável e explicação clara.
 - [ ] Nenhum exemplo usa dados reais de pessoas.
 
-## Propostas que dependem de validação
+### Fatos conferidos em 20/10/2026
 
-Estes valores foram escolhidos para o sistema funcionar e estão isolados para serem trocados sem mexer no resto do código:
+| Fato usado no conteúdo | Onde aparece | Fonte |
+|---|---|---|
+| *O Cortiço* é de Aluísio Azevedo, publicado em 1890 | Alucinações | [Toda Matéria](https://www.todamateria.com.br/o-cortico/) |
+| *Vidas Secas* é de Graciliano Ramos, publicado em 1938, sobre uma família de retirantes no sertão | Alucinações | [Toda Matéria](https://www.todamateria.com.br/vidas-secas-de-graciliano-ramos/) |
+| *Dom Casmurro* é de Machado de Assis, de 1899 (página de rosto; a Garnier lançou em 1900), narrado por Bento Santiago | Alucinações | [Wikipédia](https://en.wikipedia.org/wiki/Dom_Casmurro) |
+| LGPD é a Lei nº 13.709/2018; o art. 5º, II lista os dados sensíveis (origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato ou organização religiosa, filosófica ou política, saúde, vida sexual, dado genético ou biométrico) | Privacidade | [Planalto](https://planalto.gov.br/ccivil_03/_ato2015-2018/2018/Lei/L13709.htm) |
+| Censo 2022: 203.080.756 habitantes | Missão "Checagem de fonte" | [IBGE Educa](https://educa.ibge.gov.br/jovens/conheca-o-brasil/populacao/22005-censo-2022-o-retrato-atualizado-do-brasil.html) |
+| Edward Jenner aplicou a primeira vacina, contra a varíola, em 1796 | Missão "Caça às alucinações" | [Conass](https://www.conass.org.br/?p=28714) |
+| "Vacina" vem do latim *vaccinus*, de *vacca* (vaca) | Missão "Caça às alucinações" | [Etymonline](https://www.etymonline.com/pt/word/vaccination) |
+| A EPE publica o Balanço Energético Nacional | Missão "Trabalho em grupo com IA" | [Cenário Energia](https://cenarioenergia.com.br/2025/07/01/epe-divulga-relatorio-final-do-ben-2025-e-destaca-avanco-das-fontes-renovaveis-no-brasil/) |
+| A ANEEL publica dados de geração por fonte (solar em cerca de 23% da capacidade instalada no início de 2026, longe dos "45%" que a missão usa como dado suspeito) | Missão "Trabalho em grupo com IA" | [Movimento Econômico](https://movimentoeconomico.com.br/economia/energia/2026/01/13/aneel-preve-crescimento-de-91-gw-na-matriz-eletrica-brasileira-em-2026/) |
 
-| Regra | Valor proposto | Onde mudar |
+A checagem cobre fatos, não pedagogia: a revisão das questões e explicações continua com a equipe.
+
+## Regras decididas (ADR 0002)
+
+Estes valores foram propostos para o sistema funcionar e viraram regra em 20/10/2026 ([ADR 0002](adr/0002-decisoes-de-produto.md)). Continuam isolados para serem trocados sem mexer no resto do código:
+
+| Regra | Valor | Onde mudar |
 |---|---|---|
 | Faixas do nivelamento | até 40% iniciante · 41–75% intermediário · acima de 75% avançado (com 10 questões: 0–4, 5–7, 8–10) | `LEVEL_RULES` em `src/content/placement.ts` |
 | Nota para concluir a prática do módulo | 70% (4 de 5) | `PRACTICE_PASS_PERCENT` em `src/content/index.ts` |
@@ -62,12 +78,24 @@ A equipe aprovou estas regras no documento "Proposta de gamificação — Learn 
 |---|---|---|
 | XP por atividade | Nivelamento 20 (só o primeiro) · aula 10 · prática 10 por acerto na primeira tentativa · módulo concluído 40 · avaliação 10 por acerto na primeira tentativa · aprovação 50 | `XP_RULES` |
 | Estágios | 5 estágios, a partir de 0, 60, 180, 330 e 480 XP, com nomes neutros | `STAGES` |
-| Conquistas | Ponto de partida, Primeiro módulo, Olho nas alucinações, Checagem certeira, Trilha concluída, Aprovado; na C2, Prompt completo, Dados protegidos e Todas as missões | `achievements` |
+| Conquistas | Ponto de partida, Primeiro módulo, Olho nas alucinações, Checagem certeira, Trilha concluída, Aprovado; na C2, Prompt completo, Dados protegidos e Todas as missões; depois, Todas as habilidades e Projeto autoral (ADR 0002) | `achievements` |
 | Missões | 6 missões, liberadas ao concluir o módulo que praticam (a integradora, ao concluir a trilha); concluem com 70% dos passos; 30 XP cada e 60 na integradora, só na primeira conclusão; sem missões diárias | `src/content/missions.ts` (`MISSION_PASS_PERCENT` e `xp` de cada missão) |
 | Missão do construtor | Confere só a estrutura: os quatro elementos (contexto e formato e restrições com pelo menos 10 caracteres, objetivo com 15) e nenhum dado pessoal; o texto é descartado | `PROMPT_MISSION_MIN` em `src/lib/learning/missions.ts` |
 | Dica nas missões | Aberta na Trilha Iniciante, fechada nas outras; usar a dica não reduz o XP | `src/app/(app)/missoes/[missao]/page.tsx` |
 | Sem ranking, sem sequência de dias e sem missões diárias | — | — |
 
-**Aguardando decisão:** o mapa de habilidades (com o corte de 70% na avaliação) e a conquista "Todas as habilidades", que depende dele, ficaram de fora até a equipe aprovar.
+**Mapa de habilidades (ADR 0002):** cada tema fica "confirmado" com os módulos concluídos e 70% ou mais nas questões dele em alguma tentativa da avaliação final (o mesmo corte das recomendações). Com os cinco confirmados, vem a conquista "Todas as habilidades". Regras em `src/lib/learning/skills.ts`.
+
+## Laboratório de Projetos Autorais — regras decididas (ADR 0002)
+
+| Regra | Valor | Onde mudar |
+|---|---|---|
+| Liberação | Ao concluir a primeira missão | `isLabUnlocked` em `src/server/projects.ts` |
+| Conquista "Projeto autoral" | Todas as etapas concluídas (cada etapa com tarefas, todas marcadas), pelo menos uma referência marcada como conferida e um registro de uso de IA ou "não usei IA neste projeto". Não rende XP; obtida, não é retirada | `authoredAt` em `src/lib/projects.ts` |
+| Lista de conferência | Objetivo com 30 caracteres ou mais, público com 10, problema com 30, toda etapa com tarefa, referência conferida, uso de IA registrado, nenhum dado pessoal (mesma detecção do construtor) | `projectChecklist` em `src/lib/projects.ts` |
+| Limites | 20 projetos por pessoa, 30 tarefas por etapa, 30 referências e 30 registros de IA por projeto, e tamanho máximo em cada campo | `PROJECT_LIMITS` em `src/lib/projects.ts` |
+| Histórico | Guarda o tipo da mudança e o nome da etapa, nunca o texto escrito; a tela mostra as 50 mais recentes | `projectEventLabel` em `src/lib/projects.ts` |
+
+Mudar um modelo vale só para projetos criados depois: as etapas e tarefas de um projeto existente são da pessoa. Nunca mude o `id` de um modelo publicado (os projetos guardam esse id).
 
 Regras para editar conquistas e missões: nunca mude nem reaproveite o `id` de uma conquista, missão ou passo publicado (as conquistas gravadas apontam para ele). Mudar um valor de XP vale para o que for concedido dali em diante; o XP já gravado não muda.

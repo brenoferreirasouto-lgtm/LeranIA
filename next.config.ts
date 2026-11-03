@@ -10,7 +10,10 @@ const securityHeaders = [
     key: "Permissions-Policy",
     value: "camera=(), microphone=(), geolocation=(), payment=()",
   },
+  // Só tem efeito em HTTPS (o navegador ignora em http://localhost).
+  { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
 ];
+// A Content-Security-Policy usa um nonce por requisição: fica em src/proxy.ts.
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,

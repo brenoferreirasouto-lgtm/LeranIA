@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "@/lib/zod";
 
 /*
  * Regras dos formulários de cadastro (SP15) e login (U02).
@@ -90,9 +90,20 @@ export function toFieldErrors<T>(error: z.ZodError<T>): FieldErrors<T> {
  * para outro site por um link manipulado, como ?next=//site-malicioso).
  */
 export function safeRedirectPath(value: unknown, fallback = "/painel"): string {
-  if (typeof value !== "string") return fallback;
-  if (!value.startsWith("/") || value.startsWith("//") || value.startsWith("/\\")) {
+  if (typeof value !== "string" || value.length > 2048) return fallback;
+  // Caracteres de controle e barra invertida: o navegador remove ou troca
+  // por "/" ao ler a URL, e "/<TAB>/site.com" viraria "//site.com".
+  if (/[\u0000-\u001f\u007f\\]/.test(value)) return fallback;
+  if (!value.startsWith("/") || value.startsWith("//")) return fallback;
+  // Confere com o mesmo parser de URL do navegador: o destino tem que
+  // continuar no próprio site.
+  const base = "http://learnai.invalid";
+  let url: URL;
+  try {
+    url = new URL(value, base);
+  } catch {
     return fallback;
   }
-  return value;
+  if (url.origin !== base) return fallback;
+  return `${url.pathname}${url.search}${url.hash}`;
 }

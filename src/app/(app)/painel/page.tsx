@@ -12,7 +12,7 @@ import { requireUser } from "@/lib/session";
 import { getResults } from "@/server/assessment";
 import { moduleTitle } from "@/server/content";
 import { getProgress } from "@/server/learning";
-import { ensureRewards, getJourney } from "@/server/rewards";
+import { ensureRewards, getJourney, getSkillMap } from "@/server/rewards";
 
 import styles from "./painel.module.css";
 
@@ -27,11 +27,13 @@ export default async function DashboardPage() {
   const firstName = user.name.split(" ")[0];
   // Fase C1: concede o XP que faltar (retroativo para quem já usava a plataforma).
   await ensureRewards(user.id);
-  const [results, progress, journey] = await Promise.all([
+  const [results, progress, journey, skills] = await Promise.all([
     getResults(user.id),
     getProgress(user.id),
     getJourney(user.id),
+    getSkillMap(user.id),
   ]);
+  const confirmedSkills = skills.filter((s) => s.state === "confirmada").length;
   const { stage } = journey;
   const { placement, track, summary, assessment, unlocked } = results;
 
@@ -130,7 +132,7 @@ export default async function DashboardPage() {
             : stage.next
               ? `Faltam ${stage.next.minXp - stage.xp} XP para o Estágio ${stage.next.stage}.`
               : "Você chegou ao último estágio."}{" "}
-          <Link href="/jornada">Ver minha jornada</Link>
+          Habilidades confirmadas: {confirmedSkills} de {skills.length}. <Link href="/jornada">Ver minha jornada</Link>
         </p>
       </section>
 
