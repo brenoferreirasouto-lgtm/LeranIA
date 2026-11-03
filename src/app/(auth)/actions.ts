@@ -6,15 +6,18 @@ import { redirect } from "next/navigation";
 
 import { auth } from "@/lib/auth";
 import { RULES, clientIp, consume, hashKey } from "@/lib/rate-limit";
+import { getCurrentUser } from "@/lib/session";
 import {
   type FieldErrors,
   type SignInInput,
   type SignUpInput,
+  confirmAgeSchema,
   safeRedirectPath,
   signInSchema,
   signUpSchema,
   toFieldErrors,
 } from "@/lib/validation/auth";
+import { confirmAge } from "@/server/account";
 
 export type FormState<T> = {
   message?: string;
@@ -137,4 +140,18 @@ export async function signOutAction(): Promise<void> {
     if (!isAPIError(error)) throw error;
   }
   redirect("/");
+}
+
+export type ConfirmAgeState = { fieldErrors?: FieldErrors<{ confirmAge: string }> };
+
+/** Contas criadas antes da idade mínima (ADR 0002) confirmam a declaração aqui. */
+export async function confirmAgeAction(_prev: ConfirmAgeState, formData: FormData): Promise<ConfirmAgeState> {
+  const user = await getCurrentUser();
+  if (!user) redirect("/entrar");
+
+  const parsed = confirmAgeSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success) return { fieldErrors: toFieldErrors(parsed.error) };
+
+  await confirmAge(user.id);
+  redirect(safeRedirectPath(formData.get("next")));
 }

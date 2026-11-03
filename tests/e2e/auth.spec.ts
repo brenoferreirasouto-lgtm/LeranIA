@@ -52,6 +52,7 @@ test.describe("SP15 — Cadastro de usuário", () => {
     await expect(page.getByText("Informe seu e-mail.")).toBeVisible();
     await expect(page.getByText("Crie uma senha.")).toBeVisible();
     await expect(page.getByText(/aceite os termos de uso/)).toBeVisible();
+    await expect(page.getByText("O Learn AI é para quem tem 13 anos ou mais. Confirme a sua idade para continuar.")).toBeVisible();
     await expect(page).toHaveURL("/cadastro");
   });
 
@@ -73,6 +74,7 @@ test.describe("SP15 — Cadastro de usuário", () => {
     await page.getByLabel("E-mail").fill(uniqueEmail());
     await page.getByLabel("Senha").fill("1234567");
     await page.getByLabel(/Li e aceito/).check();
+    await page.getByLabel("Tenho 13 anos ou mais.").check();
     await page.getByRole("button", { name: "Criar conta" }).click();
 
     await expect(page.getByText("A senha precisa ter pelo menos 8 caracteres.")).toBeVisible();

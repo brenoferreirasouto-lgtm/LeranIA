@@ -1,12 +1,20 @@
 import { describe, expect, it } from "vitest";
 
-import { safeRedirectPath, signInSchema, signUpSchema, toFieldErrors } from "./auth";
+import {
+  confirmAgeSchema,
+  deleteAccountSchema,
+  safeRedirectPath,
+  signInSchema,
+  signUpSchema,
+  toFieldErrors,
+} from "./auth";
 
 const valid = {
   name: "Ana Souza",
   email: "ana@exemplo.com",
   password: "frase segura 123",
   acceptTerms: "on",
+  confirmAge: "on",
 };
 
 function errorsFor(input: Record<string, unknown>) {
@@ -31,11 +39,11 @@ describe("SP15 — validação do cadastro", () => {
 
   it("exige todos os campos obrigatórios", () => {
     const errors = errorsFor({});
-    expect(Object.keys(errors).sort()).toEqual(["acceptTerms", "email", "name", "password"]);
+    expect(Object.keys(errors).sort()).toEqual(["acceptTerms", "confirmAge", "email", "name", "password"]);
   });
 
   it("explica cada campo vazio em português", () => {
-    const errors = errorsFor({ name: "", email: "", password: "", acceptTerms: "on" });
+    const errors = errorsFor({ name: "", email: "", password: "", acceptTerms: "on", confirmAge: "on" });
     expect(errors.name).toBe("Informe seu nome.");
     expect(errors.email).toBe("Informe seu e-mail.");
     expect(errors.password).toBe("Crie uma senha.");
@@ -65,6 +73,14 @@ describe("SP15 — validação do cadastro", () => {
     const withoutTerms: Partial<typeof valid> = { ...valid };
     delete withoutTerms.acceptTerms;
     expect(errorsFor(withoutTerms).acceptTerms).toMatch(/aceite os termos/);
+  });
+
+  it("exige a declaração de idade mínima (13 anos)", () => {
+    const withoutAge: Partial<typeof valid> = { ...valid };
+    delete withoutAge.confirmAge;
+    expect(errorsFor(withoutAge).confirmAge).toBe(
+      "O Learn AI é para quem tem 13 anos ou mais. Confirme a sua idade para continuar.",
+    );
   });
 
   it("devolve só a primeira mensagem de cada campo", () => {
@@ -100,5 +116,24 @@ describe("destino depois do login", () => {
   it("usa o painel quando não há destino", () => {
     expect(safeRedirectPath(undefined)).toBe("/painel");
     expect(safeRedirectPath("")).toBe("/painel");
+  });
+});
+
+describe("ADR 0002 — idade e exclusão da conta", () => {
+  it("contas antigas confirmam a idade com a mesma declaração", () => {
+    expect(confirmAgeSchema.safeParse({ confirmAge: "on" }).success).toBe(true);
+    expect(confirmAgeSchema.safeParse({}).success).toBe(false);
+  });
+
+  it("excluir a conta exige a senha e a ciência de que é permanente", () => {
+    expect(deleteAccountSchema.safeParse({ password: "x", confirmDelete: "on" }).success).toBe(true);
+    const result = deleteAccountSchema.safeParse({ password: "" });
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(toFieldErrors(result.error)).toEqual({
+        password: "Informe sua senha.",
+        confirmDelete: "Marque que você entende que a exclusão é permanente.",
+      });
+    }
   });
 });

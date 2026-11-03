@@ -7,6 +7,7 @@ import { Field } from "@/components/forms/field";
 import { SubmitButton } from "@/components/forms/submit-button";
 import {
   EMAIL_MAX,
+  MIN_AGE,
   NAME_MAX,
   NAME_MIN,
   PASSWORD_MAX,
@@ -80,6 +81,24 @@ export function SignUpForm() {
         {errors.acceptTerms ? (
           <p className="field-error" id="aceite-erro">
             {errors.acceptTerms}
+          </p>
+        ) : null}
+      </div>
+
+      <div>
+        <label className={styles.consent}>
+          <input
+            type="checkbox"
+            name="confirmAge"
+            required
+            aria-invalid={errors.confirmAge ? true : undefined}
+            aria-describedby={errors.confirmAge ? "idade-erro" : undefined}
+          />
+          <span>Tenho {MIN_AGE} anos ou mais.</span>
+        </label>
+        {errors.confirmAge ? (
+          <p className="field-error" id="idade-erro">
+            {errors.confirmAge}
           </p>
         ) : null}
       </div>

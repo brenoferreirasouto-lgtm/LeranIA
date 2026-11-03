@@ -181,6 +181,22 @@ a:hover {
   color: var(--ink);
 }
 
+/* Ações que não têm volta, como excluir a conta. */
+.btn-danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #8f1c13;
+  color: #fff;
+}
+
+.btn-danger[disabled] {
+  background: var(--navy-300);
+  cursor: progress;
+}
+
 .btn-block {
   width: 100%;
 }

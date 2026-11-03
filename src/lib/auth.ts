@@ -44,17 +44,22 @@ export const auth = betterAuth({
   user: {
     additionalFields: {
       termsAcceptedAt: { type: "date", required: false, input: false },
+      ageConfirmedAt: { type: "date", required: false, input: false },
     },
+    // Exclusão da conta pela própria pessoa (LGPD, art. 18). Só é chamada pela
+    // Server Action de /conta, que exige a senha e aplica limite de tentativas.
+    deleteUser: { enabled: true },
   },
   databaseHooks: {
     user: {
       create: {
         // O único caminho de cadastro (signUpAction) só chega aqui depois de
-        // confirmar o aceite dos termos, então o registro do aceite é feito
-        // no mesmo INSERT que cria a conta.
-        before: async (user) => ({
-          data: { ...user, termsAcceptedAt: new Date() },
-        }),
+        // confirmar o aceite dos termos e a idade mínima, então os dois
+        // registros são feitos no mesmo INSERT que cria a conta.
+        before: async (user) => {
+          const now = new Date();
+          return { data: { ...user, termsAcceptedAt: now, ageConfirmedAt: now } };
+        },
       },
     },
   },

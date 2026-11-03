@@ -107,6 +107,9 @@
 
 .user {
   color: var(--ink-muted);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-color: var(--line);
   font-size: var(--text-sm);
   max-width: 12ch;
   overflow: hidden;
@@ -174,4 +177,9 @@
     color: var(--ink);
     border-bottom-color: var(--blue-600);
   }
+}
+
+.user:hover {
+  color: var(--blue-600);
+  text-decoration-color: currentColor;
 }

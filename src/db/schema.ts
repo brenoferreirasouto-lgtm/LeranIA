@@ -35,6 +35,8 @@ export const users = pgTable("users", {
   image: text("image"),
   // Momento em que a pessoa aceitou os termos e a política de privacidade (LGPD).
   termsAcceptedAt: timestamp("terms_accepted_at", { withTimezone: true }),
+  // Momento em que a pessoa declarou ter 13 anos ou mais (ADR 0002). Nunca guardamos a data de nascimento.
+  ageConfirmedAt: timestamp("age_confirmed_at", { withTimezone: true }),
   createdAt: createdAt(),
   updatedAt: updatedAt(),
 });
