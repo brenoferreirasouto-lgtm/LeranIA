@@ -60,6 +60,8 @@ export type LearnerFacts = {
   missionsCompleted: { missionId: string; attemptId: string; at: Date }[];
   /** Primeira tentativa da avaliação com 70% ou mais nas questões de cada tema. */
   assessmentSkillPasses: { skill: Skill; at: Date }[];
+  /** Laboratório: quando cada projeto cumpriu o critério de "Projeto autoral". */
+  authoredProjects: { projectId: string; at: Date }[];
 };
 
 const knownModules = new Set(modules.map((m) => m.slug));
@@ -196,6 +198,8 @@ export function achievementEarnedAt(achievement: Achievement, facts: LearnerFact
       if (map.some((entry) => !entry.confirmedAt)) return null;
       return latest(map.map((entry) => entry.confirmedAt as Date));
     }
+    case "project-authored":
+      return earliest(facts.authoredProjects.map((p) => p.at));
     case "all-missions": {
       const dates = missions.map((m) => missionDone(facts, m.id));
       if (dates.length === 0 || dates.some((d) => d === null)) return null;

@@ -24,6 +24,7 @@ function facts(overrides: Partial<LearnerFacts> = {}): LearnerFacts {
     firstPassedAssessment: null,
     missionsCompleted: [],
     assessmentSkillPasses: [],
+    authoredProjects: [],
     ...overrides,
   };
 }
@@ -286,5 +287,18 @@ describe("C2 — missões no XP e nas conquistas", () => {
 
   it("nomeia a missão no histórico", () => {
     expect(xpEventLabel("missao", "conserte-o-prompt")).toBe("Missão concluída: Conserte o prompt");
+  });
+});
+
+describe("conquista do Laboratório", () => {
+  it("Projeto autoral usa o primeiro projeto autoral e não rende XP", () => {
+    const f = facts({ authoredProjects: [{ projectId: "p2", at: day(12) }, { projectId: "p1", at: day(8) }] });
+    const earned = achievementEntitlements(f).find((a) => a.achievementId === "projeto-autoral");
+    expect(earned?.earnedAt).toEqual(day(8));
+    expect(xpEntitlements(f)).toEqual([]);
+  });
+
+  it("sem projeto autoral, não há conquista", () => {
+    expect(achievementEntitlements(facts()).some((a) => a.achievementId === "projeto-autoral")).toBe(false);
   });
 });

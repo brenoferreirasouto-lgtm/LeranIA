@@ -339,3 +339,109 @@ export const missionAnswers = pgTable(
   },
   (t) => [primaryKey({ columns: [t.attemptId, t.stepId] })],
 );
+
+/*
+ * Laboratório de Projetos Autorais (SP26, ADR 0002). Projetos privados: toda
+ * consulta filtra pela dona do projeto, e tudo é apagado com a conta.
+ */
+export const projects = pgTable(
+  "projects",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    templateId: text("template_id").notNull(),
+    title: text("title").notNull(),
+    goal: text("goal").notNull().default(""),
+    audience: text("audience").notNull().default(""),
+    problem: text("problem").notNull().default(""),
+    /** "Não usei IA neste projeto" (vale como registro de uso de IA). */
+    noAiMarkedAt: timestamp("no_ai_marked_at", { withTimezone: true }),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (t) => [index("projects_user_idx").on(t.userId, t.updatedAt)],
+);
+
+export const projectStages = pgTable(
+  "project_stages",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    projectId: uuid("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    position: integer("position").notNull(),
+    /** Copiado do modelo na criação, para o projeto não mudar se o modelo mudar. */
+    title: text("title").notNull(),
+  },
+  (t) => [uniqueIndex("project_stages_position_idx").on(t.projectId, t.position)],
+);
+
+export const projectTasks = pgTable(
+  "project_tasks",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    projectId: uuid("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    stageId: uuid("stage_id")
+      .notNull()
+      .references(() => projectStages.id, { onDelete: "cascade" }),
+    text: text("text").notNull(),
+    /** Ordem dentro da etapa (as tarefas do modelo são criadas juntas, no mesmo instante). */
+    position: integer("position").notNull(),
+    doneAt: timestamp("done_at", { withTimezone: true }),
+    createdAt: createdAt(),
+  },
+  (t) => [index("project_tasks_stage_idx").on(t.stageId, t.position)],
+);
+
+export const projectReferences = pgTable(
+  "project_references",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    projectId: uuid("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+    url: text("url"),
+    note: text("note").notNull().default(""),
+    /** Quando a pessoa marcou que conferiu a fonte na origem. */
+    verifiedAt: timestamp("verified_at", { withTimezone: true }),
+    createdAt: createdAt(),
+  },
+  (t) => [index("project_references_project_idx").on(t.projectId, t.createdAt)],
+);
+
+export const projectAiLogs = pgTable(
+  "project_ai_logs",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    projectId: uuid("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    tool: text("tool").notNull(),
+    purpose: text("purpose").notNull(),
+    /** O que a pessoa mudou, conferiu ou decidiu a partir da resposta. */
+    whatChanged: text("what_changed").notNull(),
+    createdAt: createdAt(),
+  },
+  (t) => [index("project_ai_logs_project_idx").on(t.projectId, t.createdAt)],
+);
+
+/** Histórico do projeto: o que aconteceu e quando, sem copiar o texto da pessoa. */
+export const projectEvents = pgTable(
+  "project_events",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    projectId: uuid("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    kind: text("kind").notNull(),
+    /** Nome da etapa do modelo, quando houver. */
+    detail: text("detail"),
+    createdAt: createdAt(),
+  },
+  (t) => [index("project_events_project_idx").on(t.projectId, t.createdAt)],
+);

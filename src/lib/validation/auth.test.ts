@@ -113,6 +113,19 @@ describe("destino depois do login", () => {
     expect(safeRedirectPath("/\\site-malicioso.com")).toBe("/painel");
   });
 
+  it("recusa caracteres que o navegador remove ao ler a URL", () => {
+    // "/<TAB>/site.com" e "/<quebra de linha>/site.com" viram "//site.com" no navegador.
+    for (const sneaky of ["/\t/site-malicioso.com", "/\n/site-malicioso.com", "/\r/site-malicioso.com", "/a\\b"]) {
+      expect(safeRedirectPath(sneaky), JSON.stringify(sneaky)).toBe("/painel");
+    }
+    expect(safeRedirectPath("/" + "a".repeat(3000))).toBe("/painel");
+  });
+
+  it("mantém caminhos internos com caracteres codificados", () => {
+    expect(safeRedirectPath("/trilha?busca=a%2Fb#topo")).toBe("/trilha?busca=a%2Fb#topo");
+    expect(safeRedirectPath("/%2F%2Fsite.com")).toBe("/%2F%2Fsite.com");
+  });
+
   it("usa o painel quando não há destino", () => {
     expect(safeRedirectPath(undefined)).toBe("/painel");
     expect(safeRedirectPath("")).toBe("/painel");

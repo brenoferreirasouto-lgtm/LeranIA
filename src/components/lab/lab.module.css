@@ -1,0 +1,627 @@
+/*
+ * Laboratório de Projetos Autorais (SP26). Mesmos tokens do resto do app:
+ * azul para o caminho do projeto, verde para o que está em dia e o
+ * marca-texto para o que ainda falta conferir.
+ */
+
+.page {
+  display: grid;
+  gap: var(--space-6);
+  max-width: 46rem;
+}
+
+.projectPage {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.header {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 46rem;
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.lead {
+  font-size: var(--text-lg);
+  color: var(--ink-muted);
+}
+
+.breadcrumb {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.note {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+/* ---------- Cartões e seções ---------- */
+
+.card {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+  min-width: 0;
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.cardLocked {
+  border-style: dashed;
+  background: transparent;
+}
+
+.danger {
+  max-width: 46rem;
+  border-color: color-mix(in srgb, var(--danger) 35%, var(--line));
+}
+
+.cardTitle,
+.sectionTitle {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.cardText {
+  color: var(--ink-muted);
+}
+
+.section {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.empty {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+/* ---------- Lista de projetos ---------- */
+
+.projectList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.projectItem {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.projectTitle {
+  font-size: var(--text-md);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Formulários ---------- */
+
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.formActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.saved {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--success);
+}
+
+.privacy {
+  font-size: var(--text-sm);
+  color: var(--marker-ink);
+  background: var(--marker-soft);
+  border-left: 4px solid var(--marker);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--space-2) var(--space-3);
+}
+
+.privacy:empty {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.inlineForm {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.inlineRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.inlineRow input {
+  flex: 1 1 14rem;
+  width: auto;
+}
+
+.confirm {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.confirm input {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: 0.2rem;
+  accent-color: var(--danger);
+}
+
+/* Modelos de projeto: cartões de rádio */
+
+.templates {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.templates legend {
+  padding: 0;
+}
+
+.templateGrid {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.template {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  align-content: start;
+  padding: var(--space-3) var(--space-4);
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.template:hover {
+  border-color: var(--navy-300);
+}
+
+.template:has(input:checked) {
+  border-color: var(--blue-600);
+  background: var(--blue-50);
+}
+
+.template:has(input:focus-visible) {
+  box-shadow: var(--focus);
+}
+
+.template input {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.2rem;
+  accent-color: var(--blue-600);
+}
+
+.templateBody {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.templateTitle {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.templateText {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.templateStages {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--blue-700);
+}
+
+/* ---------- Projeto ---------- */
+
+.authored {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  max-width: 46rem;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--success) 8%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--success) 30%, var(--line));
+}
+
+.authoredTitle {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--success);
+}
+
+.layout {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-areas:
+    "check"
+    "main"
+    "history";
+}
+
+.checklistCard {
+  grid-area: check;
+}
+
+.main {
+  grid-area: main;
+  display: grid;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.historyCard {
+  grid-area: history;
+}
+
+@media (min-width: 1000px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "main check"
+      "main history";
+    align-items: start;
+  }
+}
+
+/* Lista de conferência */
+
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.checkItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  font-size: var(--text-sm);
+}
+
+.checkMark {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  background: var(--marker-soft);
+  color: var(--marker-ink);
+  border: 1.5px solid var(--marker);
+}
+
+.checkItem[data-ok="true"] .checkMark {
+  background: color-mix(in srgb, var(--success) 12%, var(--surface));
+  color: var(--success);
+  border-color: color-mix(in srgb, var(--success) 45%, var(--surface));
+}
+
+.checkLabel {
+  display: block;
+  font-weight: 700;
+}
+
+.checkItem[data-ok="true"] .checkLabel {
+  font-weight: 400;
+  color: var(--ink-muted);
+}
+
+.checkTip {
+  display: block;
+  color: var(--ink-muted);
+}
+
+/* Etapas: uma linha do tempo, porque a ordem importa */
+
+.stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: var(--space-4);
+  padding-bottom: var(--space-5);
+}
+
+.stage:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: calc(1.125rem - 1px);
+  top: 2.5rem;
+  bottom: 0.25rem;
+  width: 2px;
+  background: var(--line);
+}
+
+.stage[data-done="true"]:not(:last-child)::before {
+  background: var(--blue-600);
+}
+
+.stageNumber {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 600;
+  background: var(--surface);
+  color: var(--blue-700);
+  border: 2px solid var(--blue-600);
+}
+
+.stage[data-done="true"] .stageNumber {
+  background: var(--blue-600);
+  color: #fff;
+}
+
+.stageBody {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+.stageHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.stageTitle {
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+
+.stageCount {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.stage[data-done="true"] .stageCount {
+  color: var(--blue-700);
+  font-weight: 700;
+}
+
+.tasks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+}
+
+/* Caixa de seleção que salva sozinha */
+
+.toggle {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+  flex: 1 1 12rem;
+  min-height: 2.75rem;
+  padding: var(--space-2) 0;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.toggle input {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.15rem;
+  accent-color: var(--blue-600);
+  cursor: pointer;
+}
+
+.toggle input:disabled {
+  cursor: not-allowed;
+}
+
+.tasks .toggle[data-checked="true"] span {
+  color: var(--ink-muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.toggle[aria-busy="true"] {
+  cursor: progress;
+}
+
+.remove {
+  min-height: 2.75rem;
+  padding: 0 var(--space-2);
+  border: 0;
+  background: none;
+  color: var(--ink-muted);
+  font: inherit;
+  font-size: var(--text-xs);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.remove:hover {
+  color: var(--danger);
+}
+
+.remove[disabled] {
+  cursor: progress;
+}
+
+/* Referências e registros de IA */
+
+.items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.item {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  overflow-wrap: anywhere;
+}
+
+.itemTitle {
+  font-weight: 700;
+}
+
+.itemText {
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+}
+
+.itemDate {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  color: var(--ink-muted);
+}
+
+.logFacts {
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.logFacts dt {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.logFacts dd {
+  margin: 0;
+}
+
+.item > form {
+  justify-self: end;
+}
+
+.noAi {
+  padding: var(--space-1) var(--space-4);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-md);
+}
+
+/* Histórico */
+
+.history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.history li {
+  display: grid;
+  gap: 0.1rem;
+  padding-left: var(--space-3);
+  border-left: 2px solid var(--line);
+}
+
+.historyTime {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+@media (min-width: 720px) {
+  .templateGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .template {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: var(--space-5) var(--space-6);
+  }
+}

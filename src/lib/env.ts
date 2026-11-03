@@ -1,4 +1,4 @@
-import * as z from "zod";
+import { z } from "@/lib/zod";
 
 const envSchema = z.object({
   DATABASE_URL: z

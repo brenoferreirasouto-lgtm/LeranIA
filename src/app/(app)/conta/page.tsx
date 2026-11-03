@@ -60,8 +60,8 @@ export default async function AccountPage() {
           Baixar meus dados
         </h2>
         <p className={styles.cardText}>
-          Um arquivo com tudo o que o Learn AI guarda sobre você: conta, respostas, progresso, XP, conquistas e
-          acessos. Por segurança, ficam de fora só o código da sua senha e os códigos das sessões.
+          Um arquivo com tudo o que o Learn AI guarda sobre você: conta, respostas, progresso, XP, conquistas,
+          projetos e acessos. Por segurança, ficam de fora só o código da sua senha e os códigos das sessões.
         </p>
         <div>
           <a href="/conta/dados" className="btn btn-secondary" download>
@@ -75,7 +75,7 @@ export default async function AccountPage() {
           Excluir minha conta
         </h2>
         <p className={styles.cardText}>
-          Apaga a conta e todos os dados ligados a ela: respostas, progresso, XP e conquistas. Não dá para
+          Apaga a conta e todos os dados ligados a ela: respostas, progresso, XP, conquistas e projetos. Não dá para
           desfazer. Se quiser guardar uma cópia, baixe seus dados antes.
         </p>
         <DeleteAccountForm />

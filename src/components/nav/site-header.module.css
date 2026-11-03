@@ -143,7 +143,8 @@
   }
 }
 
-@media (min-width: 1200px) {
+/* Nove itens no menu: abaixo de 1280px eles quebrariam em duas linhas. */
+@media (min-width: 1280px) {
   .menuButton {
     display: none;
   }
@@ -162,12 +163,13 @@
 
   .navList {
     display: flex;
-    gap: var(--space-4);
+    gap: var(--space-3);
   }
 
   .navList .link,
   .navList .link[aria-current="page"] {
     display: inline;
+    white-space: nowrap;
     padding: var(--space-2) 0;
     box-shadow: none;
     border-bottom: 2px solid transparent;

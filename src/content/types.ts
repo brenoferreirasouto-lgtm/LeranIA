@@ -148,3 +148,19 @@ export type StepMission = MissionBase & { kind: "steps"; steps: MissionStep[] };
 export type PromptMission = MissionBase & { kind: "prompt"; brief: string };
 
 export type Mission = StepMission | PromptMission;
+
+/* ---------- Laboratório de Projetos Autorais (SP26, ADR 0002) ---------- */
+
+export type ProjectTemplateStage = {
+  title: string;
+  /** Tarefas sugeridas; a pessoa pode editar, apagar e acrescentar outras. */
+  tasks: string[];
+};
+
+export type ProjectTemplate = {
+  /** Nunca mude um id publicado: os projetos gravados apontam para ele. */
+  id: string;
+  title: string;
+  summary: string;
+  stages: ProjectTemplateStage[];
+};

@@ -11,6 +11,7 @@ export const MENU_ITEMS = [
   { href: "/jornada", label: "Minha jornada" },
   { href: "/trilha", label: "Trilha" },
   { href: "/missoes", label: "Missões" },
+  { href: "/laboratorio", label: "Laboratório" },
   { href: "/nivelamento", label: "Nivelamento" },
   { href: "/construtor", label: "Construtor de prompt" },
   { href: "/avaliacao", label: "Avaliação final" },
