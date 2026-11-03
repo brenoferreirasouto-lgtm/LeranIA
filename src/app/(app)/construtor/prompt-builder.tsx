@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 
+import { RewardNote } from "@/components/journey/reward-note";
+import missionStyles from "@/components/missions/missions.module.css";
+import type { PromptMissionResult } from "@/lib/learning/public-types";
 import {
   EMPTY_FIELDS,
   type FieldKey,
@@ -10,6 +13,7 @@ import {
   checkPrompt,
 } from "@/lib/prompt-builder";
 
+import { submitPromptMissionAction } from "../missoes/actions";
 import styles from "./construtor.module.css";
 
 type Step = {
@@ -60,17 +64,29 @@ const EXAMPLE: PromptFields = {
 
 const REVIEW = STEPS.length;
 
+type Props = {
+  /**
+   * Fase C2 — missão "Monte um prompt completo". Só nesse modo o texto vai ao
+   * servidor, para conferir a estrutura; ele é conferido e descartado.
+   */
+  missionId?: string;
+};
+
 /**
- * SP06 — monta um prompt em etapas guiadas. Tudo acontece no navegador:
- * o texto não é salvo nem enviado ao servidor.
+ * SP06 — monta um prompt em etapas guiadas. Fora de uma missão, tudo
+ * acontece no navegador: o texto não é salvo nem enviado ao servidor.
  */
-export function PromptBuilder() {
+export function PromptBuilder({ missionId }: Props = {}) {
   const [fields, setFields] = useState<PromptFields>(EMPTY_FIELDS);
   const [step, setStep] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [copyStatus, setCopyStatus] = useState("");
   const [focusTick, setFocusTick] = useState(0);
+  const [missionResult, setMissionResult] = useState<PromptMissionResult | null>(null);
+  const [missionError, setMissionError] = useState<string | null>(null);
+  const [sending, startSending] = useTransition();
   const panelRef = useRef<HTMLDivElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const prompt = buildPrompt(fields);
   const check = checkPrompt(fields);
@@ -79,6 +95,24 @@ export function PromptBuilder() {
   useEffect(() => {
     if (focusTick > 0) panelRef.current?.focus();
   }, [focusTick]);
+
+  useEffect(() => {
+    if (missionResult || missionError) resultRef.current?.focus();
+  }, [missionResult, missionError]);
+
+  function sendMission() {
+    if (!missionId) return;
+    setMissionError(null);
+    startSending(async () => {
+      try {
+        const response = await submitPromptMissionAction({ missionId, fields });
+        if (response.ok) setMissionResult(response.result);
+        else setMissionError(response.message);
+      } catch {
+        setMissionError("Não foi possível conferir agora. Verifique sua conexão e tente de novo.");
+      }
+    });
+  }
 
   function goTo(next: number) {
     setError(null);
@@ -159,6 +193,7 @@ export function PromptBuilder() {
                   onChange={(e) => {
                     setFields((f) => ({ ...f, [current.key]: e.target.value }));
                     setError(null);
+                    setMissionResult(null);
                   }}
                   rows={4}
                   maxLength={1000}
@@ -177,7 +212,12 @@ export function PromptBuilder() {
                 {prompt}
               </pre>
               <div className={styles.actions}>
-                <button type="button" className="btn btn-primary" onClick={copy}>
+                {missionId ? (
+                  <button type="button" className="btn btn-primary" onClick={sendMission} disabled={sending}>
+                    {sending ? "Conferindo…" : "Enviar para conferir"}
+                  </button>
+                ) : null}
+                <button type="button" className={`btn ${missionId ? "btn-secondary" : "btn-primary"}`} onClick={copy}>
                   Copiar prompt
                 </button>
                 <button
@@ -194,6 +234,31 @@ export function PromptBuilder() {
               <p role="status" className={styles.copyStatus}>
                 {copyStatus}
               </p>
+
+              {missionId && (missionResult || missionError) ? (
+                <div ref={resultRef} tabIndex={-1} className={styles.missionResult}>
+                  {missionError ? (
+                    <p className="alert alert-error">{missionError}</p>
+                  ) : missionResult?.passed ? (
+                    <>
+                      <p className={styles.missionPassed}>Missão concluída: os quatro elementos estão no prompt.</p>
+                      <RewardNote
+                        rewards={missionResult.rewards}
+                        emptyText="Esta tentativa não rendeu XP: cada missão paga uma vez."
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <p className={styles.missionRetry}>Ainda não foi desta vez. Ajuste e envie de novo:</p>
+                      <ul className={missionStyles.problems}>
+                        {missionResult?.problems.map((problem) => (
+                          <li key={problem}>{problem}</li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                </div>
+              ) : null}
 
               {check.personalData.length > 0 ? (
                 <div className={styles.warning} role="alert">
@@ -238,12 +303,14 @@ export function PromptBuilder() {
           ) : null}
         </div>
 
-        <p className={styles.helper}>
-          Sem ideias?{" "}
-          <button type="button" className={styles.linkButton} onClick={() => setFields(EXAMPLE)}>
-            Preencher com um exemplo
-          </button>
-        </p>
+        {missionId ? null : (
+          <p className={styles.helper}>
+            Sem ideias?{" "}
+            <button type="button" className={styles.linkButton} onClick={() => setFields(EXAMPLE)}>
+              Preencher com um exemplo
+            </button>
+          </p>
+        )}
       </div>
 
       <aside className={styles.preview} aria-label="Prévia do prompt">

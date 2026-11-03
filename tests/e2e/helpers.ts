@@ -32,6 +32,7 @@ export async function signUp(page: Page, { name, email, password = PASSWORD }: {
   await page.getByLabel("E-mail").fill(email);
   await page.getByLabel("Senha").fill(password);
   await page.getByLabel(/Li e aceito/).check();
+  await page.getByLabel("Tenho 13 anos ou mais.").check();
   await page.getByRole("button", { name: "Criar conta" }).click();
 }
 
@@ -60,8 +61,9 @@ export async function signOut(page: Page) {
 
 /** Desliga a validação do navegador para exercitar a validação do servidor. */
 export async function disableBrowserValidation(page: Page) {
-  await page.locator("form").evaluate((form: HTMLFormElement) => {
-    form.noValidate = true;
+  // Todos os formulários da página (a confirmação de idade tem dois).
+  await page.locator("form").evaluateAll((forms: HTMLFormElement[]) => {
+    for (const form of forms) form.noValidate = true;
   });
 }
 

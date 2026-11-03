@@ -253,3 +253,29 @@
     top: var(--space-5);
   }
 }
+
+/* Fase C2 — resultado da missão "Monte um prompt completo". */
+.missionResult {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+}
+
+.missionResult:focus-visible {
+  box-shadow: none;
+  outline: 2px solid var(--blue-600);
+  outline-offset: 2px;
+}
+
+.missionPassed {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.missionRetry {
+  color: var(--marker-ink);
+  font-weight: 700;
+}

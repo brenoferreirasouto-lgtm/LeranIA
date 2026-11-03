@@ -103,3 +103,48 @@ export const SKILL_TOPIC: Record<Skill, string> = {
   prompts: "prompts",
   privacidade: "privacidade e dados",
 };
+
+/* ---------- Missões (Fase C2) ---------- */
+
+/**
+ * Um passo de missão. Com `multiple`, a pessoa marca todas as alternativas
+ * que se aplicam, e o passo só conta como certo quando ela marca exatamente
+ * as corretas.
+ */
+export type MissionStep = {
+  id: string;
+  skill: Skill;
+  scenario?: string;
+  sample?: { label: string; text: string };
+  prompt: string;
+  options: Option[];
+  optionStyle?: "prompt";
+  multiple?: boolean;
+  correctOptionIds: string[];
+  /** Mostrada depois da resposta. */
+  explanation: string;
+  /** Pista opcional antes de responder: aberta na Trilha Iniciante, fechada nas outras. */
+  hint: string;
+};
+
+export type MissionUnlock = { kind: "module"; moduleSlug: string } | { kind: "track-completed" };
+
+type MissionBase = {
+  /** Nunca mude um id publicado: tentativas e XP gravados apontam para ele. */
+  id: string;
+  title: string;
+  summary: string;
+  /** Habilidade praticada, ou "integradora" quando junta todas. */
+  skill: Skill | "integradora";
+  unlock: MissionUnlock;
+  /** XP pago na primeira conclusão. */
+  xp: number;
+};
+
+/** Missão em passos, corrigida pelo gabarito (com explicação em cada passo). */
+export type StepMission = MissionBase & { kind: "steps"; steps: MissionStep[] };
+
+/** Missão do construtor de prompt: o servidor confere a estrutura e descarta o texto. */
+export type PromptMission = MissionBase & { kind: "prompt"; brief: string };
+
+export type Mission = StepMission | PromptMission;

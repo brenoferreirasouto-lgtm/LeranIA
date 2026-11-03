@@ -7,6 +7,7 @@ import { db } from "@/db";
 import {
   assessmentAttempts,
   learnerProfiles,
+  missionAttempts,
   moduleProgress,
   placementAttempts,
   practiceAttempts,
@@ -81,6 +82,16 @@ async function loadFacts(ex: Executor, userId: string): Promise<LearnerFacts> {
     .from(assessmentAttempts)
     .where(and(eq(assessmentAttempts.userId, userId), eq(assessmentAttempts.assessmentId, finalAssessment.id)))
     .orderBy(asc(assessmentAttempts.createdAt));
+  // C2 — primeira tentativa concluída (aprovada) de cada missão.
+  const missionsCompleted = await ex
+    .selectDistinctOn([missionAttempts.missionId], {
+      missionId: missionAttempts.missionId,
+      attemptId: missionAttempts.id,
+      at: missionAttempts.finishedAt,
+    })
+    .from(missionAttempts)
+    .where(and(eq(missionAttempts.userId, userId), eq(missionAttempts.passed, true)))
+    .orderBy(missionAttempts.missionId, asc(missionAttempts.finishedAt));
 
   const firstAssessment = assessmentRows[0] ?? null;
   const firstPassed = assessmentRows.find((a) => a.passed) ?? null;
@@ -100,6 +111,7 @@ async function loadFacts(ex: Executor, userId: string): Promise<LearnerFacts> {
       ? { id: firstAssessment.id, correct: firstAssessment.correct, total: firstAssessment.total, at: firstAssessment.at }
       : null,
     firstPassedAssessment: firstPassed ? { id: firstPassed.id, at: firstPassed.at } : null,
+    missionsCompleted: missionsCompleted.map((m) => ({ missionId: m.missionId, attemptId: m.attemptId, at: m.at as Date })),
   };
 }
 

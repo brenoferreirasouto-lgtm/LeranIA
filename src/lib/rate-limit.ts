@@ -17,6 +17,7 @@ export const RULES = {
   signInByEmail: { limit: 10, windowSeconds: 15 * 60 },
   signInByIp: { limit: 30, windowSeconds: 15 * 60 },
   signUpByIp: { limit: 10, windowSeconds: 60 * 60 },
+  deleteAccountByUser: { limit: 5, windowSeconds: 15 * 60 },
 } satisfies Record<string, RateLimitRule>;
 
 /**
