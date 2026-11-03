@@ -14,6 +14,12 @@ const eslintConfig = defineConfig([
       "no-restricted-imports": [
         "error",
         {
+          paths: [
+            {
+              name: "zod",
+              message: "Importe { z } de \"@/lib/zod\": ele liga o modo sem eval exigido pela CSP.",
+            },
+          ],
           patterns: [
             {
               group: ["@/content/*", "**/content/modules/*", "**/content/placement"],
@@ -24,6 +30,11 @@ const eslintConfig = defineConfig([
         },
       ],
     },
+  },
+  {
+    // O único arquivo que importa o zod diretamente.
+    files: ["src/lib/zod.ts"],
+    rules: { "no-restricted-imports": "off" },
   },
   // Override default ignores of eslint-config-next.
   globalIgnores([

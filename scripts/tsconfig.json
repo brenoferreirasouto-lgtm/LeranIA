@@ -1,0 +1,11 @@
+{
+  "//": "Configuração só para os scripts de linha de comando (npm run db:seed-demo). Fora do Next, \"server-only\" vira um módulo vazio, como nos testes.",
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["../src/*"],
+      "server-only": ["../tests/stubs/server-only.ts"]
+    }
+  },
+  "include": ["./**/*.ts"]
+}

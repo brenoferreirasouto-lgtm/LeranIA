@@ -2,7 +2,6 @@
 
 import { refresh } from "next/cache";
 import { redirect } from "next/navigation";
-import * as z from "zod";
 
 import { type FieldErrors, toFieldErrors } from "@/lib/validation/auth";
 import {
@@ -30,6 +29,7 @@ import {
   toggleTask,
   updateAbout,
 } from "@/server/projects";
+import { z } from "@/lib/zod";
 
 /*
  * Server Actions do Laboratório (SP26). Cada uma confere a sessão de novo e
@@ -67,8 +67,10 @@ function knownError(error: unknown): LabFormState | null {
   return null;
 }
 
+/** Registra o tipo do erro e o código do banco, nunca a mensagem: ela pode repetir o texto escrito. */
 function logFailure(what: string, error: unknown) {
-  console.error(`Falha no Laboratório: ${what}`, (error as Error)?.name ?? "erro");
+  const { name, code } = (error ?? {}) as { name?: string; code?: string };
+  console.error(`Falha no Laboratório: ${what}`, name ?? "erro", code ?? "");
 }
 
 export async function createProjectAction(_prev: LabFormState, formData: FormData): Promise<LabFormState> {

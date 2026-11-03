@@ -143,7 +143,19 @@ DATABASE_URL=postgres://learnai:localdev@localhost:5432/learn_ai_test npm run db
 
 Para gravar o **screencast dos testes** pedido na Terceira Entrega: `RECORD_VIDEO=1 npm run test:e2e` (os vídeos ficam em `test-results/`).
 
-O GitHub Actions roda lint, tipos, migrações, testes e build em todo pull request.
+O GitHub Actions roda lint, tipos, migrações, testes de unidade e integração, build e testes de sistema em todo pull request.
+
+### Demonstração
+
+`npm run db:seed-demo` cria, no banco local, uma conta de demonstração no meio da trilha (nivelamento feito, três módulos concluídos, uma missão e um projeto pela metade), usando as mesmas funções das telas. Com `-- --reset` ela é apagada e criada de novo. A senha vem de `DEMO_PASSWORD` ou é gerada e mostrada uma vez. O passo a passo da apresentação está em [`docs/roteiro-demonstracao.md`](docs/roteiro-demonstracao.md).
+
+### Segurança
+
+O que o sistema faz para proteger contas e dados, com os testes de cada item e as limitações conhecidas: [`docs/seguranca.md`](docs/seguranca.md).
+
+### Atualizar o Trello
+
+O texto dos cards SP23–SP26 no padrão 3Cs e a lista de qual PR implementa cada história estão em [`docs/cards-trello.md`](docs/cards-trello.md).
 
 ### Publicar (ainda não feito)
 
@@ -192,7 +204,7 @@ O conteúdo das aulas e questões é um **rascunho para revisão da equipe**; co
 
 **Conta e privacidade (ADR 0002):** idade mínima de 13 anos declarada no cadastro (contas antigas confirmam no próximo acesso), página "Minha conta" com download dos dados (incluindo os projetos do Laboratório) e exclusão da conta, e página de privacidade descrevendo o que o sistema guarda. Testes: `tests/e2e/account.spec.ts`, `tests/integration/account.test.ts`.
 
-**Pendências conhecidas:** recuperação de senha (precisa de serviço de e-mail), canal de contato para pedidos de correção de dados, revisão jurídica da página de privacidade e revisão pedagógica do conteúdo.
+**Pendências conhecidas:** recuperação de senha (precisa de serviço de e-mail), canal de contato para pedidos de correção de dados, revisão jurídica da página de privacidade, revisão pedagógica do conteúdo e publicação. Detalhes de segurança em [`docs/seguranca.md`](docs/seguranca.md).
 
 ---
 
