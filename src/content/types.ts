@@ -10,7 +10,7 @@
 export type Level = "iniciante" | "intermediario" | "avancado";
 
 /** Habilidades usadas para agrupar resultados e recomendar revisão. */
-export type Skill = "conceitos" | "alucinacoes" | "prompts" | "privacidade";
+export type Skill = "conceitos" | "alucinacoes" | "verificacao" | "prompts" | "privacidade";
 
 export type Option = {
   id: string;
@@ -26,6 +26,8 @@ export type Question = {
   sample?: { label: string; text: string };
   prompt: string;
   options: Option[];
+  /** "prompt": as alternativas são prompts inteiros (SP07), mostradas em fonte monoespaçada. */
+  optionStyle?: "prompt";
   correctOptionId: string;
   /** Explicação mostrada depois da resposta (SP13). */
   explanation: string;
@@ -35,7 +37,9 @@ export type LessonBlock =
   | { type: "paragraph"; text: string }
   | { type: "list"; items: string[] }
   | { type: "example"; label: string; text: string; verdict?: "bom" | "ruim" }
-  | { type: "tip"; title: string; text: string };
+  | { type: "tip"; title: string; text: string }
+  /** Lista de passos para conferir (SP08). */
+  | { type: "checklist"; title: string; items: string[] };
 
 export type LessonSection = {
   heading: string;
@@ -52,6 +56,16 @@ export type Module = {
   estimatedMinutes: number;
   lesson: LessonSection[];
   practice: Question[];
+  /** Ferramenta da plataforma para praticar o tema (ex.: construtor de prompt). */
+  relatedTool?: { href: string; label: string; description: string };
+};
+
+/** SP12 — avaliação ao final de uma etapa (hoje, a trilha). */
+export type Assessment = {
+  id: string;
+  title: string;
+  description: string;
+  questions: Question[];
 };
 
 export type TrackStep = {
@@ -76,6 +90,16 @@ export const LEVEL_LABEL: Record<Level, string> = {
 export const SKILL_LABEL: Record<Skill, string> = {
   conceitos: "Conceitos de IA generativa",
   alucinacoes: "Identificar alucinações",
+  verificacao: "Verificar informações",
   prompts: "Escrever prompts",
   privacidade: "Privacidade e dados",
+};
+
+/** Tema em letra minúscula, para usar no meio de frases ("você acertou 1 de 2 sobre …"). */
+export const SKILL_TOPIC: Record<Skill, string> = {
+  conceitos: "conceitos de IA generativa",
+  alucinacoes: "alucinações",
+  verificacao: "verificação de informações",
+  prompts: "prompts",
+  privacidade: "privacidade e dados",
 };

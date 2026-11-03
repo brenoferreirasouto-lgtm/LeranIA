@@ -21,6 +21,23 @@ function Block({ block }: { block: LessonBlock }) {
           <p>{block.text}</p>
         </aside>
       );
+    case "checklist":
+      return (
+        <section className={styles.checklist} aria-label={block.title}>
+          <p className={styles.checklistTitle}>{block.title}</p>
+          <ol className={styles.checklistItems}>
+            {block.items.map((item) => (
+              <li key={item}>
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <rect x="2" y="2" width="16" height="16" rx="4" fill="none" stroke="currentColor" strokeWidth="1.6" />
+                  <path d="m6 10.2 2.6 2.6L14 7.4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+      );
     case "example": {
       const verdictLabel =
         block.verdict === "bom" ? "Exemplo a seguir" : block.verdict === "ruim" ? "Exemplo a evitar" : null;

@@ -8,6 +8,7 @@ import { formatDate } from "@/lib/format";
 import { requireUser } from "@/lib/session";
 import { getModuleOrNull } from "@/server/content";
 import { getProgress } from "@/server/learning";
+import { getSourceXp } from "@/server/rewards";
 
 import { completeLessonAction } from "../../learning-actions";
 import styles from "./modulo.module.css";
@@ -28,6 +29,7 @@ export default async function LessonPage({ params }: Params) {
   const user = await requireUser(`/trilha/${learningModule.slug}`);
   const progress = (await getProgress(user.id)).find((p) => p.moduleSlug === learningModule.slug);
   const lessonDone = progress?.lessonCompletedAt;
+  const lessonXp = lessonDone ? await getSourceXp(user.id, [{ source: "aula", sourceId: learningModule.slug }]) : 0;
 
   return (
     <article className={styles.page}>
@@ -46,11 +48,20 @@ export default async function LessonPage({ params }: Params) {
 
       <LessonContent sections={learningModule.lesson} />
 
+      {learningModule.relatedTool ? (
+        <aside className={styles.tool} aria-label="Ferramenta relacionada">
+          <p className={styles.toolText}>{learningModule.relatedTool.description}</p>
+          <Link href={learningModule.relatedTool.href} className="btn btn-secondary">
+            {learningModule.relatedTool.label}
+          </Link>
+        </aside>
+      ) : null}
+
       <footer className={styles.footer}>
         {lessonDone ? (
           <>
             <p className={styles.doneText} role="status">
-              Aula concluída em {formatDate(lessonDone)}.
+              Aula concluída em {formatDate(lessonDone)}.{lessonXp > 0 ? ` Rendeu ${lessonXp} XP.` : ""}
             </p>
             <Link href={`/trilha/${learningModule.slug}/pratica`} className="btn btn-primary">
               Ir para a prática

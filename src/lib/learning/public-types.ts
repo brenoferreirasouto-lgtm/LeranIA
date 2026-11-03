@@ -10,6 +10,7 @@ export type PublicQuestion = {
   sample?: { label: string; text: string };
   prompt: string;
   options: PublicOption[];
+  optionStyle?: "prompt";
 };
 
 export type Feedback = {
@@ -20,10 +21,17 @@ export type Feedback = {
   explanation: string;
 };
 
+/** XP e conquistas concedidos agora (Fase C1). */
+export type RewardSummary = {
+  xp: number;
+  achievements: { id: string; title: string }[];
+};
+
 export type PracticeOutcome = {
   correct: number;
   total: number;
   percent: number;
   passed: boolean;
   moduleCompleted: boolean;
+  rewards: RewardSummary;
 };

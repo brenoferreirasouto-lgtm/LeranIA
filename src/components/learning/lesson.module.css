@@ -96,3 +96,43 @@
   font-size: var(--text-sm);
   line-height: 1.65;
 }
+
+/* Roteiro de verificação (SP08): passos em ordem, prontos para conferir */
+.checklist {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--navy-950);
+  color: var(--navy-200);
+  max-width: 66ch;
+}
+
+.checklistTitle {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #fff;
+}
+
+.checklistItems {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.checklistItems li {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: var(--space-3);
+  align-items: start;
+  line-height: 1.55;
+}
+
+.checklistItems svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.15rem;
+  color: var(--cyan-400);
+}

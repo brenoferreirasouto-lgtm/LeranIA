@@ -1,0 +1,36 @@
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.card {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.questionSlot:focus-visible {
+  box-shadow: none;
+  outline: 2px solid var(--blue-50);
+  outline-offset: 8px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.nav button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (min-width: 720px) {
+  .card {
+    padding: var(--space-6);
+  }
+}

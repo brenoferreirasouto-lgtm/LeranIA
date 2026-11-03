@@ -6,26 +6,30 @@ import { QuestionChoices } from "@/components/learning/question-choices";
 import { ProgressBar } from "@/components/learning/progress-bar";
 import type { PublicQuestion } from "@/lib/learning/public-types";
 
-import { type PlacementFormState, submitPlacementAction } from "../learning-actions";
-import styles from "./nivelamento.module.css";
+import styles from "./quiz.module.css";
 
-const CHOOSE_FIRST = "Escolha uma alternativa para continuar. Se não souber, marque “Ainda não sei”.";
+/** Estado devolvido pela Server Action quando o envio não pôde ser aceito. */
+export type QuizFormState = { missing?: string[]; message?: string };
+
+type Props = {
+  questions: PublicQuestion[];
+  action: (state: QuizFormState, formData: FormData) => Promise<QuizFormState>;
+  submitLabel: string;
+  pendingLabel: string;
+  /** Alternativa "Ainda não sei" (só no nivelamento). */
+  dontKnowId?: string;
+};
 
 /**
- * SP02 — uma pergunta por vez, com progresso. Todas as respostas vão juntas
- * no envio; o servidor corrige e recusa o envio se faltar alguma.
+ * Questionário respondido de uma vez (SP02 nivelamento, SP12 avaliação):
+ * uma pergunta por tela, com progresso. Todas as respostas vão juntas no
+ * envio; o servidor corrige e recusa o envio se faltar alguma.
  */
-export function PlacementForm({
-  questions,
-  dontKnowId,
-}: {
-  questions: PublicQuestion[];
-  dontKnowId: string;
-}) {
-  const [state, action, pending] = useActionState<PlacementFormState, FormData>(
-    submitPlacementAction,
-    {},
-  );
+export function QuizForm({ questions, action: serverAction, submitLabel, pendingLabel, dontKnowId }: Props) {
+  const chooseFirst = dontKnowId
+    ? "Escolha uma alternativa para continuar. Se não souber, marque “Ainda não sei”."
+    : "Escolha uma alternativa para continuar.";
+  const [state, action, pending] = useActionState<QuizFormState, FormData>(serverAction, {});
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [warning, setWarning] = useState<string | null>(null);
@@ -62,7 +66,7 @@ export function PlacementForm({
 
   function handleNext() {
     if (!answers[current.id]) {
-      setWarning(CHOOSE_FIRST);
+      setWarning(chooseFirst);
       return;
     }
     goTo(index + 1);
@@ -73,7 +77,7 @@ export function PlacementForm({
     if (missing >= 0) {
       event.preventDefault();
       goTo(missing);
-      setWarning(CHOOSE_FIRST);
+      setWarning(chooseFirst);
     }
   }
 
@@ -128,7 +132,7 @@ export function PlacementForm({
           </button>
           {isLast ? (
             <button type="submit" className="btn btn-primary" disabled={pending}>
-              {pending ? "Calculando seu nível…" : "Ver meu resultado"}
+              {pending ? pendingLabel : submitLabel}
             </button>
           ) : (
             <button type="button" className="btn btn-primary" onClick={handleNext}>

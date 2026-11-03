@@ -1,13 +1,11 @@
-import AxeBuilder from "@axe-core/playwright";
 import { type Page, expect, test } from "@playwright/test";
 
 // Os testes leem o gabarito direto dos arquivos de conteúdo (o app nunca o envia ao navegador).
 import { introducaoIaGenerativa } from "../../src/content/modules/introducao-ia-generativa";
 import { DONT_KNOW_OPTION_ID, placementQuestions } from "../../src/content/placement";
 import type { Question } from "../../src/content/types";
-import { formAlert, signIn, signOut, signUp, uniqueEmail } from "./helpers";
+import { expectAccessible, formAlert, openMenu, signIn, signOut, signUp, uniqueEmail } from "./helpers";
 
-const WCAG = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"];
 
 function optionText(question: Question, optionId: string) {
   return question.options.find((o) => o.id === optionId)!.text;
@@ -159,12 +157,13 @@ test.describe("U03/SP01/SP13 — trilha, aula e prática com feedback", () => {
     await expect(card.getByText("Concluído")).toBeVisible();
     await expect(card.getByText("melhor nota 80%")).toBeVisible();
 
+    await openMenu(page);
     await page.getByRole("link", { name: "Painel" }).click();
     await expect(page.getByRole("progressbar", { name: "Módulos obrigatórios concluídos" })).toHaveAttribute(
       "aria-valuenow",
       "1",
     );
-    await expect(page.getByText("1 de 4")).toBeVisible();
+    await expect(page.getByText("1 de 6")).toBeVisible();
   });
 
   test("prática abaixo de 70% não conclui o módulo e permite tentar de novo", async ({ page }) => {
@@ -237,10 +236,7 @@ test.describe("Acesso e erros", () => {
 test.describe("Acessibilidade do núcleo educacional (axe)", () => {
   test("nivelamento, resultado, trilha, aula e prática com feedback", async ({ page }) => {
     await newStudent(page);
-    const check = async () => {
-      const results = await new AxeBuilder({ page }).withTags(WCAG).analyze();
-      expect(results.violations.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);
-    };
+    const check = () => expectAccessible(page);
 
     await page.goto("/nivelamento");
     await check();

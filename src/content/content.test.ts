@@ -2,6 +2,10 @@ import { describe, expect, it } from "vitest";
 
 import {
   DONT_KNOW_OPTION_ID,
+  STAGES,
+  XP_RULES,
+  achievements,
+  finalAssessment,
   LEVEL_RULES,
   type Level,
   type Question,
@@ -18,6 +22,7 @@ import {
 const allQuestions: Question[] = [
   ...placementQuestions,
   ...modules.flatMap((m) => m.practice),
+  ...finalAssessment.questions,
 ];
 
 describe("conteúdo — integridade", () => {
@@ -36,7 +41,8 @@ describe("conteúdo — integridade", () => {
     (_id, question) => {
       const optionIds = question.options.map((o) => o.id);
       expect(new Set(optionIds).size).toBe(optionIds.length);
-      expect(question.options.length).toBeGreaterThanOrEqual(3);
+      // Comparação de prompts (SP07) usa pares; as demais têm ao menos 3 alternativas.
+      expect(question.options.length).toBeGreaterThanOrEqual(question.optionStyle === "prompt" ? 2 : 3);
       expect(optionIds).toContain(question.correctOptionId);
       expect(question.correctOptionId).not.toBe(DONT_KNOW_OPTION_ID);
       expect(question.explanation.trim().length).toBeGreaterThan(20);
@@ -53,6 +59,29 @@ describe("conteúdo — integridade", () => {
     for (const m of modules) {
       expect(m.storyIds.length).toBeGreaterThan(0);
       for (const id of m.storyIds) expect(id).toMatch(/^(SP\d{2}|U\d{2})$/);
+    }
+  });
+
+  it("a avaliação final cobre todos os temas dos módulos, com pelo menos 2 questões cada", () => {
+    const skills = new Set(modules.map((m) => m.skill));
+    for (const skill of skills) {
+      const count = finalAssessment.questions.filter((q) => q.skill === skill).length;
+      expect(count, skill).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  it("a avaliação final não repete questões da prática", () => {
+    const key = (q: Question) => [q.scenario, q.sample?.text, q.prompt].join("|");
+    const practice = new Set(modules.flatMap((m) => m.practice.map(key)));
+    for (const q of finalAssessment.questions) {
+      expect(practice.has(key(q)), q.id).toBe(false);
+    }
+  });
+
+  it("todo módulo está em todas as trilhas", () => {
+    for (const level of ["iniciante", "intermediario", "avancado"] as const) {
+      const slugs = tracks[level].steps.map((s) => s.moduleSlug).sort();
+      expect(slugs).toEqual(modules.map((m) => m.slug).sort());
     }
   });
 
@@ -81,5 +110,36 @@ describe("trilhas", () => {
     const limits = LEVEL_RULES.map((r) => r.maxPercent);
     expect([...limits].sort((a, b) => a - b)).toEqual(limits);
     expect(limits.at(-1)).toBe(100);
+  });
+});
+
+describe("gamificação — catálogo", () => {
+  it("as conquistas têm ids únicos e em formato de slug", () => {
+    const ids = achievements.map((a) => a.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const id of ids) expect(id).toMatch(/^[a-z0-9-]+$/);
+  });
+
+  it("conquistas de prática apontam para módulos existentes", () => {
+    for (const a of achievements) {
+      if (a.criterion.kind === "perfect-first-practice") {
+        expect(modules.some((m) => m.slug === (a.criterion as { moduleSlug: string }).moduleSlug)).toBe(true);
+      }
+    }
+  });
+
+  it("os estágios começam em 0 XP, em ordem crescente e sem repetir", () => {
+    expect(STAGES[0]).toEqual({ stage: 1, minXp: 0 });
+    for (let i = 1; i < STAGES.length; i++) {
+      expect(STAGES[i].stage).toBe(STAGES[i - 1].stage + 1);
+      expect(STAGES[i].minXp).toBeGreaterThan(STAGES[i - 1].minXp);
+    }
+  });
+
+  it("todos os valores de XP são inteiros positivos", () => {
+    for (const value of Object.values(XP_RULES)) {
+      expect(Number.isInteger(value)).toBe(true);
+      expect(value).toBeGreaterThan(0);
+    }
   });
 });

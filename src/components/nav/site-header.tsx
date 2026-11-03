@@ -4,44 +4,27 @@ import { signOutAction } from "@/app/(auth)/actions";
 import { Wordmark } from "@/components/brand/wordmark";
 import type { CurrentUser } from "@/lib/session";
 
-import { NavLink } from "./nav-link";
+import { MainMenu } from "./main-menu";
 import styles from "./site-header.module.css";
 
-/**
- * SP14 — Menu de navegação.
- * Só lista o que já funciona; novas áreas entram aqui quando forem entregues.
- */
+/** Cabeçalho com a marca e o menu (SP14). Só lista o que já funciona. */
 export function SiteHeader({ user }: { user: CurrentUser | null }) {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
         <Wordmark href={user ? "/painel" : "/"} />
-        <nav aria-label="Menu principal" className={styles.nav}>
-          {user ? (
-            <>
-              <NavLink href="/painel">Painel</NavLink>
-              <NavLink href="/trilha">Trilha</NavLink>
-              <NavLink href="/nivelamento">Nivelamento</NavLink>
-              <span className={styles.user} title={user.email}>
-                {user.name.split(" ")[0]}
-              </span>
-              <form action={signOutAction}>
-                <button type="submit" className={styles.signOut}>
-                  Sair
-                </button>
-              </form>
-            </>
-          ) : (
-            <>
-              <Link href="/entrar" className={styles.link}>
-                Entrar
-              </Link>
-              <Link href="/cadastro" className="btn btn-primary">
-                Criar conta
-              </Link>
-            </>
-          )}
-        </nav>
+        {user ? (
+          <MainMenu firstName={user.name.split(" ")[0]} email={user.email} signOut={signOutAction} />
+        ) : (
+          <nav aria-label="Menu principal" className={styles.publicNav}>
+            <Link href="/entrar" className={styles.link}>
+              Entrar
+            </Link>
+            <Link href="/cadastro" className="btn btn-primary">
+              Criar conta
+            </Link>
+          </nav>
+        )}
       </div>
     </header>
   );

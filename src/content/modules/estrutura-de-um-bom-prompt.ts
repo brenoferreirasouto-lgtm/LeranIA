@@ -8,6 +8,11 @@ export const estruturaDeUmBomPrompt: Module = {
   summary: "Contexto, objetivo, formato e restrições: como transformar um pedido vago em uma instrução clara.",
   skill: "prompts",
   estimatedMinutes: 10,
+  relatedTool: {
+    href: "/construtor",
+    label: "Praticar no construtor de prompt",
+    description: "Monte um prompt passo a passo com os quatro elementos e copie o resultado.",
+  },
   lesson: [
     {
       heading: "O que é um prompt",
