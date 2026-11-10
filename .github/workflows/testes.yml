@@ -1,0 +1,54 @@
+
+name: Qualidade dos testes - Learn AI
+
+on:
+  push:
+    branches:
+      - main
+      - "test/**"
+
+  pull_request:
+    branches:
+      - main
+
+  schedule:
+    - cron: "20 13 * * 2"
+      timezone: "America/Recife"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código
+        uses: actions/checkout@v7
+
+      - name: Configurar pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 9.15.9
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
+
+      - name: Executar testes com cobertura
+        run: pnpm exec vitest run --coverage
+
+      - name: Salvar relatório de cobertura
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: relatorio-cobertura-vitest
+          path: coverage/
+          if-no-files-found: ignore
+          retention-days: 14
