@@ -47,6 +47,82 @@ describe('readProgress', () => {
 
     expect(readProgress()).toEqual(createEmptyProgress())
   })
+  it('deve preservar os campos válidos do progresso', () => {
+    const saved = {
+      version: 1,
+      profileName: 'Bruno',
+      level: 'intermediário',
+      placementScore: 8,
+      xp: 120,
+      completedLessons: ['lesson-1'],
+      reflections: {
+        'lesson-1': 'Aprendi sobre inteligência artificial',
+      },
+      quizResults: {
+        'quiz-1': {
+          score: 4,
+          total: 5,
+          completedAt: '2026-11-10',
+          incorrectTopics: [],
+        },
+      },
+      practiceResults: {
+        'practice-1': {
+          score: 2,
+          total: 2,
+          completedAt: '2026-11-10',
+          correctIds: ['question-1'],
+        },
+      },
+      rewardClaims: ['lesson-1'],
+      projects: [
+        {
+          id: 'project-1',
+          title: 'Projeto válido',
+          idea: 'Criar uma solução educacional',
+          objective: 'Facilitar a aprendizagem',
+          createdAt: '2026-11-10',
+          notes: '',
+          steps: [
+            {
+              id: 'step-1',
+              title: 'Primeira etapa',
+              guide: 'Defina o problema',
+              complete: false,
+            },
+          ],
+        },
+      ],
+      lastLessonId: 'lesson-1',
+      promptDraft: {
+        context: 'Educação',
+        goal: 'Criar uma solução',
+        audience: 'Profissionais',
+        inputs: 'Dados de aprendizagem',
+        format: 'Projeto',
+        constraints: 'Preservar autoria',
+        result: 'Protótipo funcional',
+      },
+    }
+
+    localStorage.setItem(storageKey, JSON.stringify(saved))
+
+    const progress = readProgress()
+
+    expect(progress.profileName).toBe('Bruno')
+    expect(progress.level).toBe('intermediário')
+    expect(progress.placementScore).toBe(8)
+    expect(progress.xp).toBe(120)
+    expect(progress.reflections).toEqual(saved.reflections)
+    expect(progress.quizResults).toEqual(saved.quizResults)
+    expect(progress.practiceResults['practice-1']).toEqual(
+      saved.practiceResults['practice-1'],
+    )
+    expect(progress.rewardClaims).toEqual(['lesson-1'])
+    expect(progress.projects).toHaveLength(1)
+    expect(progress.lastLessonId).toBe('lesson-1')
+    expect(progress.promptDraft).toEqual(saved.promptDraft)
+  })
 
   it('deve normalizar dados inválidos e limitar informações', () => {
     localStorage.setItem(
@@ -56,6 +132,23 @@ describe('readProgress', () => {
         profileName: 'A'.repeat(70),
         xp: -10,
         completedLessons: ['lesson-1', 123],
+        rewardClaims: ['quiz-1', 456],
+        projects: [
+          {
+            id: 'project-1',
+            title: 'Projeto válido',
+            idea: 'Criar uma solução educacional',
+            objective: 'Facilitar a aprendizagem',
+            createdAt: '2026-11-10',
+            notes: '',
+            steps: [],
+          },
+          null,
+          { id: 42, title: 'ID inválido', steps: [] },
+          { id: 'project-2', title: 7, steps: [] },
+          { id: 'project-3', title: 'Etapas inválidas', steps: 'inválido' },
+        ],
+
         practiceResults: {
           valid: {
             score: 8,
@@ -78,6 +171,14 @@ describe('readProgress', () => {
     )
 
     const progress = readProgress()
+    expect(progress.rewardClaims).toEqual(['quiz-1'])
+
+    expect(progress.projects).toHaveLength(1)
+    expect(progress.projects[0]).toMatchObject({
+      id: 'project-1',
+      title: 'Projeto válido',
+      steps: [],
+    })
 
     expect(progress.profileName).toHaveLength(60)
     expect(progress.xp).toBe(0)
