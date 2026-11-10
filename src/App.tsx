@@ -2993,6 +2993,7 @@ function App() {
         </div>
         <button
           className="profile-shortcut"
+          aria-label={`${progress.profileName} Perfil neste dispositivo`}
           onClick={() => navigate("profile")}
         >
           <span className="profile-avatar-small">

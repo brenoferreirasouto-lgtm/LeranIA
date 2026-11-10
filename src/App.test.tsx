@@ -17,7 +17,7 @@ import {
 } from '@testing-library/react'
 
 import App from './App'
-import { storageKey } from './lib/progress'
+import { createEmptyProgress, storageKey } from './lib/progress'
 
 describe('App', () => {
   beforeEach(() => {
@@ -76,5 +76,87 @@ describe('App', () => {
 
       expect(saved.profileName).toBe('Bruno')
     })
+  })
+
+  it('deve permitir sair e retornar ao perfil local sem perder o progresso', async () => {
+    const savedProgress = createEmptyProgress()
+
+    savedProgress.profileName = 'Bruno'
+    savedProgress.xp = 45
+
+    localStorage.setItem(
+      storageKey,
+      JSON.stringify(savedProgress),
+    )
+
+    render(<App />)
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: /Bruno Perfil neste dispositivo/,
+      }),
+    )
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: 'Sair do perfil neste dispositivo',
+      }),
+    )
+
+    expect(
+      screen.getByRole('heading', {
+        name: 'Continue seu percurso',
+      }),
+    ).toBeTruthy()
+
+    const nameInput = screen.getByLabelText(
+      'Nome de exibição',
+    ) as HTMLInputElement
+
+    expect(nameInput.value).toBe('Bruno')
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: 'Continuar meu percurso',
+      }),
+    )
+
+    expect(
+      await screen.findByRole('heading', {
+        name: 'Olá, Bruno.',
+      }),
+    ).toBeTruthy()
+
+    await waitFor(() => {
+      const saved = JSON.parse(
+        localStorage.getItem(storageKey) ?? 'null',
+      )
+
+      expect(saved.profileName).toBe('Bruno')
+      expect(saved.xp).toBe(45)
+    })
+
+    expect(
+      localStorage.getItem('learnai.session.signed-out.v1'),
+    ).toBeNull()
+  })
+
+  it('deve recuperar um perfil salvo e abrir o painel inicial', () => {
+    const savedProgress = createEmptyProgress()
+
+    savedProgress.profileName = 'Bruno'
+
+    localStorage.setItem(
+      storageKey,
+      JSON.stringify(savedProgress),
+    )
+
+    render(<App />)
+
+    expect(
+      screen.getByRole('heading', {
+        name: 'Olá, Bruno.',
+      }),
+    ).toBeTruthy()
   })
 })
